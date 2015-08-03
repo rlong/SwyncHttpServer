@@ -1,0 +1,506 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AE43D6371B6F756B003074AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D6361B6F756B003074AF /* AppDelegate.swift */; };
+		AE43D6391B6F756B003074AF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE43D6381B6F756B003074AF /* Images.xcassets */; };
+		AE43D63C1B6F756B003074AF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE43D63A1B6F756B003074AF /* MainMenu.xib */; };
+		AE43D6481B6F756B003074AF /* SyncHttpServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D6471B6F756B003074AF /* SyncHttpServerTests.swift */; };
+		AE43D6521B6F7586003074AF /* FoundationAnnex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE43D6511B6F7586003074AF /* FoundationAnnex.framework */; };
+		AE43D6631B6F75D0003074AF /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D6551B6F75D0003074AF /* Entity.swift */; };
+		AE43D6641B6F75D0003074AF /* HttpStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D6561B6F75D0003074AF /* HttpStatus.swift */; };
+		AE43D6651B6F75D0003074AF /* LogPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D6591B6F75D0003074AF /* LogPrinter.swift */; };
+		AE43D6661B6F75D0003074AF /* LogQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D65A1B6F75D0003074AF /* LogQueue.swift */; };
+		AE43D6671B6F75D0003074AF /* LogQueueReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D65B1B6F75D0003074AF /* LogQueueReader.swift */; };
+		AE43D6681B6F75D0003074AF /* NSLogPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D65C1B6F75D0003074AF /* NSLogPrinter.swift */; };
+		AE43D6691B6F75D0003074AF /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D65D1B6F75D0003074AF /* Log.swift */; };
+		AE43D66A1B6F75D0003074AF /* LogCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D65E1B6F75D0003074AF /* LogCategory.swift */; };
+		AE43D66B1B6F75D0003074AF /* LogConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D65F1B6F75D0003074AF /* LogConsumer.swift */; };
+		AE43D66C1B6F75D0003074AF /* LogEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D6601B6F75D0003074AF /* LogEvent.swift */; };
+		AE43D66D1B6F75D0003074AF /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D6611B6F75D0003074AF /* LogLevel.swift */; };
+		AE43D66E1B6F75D0003074AF /* RootLogConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D6621B6F75D0003074AF /* RootLogConsumer.swift */; };
+		AE43D6701B6F783F003074AF /* DataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D66F1B6F783F003074AF /* DataEntity.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AE43D6421B6F756B003074AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE43D6291B6F756B003074AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE43D6301B6F756B003074AF;
+			remoteInfo = SyncHttpServer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AE43D6311B6F756B003074AF /* SyncHttpServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SyncHttpServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE43D6351B6F756B003074AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE43D6361B6F756B003074AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AE43D6381B6F756B003074AF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AE43D63B1B6F756B003074AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		AE43D6411B6F756B003074AF /* SyncHttpServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SyncHttpServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE43D6461B6F756B003074AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE43D6471B6F756B003074AF /* SyncHttpServerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncHttpServerTests.swift; sourceTree = "<group>"; };
+		AE43D6511B6F7586003074AF /* FoundationAnnex.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FoundationAnnex.framework; path = "../../../../../rlong/Library/Developer/Xcode/DerivedData/swift-http-server-aurbjgoejixizwfotntiepuygvgk/Build/Products/Debug/FoundationAnnex.framework"; sourceTree = "<group>"; };
+		AE43D6551B6F75D0003074AF /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		AE43D6561B6F75D0003074AF /* HttpStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpStatus.swift; sourceTree = "<group>"; };
+		AE43D6591B6F75D0003074AF /* LogPrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogPrinter.swift; sourceTree = "<group>"; };
+		AE43D65A1B6F75D0003074AF /* LogQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogQueue.swift; sourceTree = "<group>"; };
+		AE43D65B1B6F75D0003074AF /* LogQueueReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogQueueReader.swift; sourceTree = "<group>"; };
+		AE43D65C1B6F75D0003074AF /* NSLogPrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLogPrinter.swift; sourceTree = "<group>"; };
+		AE43D65D1B6F75D0003074AF /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		AE43D65E1B6F75D0003074AF /* LogCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCategory.swift; sourceTree = "<group>"; };
+		AE43D65F1B6F75D0003074AF /* LogConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogConsumer.swift; sourceTree = "<group>"; };
+		AE43D6601B6F75D0003074AF /* LogEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEvent.swift; sourceTree = "<group>"; };
+		AE43D6611B6F75D0003074AF /* LogLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
+		AE43D6621B6F75D0003074AF /* RootLogConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootLogConsumer.swift; sourceTree = "<group>"; };
+		AE43D66F1B6F783F003074AF /* DataEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntity.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AE43D62E1B6F756B003074AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE43D6521B6F7586003074AF /* FoundationAnnex.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE43D63E1B6F756B003074AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AE43D6281B6F756B003074AF = {
+			isa = PBXGroup;
+			children = (
+				AE43D6541B6F75D0003074AF /* http */,
+				AE43D6571B6F75D0003074AF /* log */,
+				AE43D6331B6F756B003074AF /* SyncHttpServer */,
+				AE43D6441B6F756B003074AF /* SyncHttpServerTests */,
+				AE43D6531B6F75A6003074AF /* FrameworksAndLibraries */,
+				AE43D6321B6F756B003074AF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AE43D6321B6F756B003074AF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AE43D6311B6F756B003074AF /* SyncHttpServer.app */,
+				AE43D6411B6F756B003074AF /* SyncHttpServerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AE43D6331B6F756B003074AF /* SyncHttpServer */ = {
+			isa = PBXGroup;
+			children = (
+				AE43D6361B6F756B003074AF /* AppDelegate.swift */,
+				AE43D6381B6F756B003074AF /* Images.xcassets */,
+				AE43D63A1B6F756B003074AF /* MainMenu.xib */,
+				AE43D6341B6F756B003074AF /* Supporting Files */,
+			);
+			path = SyncHttpServer;
+			sourceTree = "<group>";
+		};
+		AE43D6341B6F756B003074AF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AE43D6351B6F756B003074AF /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AE43D6441B6F756B003074AF /* SyncHttpServerTests */ = {
+			isa = PBXGroup;
+			children = (
+				AE43D6471B6F756B003074AF /* SyncHttpServerTests.swift */,
+				AE43D6451B6F756B003074AF /* Supporting Files */,
+			);
+			path = SyncHttpServerTests;
+			sourceTree = "<group>";
+		};
+		AE43D6451B6F756B003074AF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AE43D6461B6F756B003074AF /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AE43D6531B6F75A6003074AF /* FrameworksAndLibraries */ = {
+			isa = PBXGroup;
+			children = (
+				AE43D6511B6F7586003074AF /* FoundationAnnex.framework */,
+			);
+			name = FrameworksAndLibraries;
+			sourceTree = "<group>";
+		};
+		AE43D6541B6F75D0003074AF /* http */ = {
+			isa = PBXGroup;
+			children = (
+				AE43D6551B6F75D0003074AF /* Entity.swift */,
+				AE43D6561B6F75D0003074AF /* HttpStatus.swift */,
+				AE43D66F1B6F783F003074AF /* DataEntity.swift */,
+			);
+			path = http;
+			sourceTree = "<group>";
+		};
+		AE43D6571B6F75D0003074AF /* log */ = {
+			isa = PBXGroup;
+			children = (
+				AE43D6581B6F75D0003074AF /* consumer */,
+				AE43D65D1B6F75D0003074AF /* Log.swift */,
+				AE43D65E1B6F75D0003074AF /* LogCategory.swift */,
+				AE43D65F1B6F75D0003074AF /* LogConsumer.swift */,
+				AE43D6601B6F75D0003074AF /* LogEvent.swift */,
+				AE43D6611B6F75D0003074AF /* LogLevel.swift */,
+				AE43D6621B6F75D0003074AF /* RootLogConsumer.swift */,
+			);
+			path = log;
+			sourceTree = "<group>";
+		};
+		AE43D6581B6F75D0003074AF /* consumer */ = {
+			isa = PBXGroup;
+			children = (
+				AE43D6591B6F75D0003074AF /* LogPrinter.swift */,
+				AE43D65A1B6F75D0003074AF /* LogQueue.swift */,
+				AE43D65B1B6F75D0003074AF /* LogQueueReader.swift */,
+				AE43D65C1B6F75D0003074AF /* NSLogPrinter.swift */,
+			);
+			path = consumer;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AE43D6301B6F756B003074AF /* SyncHttpServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE43D64B1B6F756B003074AF /* Build configuration list for PBXNativeTarget "SyncHttpServer" */;
+			buildPhases = (
+				AE43D62D1B6F756B003074AF /* Sources */,
+				AE43D62E1B6F756B003074AF /* Frameworks */,
+				AE43D62F1B6F756B003074AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SyncHttpServer;
+			productName = SyncHttpServer;
+			productReference = AE43D6311B6F756B003074AF /* SyncHttpServer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AE43D6401B6F756B003074AF /* SyncHttpServerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE43D64E1B6F756B003074AF /* Build configuration list for PBXNativeTarget "SyncHttpServerTests" */;
+			buildPhases = (
+				AE43D63D1B6F756B003074AF /* Sources */,
+				AE43D63E1B6F756B003074AF /* Frameworks */,
+				AE43D63F1B6F756B003074AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AE43D6431B6F756B003074AF /* PBXTargetDependency */,
+			);
+			name = SyncHttpServerTests;
+			productName = SyncHttpServerTests;
+			productReference = AE43D6411B6F756B003074AF /* SyncHttpServerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AE43D6291B6F756B003074AF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				TargetAttributes = {
+					AE43D6301B6F756B003074AF = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					AE43D6401B6F756B003074AF = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = AE43D6301B6F756B003074AF;
+					};
+				};
+			};
+			buildConfigurationList = AE43D62C1B6F756B003074AF /* Build configuration list for PBXProject "SyncHttpServer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AE43D6281B6F756B003074AF;
+			productRefGroup = AE43D6321B6F756B003074AF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AE43D6301B6F756B003074AF /* SyncHttpServer */,
+				AE43D6401B6F756B003074AF /* SyncHttpServerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AE43D62F1B6F756B003074AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE43D6391B6F756B003074AF /* Images.xcassets in Resources */,
+				AE43D63C1B6F756B003074AF /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE43D63F1B6F756B003074AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AE43D62D1B6F756B003074AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE43D66B1B6F75D0003074AF /* LogConsumer.swift in Sources */,
+				AE43D6631B6F75D0003074AF /* Entity.swift in Sources */,
+				AE43D66A1B6F75D0003074AF /* LogCategory.swift in Sources */,
+				AE43D6671B6F75D0003074AF /* LogQueueReader.swift in Sources */,
+				AE43D6651B6F75D0003074AF /* LogPrinter.swift in Sources */,
+				AE43D6681B6F75D0003074AF /* NSLogPrinter.swift in Sources */,
+				AE43D6661B6F75D0003074AF /* LogQueue.swift in Sources */,
+				AE43D66E1B6F75D0003074AF /* RootLogConsumer.swift in Sources */,
+				AE43D66D1B6F75D0003074AF /* LogLevel.swift in Sources */,
+				AE43D6371B6F756B003074AF /* AppDelegate.swift in Sources */,
+				AE43D6691B6F75D0003074AF /* Log.swift in Sources */,
+				AE43D66C1B6F75D0003074AF /* LogEvent.swift in Sources */,
+				AE43D6701B6F783F003074AF /* DataEntity.swift in Sources */,
+				AE43D6641B6F75D0003074AF /* HttpStatus.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE43D63D1B6F756B003074AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE43D6481B6F756B003074AF /* SyncHttpServerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AE43D6431B6F756B003074AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE43D6301B6F756B003074AF /* SyncHttpServer */;
+			targetProxy = AE43D6421B6F756B003074AF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AE43D63A1B6F756B003074AF /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE43D63B1B6F756B003074AF /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AE43D6491B6F756B003074AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AE43D64A1B6F756B003074AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		AE43D64C1B6F756B003074AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/swift-http-server-aurbjgoejixizwfotntiepuygvgk/Build/Products/Debug",
+				);
+				INFOPLIST_FILE = SyncHttpServer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		AE43D64D1B6F756B003074AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/swift-http-server-aurbjgoejixizwfotntiepuygvgk/Build/Products/Debug",
+				);
+				INFOPLIST_FILE = SyncHttpServer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		AE43D64F1B6F756B003074AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SyncHttpServerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SyncHttpServer.app/Contents/MacOS/SyncHttpServer";
+			};
+			name = Debug;
+		};
+		AE43D6501B6F756B003074AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SyncHttpServerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SyncHttpServer.app/Contents/MacOS/SyncHttpServer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AE43D62C1B6F756B003074AF /* Build configuration list for PBXProject "SyncHttpServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE43D6491B6F756B003074AF /* Debug */,
+				AE43D64A1B6F756B003074AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE43D64B1B6F756B003074AF /* Build configuration list for PBXNativeTarget "SyncHttpServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE43D64C1B6F756B003074AF /* Debug */,
+				AE43D64D1B6F756B003074AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		AE43D64E1B6F756B003074AF /* Build configuration list for PBXNativeTarget "SyncHttpServerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE43D64F1B6F756B003074AF /* Debug */,
+				AE43D6501B6F756B003074AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AE43D6291B6F756B003074AF /* Project object */;
+}

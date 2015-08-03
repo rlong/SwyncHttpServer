@@ -31,3 +31,15 @@ DerivedData
 # Carthage/Checkouts
 
 Carthage/Build
+
+
+
+# OSX Desktop Services Store
+.DS_Store
+
+# emacs backup filenames
+*~
+
+# XCode files associated with specific users
+# **/xcuserdata
+
