@@ -25,6 +25,8 @@
 		AE43D66D1B6F75D0003074AF /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D6611B6F75D0003074AF /* LogLevel.swift */; };
 		AE43D66E1B6F75D0003074AF /* RootLogConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D6621B6F75D0003074AF /* RootLogConsumer.swift */; };
 		AE43D6701B6F783F003074AF /* DataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D66F1B6F783F003074AF /* DataEntity.swift */; };
+		AEB91AA71B70D4B400B7B42A /* MimeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB91AA61B70D4B400B7B42A /* MimeTypes.swift */; };
+		AEB91AA91B70D6BF00B7B42A /* MimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB91AA81B70D6BF00B7B42A /* MimeType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		AE43D6611B6F75D0003074AF /* LogLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
 		AE43D6621B6F75D0003074AF /* RootLogConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootLogConsumer.swift; sourceTree = "<group>"; };
 		AE43D66F1B6F783F003074AF /* DataEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntity.swift; sourceTree = "<group>"; };
+		AEB91AA61B70D4B400B7B42A /* MimeTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypes.swift; sourceTree = "<group>"; };
+		AEB91AA81B70D6BF00B7B42A /* MimeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,7 @@
 		AE43D6541B6F75D0003074AF /* http */ = {
 			isa = PBXGroup;
 			children = (
+				AEB91AA51B70D48100B7B42A /* server */,
 				AE43D6551B6F75D0003074AF /* Entity.swift */,
 				AE43D6561B6F75D0003074AF /* HttpStatus.swift */,
 				AE43D66F1B6F783F003074AF /* DataEntity.swift */,
@@ -179,6 +184,15 @@
 				AE43D65C1B6F75D0003074AF /* NSLogPrinter.swift */,
 			);
 			path = consumer;
+			sourceTree = "<group>";
+		};
+		AEB91AA51B70D48100B7B42A /* server */ = {
+			isa = PBXGroup;
+			children = (
+				AEB91AA61B70D4B400B7B42A /* MimeTypes.swift */,
+				AEB91AA81B70D6BF00B7B42A /* MimeType.swift */,
+			);
+			path = server;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +296,7 @@
 				AE43D66B1B6F75D0003074AF /* LogConsumer.swift in Sources */,
 				AE43D6631B6F75D0003074AF /* Entity.swift in Sources */,
 				AE43D66A1B6F75D0003074AF /* LogCategory.swift in Sources */,
+				AEB91AA91B70D6BF00B7B42A /* MimeType.swift in Sources */,
 				AE43D6671B6F75D0003074AF /* LogQueueReader.swift in Sources */,
 				AE43D6651B6F75D0003074AF /* LogPrinter.swift in Sources */,
 				AE43D6681B6F75D0003074AF /* NSLogPrinter.swift in Sources */,
@@ -289,6 +304,7 @@
 				AE43D66E1B6F75D0003074AF /* RootLogConsumer.swift in Sources */,
 				AE43D66D1B6F75D0003074AF /* LogLevel.swift in Sources */,
 				AE43D6371B6F756B003074AF /* AppDelegate.swift in Sources */,
+				AEB91AA71B70D4B400B7B42A /* MimeTypes.swift in Sources */,
 				AE43D6691B6F75D0003074AF /* Log.swift in Sources */,
 				AE43D66C1B6F75D0003074AF /* LogEvent.swift in Sources */,
 				AE43D6701B6F783F003074AF /* DataEntity.swift in Sources */,
@@ -491,6 +507,7 @@
 				AE43D64D1B6F756B003074AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AE43D64E1B6F756B003074AF /* Build configuration list for PBXNativeTarget "SyncHttpServerTests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +516,7 @@
 				AE43D6501B6F756B003074AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
