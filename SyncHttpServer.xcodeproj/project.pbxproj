@@ -27,6 +27,8 @@
 		AE43D6701B6F783F003074AF /* DataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE43D66F1B6F783F003074AF /* DataEntity.swift */; };
 		AEB91AA71B70D4B400B7B42A /* MimeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB91AA61B70D4B400B7B42A /* MimeTypes.swift */; };
 		AEB91AA91B70D6BF00B7B42A /* MimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB91AA81B70D6BF00B7B42A /* MimeType.swift */; };
+		AEB91B3F1B736D9D00B7B42A /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB91B3E1B736D9D00B7B42A /* Range.swift */; };
+		AEB91B411B736FB400B7B42A /* SyncHttpServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB91B401B736FB400B7B42A /* SyncHttpServer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		AE43D66F1B6F783F003074AF /* DataEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntity.swift; sourceTree = "<group>"; };
 		AEB91AA61B70D4B400B7B42A /* MimeTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypes.swift; sourceTree = "<group>"; };
 		AEB91AA81B70D6BF00B7B42A /* MimeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeType.swift; sourceTree = "<group>"; };
+		AEB91B3E1B736D9D00B7B42A /* Range.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Range.swift; sourceTree = "<group>"; };
+		AEB91B401B736FB400B7B42A /* SyncHttpServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncHttpServer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,7 @@
 		AE43D6281B6F756B003074AF = {
 			isa = PBXGroup;
 			children = (
+				AEB91B401B736FB400B7B42A /* SyncHttpServer.swift */,
 				AE43D6541B6F75D0003074AF /* http */,
 				AE43D6571B6F75D0003074AF /* log */,
 				AE43D6331B6F756B003074AF /* SyncHttpServer */,
@@ -153,6 +158,7 @@
 		AE43D6541B6F75D0003074AF /* http */ = {
 			isa = PBXGroup;
 			children = (
+				AEB91B3B1B736D5400B7B42A /* headers */,
 				AEB91AA51B70D48100B7B42A /* server */,
 				AE43D6551B6F75D0003074AF /* Entity.swift */,
 				AE43D6561B6F75D0003074AF /* HttpStatus.swift */,
@@ -193,6 +199,30 @@
 				AEB91AA81B70D6BF00B7B42A /* MimeType.swift */,
 			);
 			path = server;
+			sourceTree = "<group>";
+		};
+		AEB91B3B1B736D5400B7B42A /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				AEB91B3C1B736D5400B7B42A /* request */,
+				AEB91B3D1B736D5400B7B42A /* response */,
+			);
+			path = headers;
+			sourceTree = "<group>";
+		};
+		AEB91B3C1B736D5400B7B42A /* request */ = {
+			isa = PBXGroup;
+			children = (
+				AEB91B3E1B736D9D00B7B42A /* Range.swift */,
+			);
+			path = request;
+			sourceTree = "<group>";
+		};
+		AEB91B3D1B736D5400B7B42A /* response */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = response;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,6 +325,8 @@
 			files = (
 				AE43D66B1B6F75D0003074AF /* LogConsumer.swift in Sources */,
 				AE43D6631B6F75D0003074AF /* Entity.swift in Sources */,
+				AEB91B3F1B736D9D00B7B42A /* Range.swift in Sources */,
+				AEB91B411B736FB400B7B42A /* SyncHttpServer.swift in Sources */,
 				AE43D66A1B6F75D0003074AF /* LogCategory.swift in Sources */,
 				AEB91AA91B70D6BF00B7B42A /* MimeType.swift in Sources */,
 				AE43D6671B6F75D0003074AF /* LogQueueReader.swift in Sources */,
