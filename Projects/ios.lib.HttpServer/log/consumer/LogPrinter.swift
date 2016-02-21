@@ -28,7 +28,7 @@ class LogPrinter : LogConsumer {
         case .Error:
             level = "*ERR"
         }
-        println( "\(level) \(event.thread.name).\(event.category).\(event.function) \(event.content)" )
+        print( "\(level) \(event.thread.name).\(event.category).\(event.function) \(event.content)" )
 
     }
 }

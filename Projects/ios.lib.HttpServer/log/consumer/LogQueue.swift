@@ -57,7 +57,7 @@ class LogQueue : LogConsumer {
         let logQueue = LogQueue()
         RootLogConsumer.instance.delegate = logQueue
         
-        var queueReader = LogQueueReader(logQueue: logQueue, consumer: asyncDelegate )
+        let queueReader = LogQueueReader(logQueue: logQueue, consumer: asyncDelegate )
         queueReader.start()
         
     }

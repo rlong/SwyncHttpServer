@@ -16,7 +16,7 @@ class SyncHttpServer {
         
         static func refactor( comment: String ) {
             
-            println( "refactor \(comment)" )
+            print( "refactor \(comment)" )
             
         }
     }

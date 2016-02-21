@@ -23,7 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         log.enteredMethod();
         
-        var i = 4;
+        let i = 4;
         log.debug( i, "i");
         log.warn( i, "i");
         log.error( i, "i");

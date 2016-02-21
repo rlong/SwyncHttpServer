@@ -25,7 +25,7 @@ class Log {
             name = file + "." + String( line )
         } else {
 
-            name = toString( category! )
+            name = String( category! )
         }
         
         debug = LogCategory( category: name,  level: LogLevel.Debug, logConsumer: logConsumer )

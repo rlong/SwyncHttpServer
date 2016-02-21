@@ -10,7 +10,7 @@ import Foundation
 
 
 
-@objc class LogQueueReader  {
+class LogQueueReader  {
 
     var logQueue: LogQueue
     var consumer: LogConsumer
