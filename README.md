@@ -1,2 +1,3 @@
-# SyncHttpServer
-an implementation of a synchronous HTTP Server 
+# cocoa.lib.Http
+
+a library for HTTP layered on Cocoa
