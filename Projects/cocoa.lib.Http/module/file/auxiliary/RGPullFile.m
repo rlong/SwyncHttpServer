@@ -83,7 +83,6 @@
 	
 	[self setTarget:nil];
     
-	[super dealloc];
 	
 }
 

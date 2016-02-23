@@ -46,7 +46,6 @@
     {
         [_fileUploadPartHandlers addObject:answer];
     }
-    [answer release];
     
     return answer;
 }
@@ -86,7 +85,6 @@
 	[self setStorageManager:nil];
     [self setFileUploadPartHandlers:nil];
 
-	[super dealloc];
 	
 }
 

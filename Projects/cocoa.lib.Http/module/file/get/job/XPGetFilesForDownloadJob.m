@@ -70,8 +70,6 @@
     [self setRemoteFileReferences:nil];
 
 	
-	[super dealloc];
-	
 }
 
 

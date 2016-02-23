@@ -19,6 +19,7 @@
 #import "VPLocalStorage.h"
 #import "VACommonObjects.h"
 #import "VPMediaHandle.h"
+#import "VPMediaHandleSet.h"
 #import "XPHostnameUtilities.h"
 
 @implementation XPGetFileService
@@ -48,7 +49,6 @@ static JBServiceDescription* _SERVICE_DESCRIPTION = nil;
     Log_enteredMethod();
     
     JBJsonArray* answer = [[JBJsonArray alloc] init];
-    [answer autorelease];
     
     
     VPLocalStorage* localStorage = [VACommonObjects localStorage];
@@ -72,7 +72,6 @@ static JBServiceDescription* _SERVICE_DESCRIPTION = nil;
             [file setObject:uri forKey:@"uri"];
             [answer add:file];
         }
-        [file release];
         
     }
     
@@ -135,9 +134,6 @@ static JBServiceDescription* _SERVICE_DESCRIPTION = nil;
 
 -(void)dealloc {
 	
-//	[self setMediaHandles:nil];
-	
-	[super dealloc];
 	
 }
 

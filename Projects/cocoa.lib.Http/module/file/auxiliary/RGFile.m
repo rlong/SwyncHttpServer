@@ -94,7 +94,7 @@ static NSData* _emptyFile = nil;
 
 +(void)initialize {
 	
-	_emptyFile = [[NSData data] retain];
+	_emptyFile = [NSData data];
 	
 }
 
@@ -183,7 +183,6 @@ static NSData* _emptyFile = nil;
     if( nil != error ) { 
         
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ callTo:@"[ NSFileManager attributesOfFileSystemForPath:error:]" failedWithError:error];
-        [e autorelease];
         @throw  e;
 
     }
@@ -192,7 +191,6 @@ static NSData* _emptyFile = nil;
     
     if( nil == fileSystemFreeSize ) { 
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultMessage:@"nil == fileSystemFreeSize"];
-        [e autorelease];
         @throw  e;
     }
 
@@ -334,7 +332,6 @@ static NSData* _emptyFile = nil;
     if( nil != error ) { 
         
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ callTo:@"[ NSFileManager attributesOfItemAtPath:error:]" failedWithError:error];
-        [e autorelease];
         @throw  e;
         
     }

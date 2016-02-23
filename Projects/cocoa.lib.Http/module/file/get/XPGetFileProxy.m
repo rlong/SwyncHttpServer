@@ -46,7 +46,6 @@
 -(NSMutableArray*)getFilesForDownload {
     
     NSMutableArray* answer = [[NSMutableArray alloc] init];
-    [answer autorelease];
     
     JBBrokerMessage* request = [JBBrokerMessage buildRequestWithServiceName:[XPGetFileService SERVICE_NAME] methodName:@"getFilesForDownload"];
     
@@ -65,7 +64,6 @@
         {
             [answer addObject:fileReference];
         }
-        [fileReference release];
         
     }
     
@@ -97,9 +95,7 @@
 -(void)dealloc {
     
 	[self setService:nil];
-	
-	[super dealloc];
-	
+		
 }
 
 #pragma instance -

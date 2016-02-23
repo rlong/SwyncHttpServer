@@ -20,8 +20,6 @@
 #import "VPFileMediaHandle.h"
 #import "VPMediaHandleSet.h"
 
-#import "XPFile.h"
-#import "XPIosVersion.h"
 #import "XPGetFileRequestHandler.h"
 #import "XPStorageManagerHelper.h"
 
@@ -234,8 +232,6 @@
         answer = (uint32_t)[files count];
         
     }
-    [files release];
-    [folders release];
     
     return answer;
     
@@ -326,7 +322,6 @@
     NSURL* url = [NSURL fileURLWithPath:fullPath];
     uint64_t contentLength = [JBFileUtilities getFileLength:fullPath];
     VPFileMediaHandle* answer = [[VPFileMediaHandle alloc] initWithContentSource:url contentLength:contentLength mimeType:mimeType filename:filename];
-    [answer autorelease];
     
     return answer;
     
@@ -437,7 +432,6 @@
     VPMediaHandleSet* answer;
     {
         NSMutableArray* mediaHandleArray = [[NSMutableArray alloc] init];
-        [mediaHandleArray autorelease];
         
         for( NSUInteger i = 0, count = [files count]; i < count; i++ ) {
             
@@ -453,7 +447,6 @@
 
 
         answer = [[VPMediaHandleSet alloc] initWithMediaHandles:mediaHandleArray];
-        [answer autorelease];
 
     }
     return answer;
@@ -482,8 +475,6 @@
         
         
     }
-    [files release];
-    [folders release];
 
 
     return answer;

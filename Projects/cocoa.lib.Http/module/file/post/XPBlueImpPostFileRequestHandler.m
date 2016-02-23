@@ -76,7 +76,6 @@
     id<JBEntity> entity;
     {
         JBJsonObject* jsonObject = [[JBJsonObject alloc] init];
-        [jsonObject autorelease];
         
         
         {
@@ -84,7 +83,6 @@
             {
                 [jsonObject setObject:files forKey:@"files"];
             }
-            [files release];
             
             if( nil != fileUploadMultiPartHandler ) {
                 NSArray* fileUploadPartHandlers = [fileUploadMultiPartHandler fileUploadPartHandlers];
@@ -100,7 +98,6 @@
                             }
                             [files add:file];
                         }
-                        [file release];
                         
                     }
                 }
@@ -115,7 +112,6 @@
                     [file setObject:[XPHostnameUtilities getHostName] forKey:@"hostName"];
                     [files add:file];
                 }
-                [file release];
                 
             }
         }
@@ -131,9 +127,8 @@
             
             NSData* data = [JBStringHelper toUtf8Data:jsonString];
             
-            entity = [[[JBDataEntity alloc] initWithData:data] autorelease];
+            entity = [[JBDataEntity alloc] initWithData:data];
         }
-        [writer release];
 
         // ^^^ derived from [Serializer serialize:]
 
@@ -141,7 +136,6 @@
     }
     
     JBHttpResponse* answer = [[JBHttpResponse alloc] initWithStatus:HttpStatus_OK_200  entity:entity];
-    [answer autorelease];
 
     return answer;
 }
@@ -171,10 +165,7 @@
     NSString* boundary = [XPBlueImpPostFileRequestHandler getBoundaryFromRequest:request];
 
     XPPostFileMultiPartHandler* multiPartHandler = [[XPPostFileMultiPartHandler alloc] initWithStorageManager:_storageManager];
-    [multiPartHandler autorelease];
-
     JBMultiPartReader* multiPartReader = [[JBMultiPartReader alloc] initWithBoundary:boundary entity:[request entity]];
-    [multiPartReader autorelease];
     
     [multiPartReader process:multiPartHandler skipFirstCrNl:true];
 
@@ -220,7 +211,6 @@
 	
     [self setStorageManager:nil];
 
-	[super dealloc];
 	
 }
 

@@ -24,7 +24,6 @@
 
 static VPLocalStorage* _localStorage = nil;
 static JBSimpleLogConsumer* _logConsumer= nil;
-static XPRootViewController* _rootViewController = nil;
 static JBSecurityConfiguration* _securityConfiguration = nil;
 
 
@@ -46,37 +45,37 @@ static JBSecurityConfiguration* _securityConfiguration = nil;
     return _logConsumer;
 }
 
-+(void)setLogConsumer:(JBSimpleLogConsumer*)logConsumer {
-    
-    if( nil != _logConsumer ) {
-        [_logConsumer release];
-    }
-    
-    _logConsumer = logConsumer;
-    
-    if( nil != _logConsumer ) {
-        [_logConsumer retain];
-    }
-    
-}
-
-
-
-+(XPRootViewController*)rootViewController {
-    return _rootViewController;
-}
-
-+(void)setRootViewController:(XPRootViewController*)rootViewController {
-    if( nil != _rootViewController ) { 
-        [_rootViewController release];
-    }
-    
-    _rootViewController = rootViewController;
-    
-    if( nil != _rootViewController ) {
-        [_rootViewController retain];
-    }
-}
+//+(void)setLogConsumer:(JBSimpleLogConsumer*)logConsumer {
+//    
+//    if( nil != _logConsumer ) {
+//        [_logConsumer release];
+//    }
+//    
+//    _logConsumer = logConsumer;
+//    
+//    if( nil != _logConsumer ) {
+//        [_logConsumer retain];
+//    }
+//    
+//}
+//
+//
+//
+//+(XPRootViewController*)rootViewController {
+//    return _rootViewController;
+//}
+//
+//+(void)setRootViewController:(XPRootViewController*)rootViewController {
+//    if( nil != _rootViewController ) { 
+//        [_rootViewController release];
+//    }
+//    
+//    _rootViewController = rootViewController;
+//    
+//    if( nil != _rootViewController ) {
+//        [_rootViewController retain];
+//    }
+//}
 
 
 
@@ -89,15 +88,9 @@ static JBSecurityConfiguration* _securityConfiguration = nil;
 
 +(void)setSecurityConfiguration:(JBSecurityConfiguration*)securityConfiguration {
     
-    if( nil != _securityConfiguration ) { 
-        [_securityConfiguration release];
-    }
     
     _securityConfiguration = securityConfiguration;
     
-    if( nil != _securityConfiguration ) { 
-        [_securityConfiguration retain];
-    }
     
     
 }

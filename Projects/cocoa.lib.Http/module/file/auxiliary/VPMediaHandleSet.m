@@ -151,7 +151,6 @@ static VPMediaHandleSet* _EMPTY_MEDIA_HANDLE_SET = nil;
 	[self setHandles:nil];
     [self setCurrentHandle:nil];
 
-	[super dealloc];
 }
 
 

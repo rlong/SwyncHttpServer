@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "XPRootViewController.h"
-#import "XPScreenStack.h"
 
 #import "JBConfigurationService.h"
 #import "JBSecurityConfiguration.h"

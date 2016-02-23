@@ -61,7 +61,6 @@
     if( nil != answer ) { 
         
         answer->_transactionId = [JBSecurityUtilities generateNonce];
-        [answer->_transactionId retain];
         
         [answer setDelegate:fileJobDelegate];
         
@@ -78,7 +77,7 @@
 
     if( nil != answer ) { 
         
-        answer->_transactionId = [transactionId retain];
+        answer->_transactionId = transactionId;
         
         [answer setDelegate:fileJobDelegate];
     }
@@ -90,13 +89,11 @@
 -(void)dealloc { 
 
     if( nil != _transactionId ) { 
-        [_transactionId release];        
         _transactionId = nil;
     }
     
     [self setDelegate:nil];
     
-    [super dealloc];
 }
 
 #pragma mark fields

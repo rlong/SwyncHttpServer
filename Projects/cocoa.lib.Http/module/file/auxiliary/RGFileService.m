@@ -105,18 +105,15 @@ static NSString* _SORT_BY_SIZE = @"size";
 -(JBJsonObject*)beginPush:(NSString*)filePath fileLength:(long)fileLength { 
     
     RGFile* target = [[RGFile alloc] initWithPathname:filePath];
-    [target autorelease];
     
     if( [RGFileService fileIsBlacklisted:target] ) { 
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:target]; filePath = '%@'", filePath];
-        [e autorelease];
         [e setFaultCode:_FILE_TYPE_IS_BLACKLISTED];
         @throw e;
     }
     
     if( [target exists] ) { 
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[target exists]; filePath = '%@'", filePath];
-        [e autorelease];
         [e setFaultCode:_FILE_PATH_REFERENCES_EXISTING_FILE];
         @throw e;        
     }
@@ -125,11 +122,9 @@ static NSString* _SORT_BY_SIZE = @"size";
     [_fileJobManager abortTransactions:target];
     
     RGPushFile* fileTransaction = [[RGPushFile alloc] initWithResume:false filePath:filePath fileLength:fileLength];
-    [fileTransaction autorelease];
     
     JBJsonObject* answer = [[JBJsonObject alloc] init];
-    [answer autorelease];
-    NSString* transactionId = [_fileJobManager begin:fileTransaction];    
+    NSString* transactionId = [_fileJobManager begin:fileTransaction];
     [answer setObject:transactionId forKey:[RGFileServiceConstants PULL_PUSH_TRANSACTION_ID]];
     return answer;
     
@@ -140,27 +135,23 @@ static NSString* _SORT_BY_SIZE = @"size";
 -(JBJsonObject*)beginPull:(NSString*)filePath {
     
     RGFile* target = [[RGFile alloc] initWithPathname:filePath];
-    [target autorelease];
     
     {
         
         if( [RGFileService fileIsBlacklisted:target] ) { 
             BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:target]; filePath = '%@'", filePath];
-            [e autorelease];
             [e setFaultCode:_FILE_TYPE_IS_BLACKLISTED];
             @throw e;
         }
         
         if( ![target exists] ) { 
             BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![target exists]; filePath = '%@'", filePath];
-            [e autorelease];
             [e setFaultCode:_FILE_DOES_NOT_EXIST];
             @throw e;        
         }
         
         if( [target isDirectory] ) { 
             BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[target isDirectory]; filePath = '%@'", filePath];
-            [e autorelease];
             [e setFaultCode:_FILE_PATH_REFERENCES_FOLDER];
             @throw e;        
             
@@ -168,7 +159,6 @@ static NSString* _SORT_BY_SIZE = @"size";
         
         if( ![target canRead] ) { 
             BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![target canRead]; filePath = '%@'", filePath];
-            [e autorelease];
             [e setFaultCode:_CANNOT_READ];
             @throw e;        
         }
@@ -176,7 +166,6 @@ static NSString* _SORT_BY_SIZE = @"size";
     
  
     JBJsonObject* answer = [[JBJsonObject alloc] init];
-    [answer autorelease];
     
     RGPullFile* fileTransaction = [[RGPullFile alloc] initWithTarget:target];
     //[fileTransaction autorelease];
@@ -186,7 +175,6 @@ static NSString* _SORT_BY_SIZE = @"size";
         [answer setLongLong:[fileTransaction getFileLength] forKey:[RGFileServiceConstants PULL_FILE_LENGTH]];
         
     }
-    [fileTransaction release];
 
     return answer;
 
@@ -197,23 +185,19 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     
     RGFile* target = [[RGFile alloc] initWithPathname:filePath];
-    [target autorelease];
     
     if( [RGFileService fileIsBlacklisted:target] ) { 
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:target]; filePath = '%@'", filePath];
-        [e autorelease];
         [e setFaultCode:_FILE_TYPE_IS_BLACKLISTED];
         @throw e;
     }
 
     RGPushFile* fileTransaction = [[RGPushFile alloc] initWithResume:true filePath:filePath fileLength:fileLength];
-    [fileTransaction autorelease];
 
     
     [_fileJobManager resumeWithTransactionId:transactionId pushFile:fileTransaction];
     
     JBJsonObject* answer = [[JBJsonObject alloc] init];
-    [answer autorelease];
 
     [answer setObject:transactionId forKey:[RGFileServiceConstants PULL_PUSH_TRANSACTION_ID]];
     [answer setLongLong:[fileTransaction getFileLength] forKey:[RGFileServiceConstants PULL_FILE_LENGTH]];
@@ -238,17 +222,14 @@ static NSString* _SORT_BY_SIZE = @"size";
 -(JBJsonObject*)getFileInfo:(NSString*)filePath {
     
     RGFile* target = [[RGFile alloc] initWithPathname:filePath];
-    [target autorelease];
     
     if( [RGFileService fileIsBlacklisted:target] ) { 
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:target]; filePath = '%@'", filePath];
-        [e autorelease];
         [e setFaultCode:_FILE_TYPE_IS_BLACKLISTED];
         @throw e;
     }
     
     JBJsonObject* answer = [[JBJsonObject alloc] init];
-    [answer autorelease];
 
     [answer setBool:[target exists] forKey:@"exists"];
     
@@ -277,7 +258,6 @@ static NSString* _SORT_BY_SIZE = @"size";
 -(RGFile*)getComputer {
     
     RGFile* answer = [[RGFile alloc] initWithPathname:@"/"];
-    [answer autorelease];
     return answer;
     
 }
@@ -294,7 +274,6 @@ static NSString* _SORT_BY_SIZE = @"size";
     NSString* desktopPath = [paths objectAtIndex:0];
     
     RGFile* answer = [[RGFile alloc] initWithPathname:desktopPath];
-    [answer autorelease];
     return answer;
     
     
@@ -313,7 +292,6 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     NSString* documentsPath = [paths objectAtIndex:0];
     RGFile* answer = [[RGFile alloc] initWithPathname:documentsPath];
-    [answer autorelease];
     return answer;
 
 
@@ -333,7 +311,6 @@ static NSString* _SORT_BY_SIZE = @"size";
     NSString* downloadsPath = [paths objectAtIndex:0];
     
     RGFile* answer = [[RGFile alloc] initWithPathname:downloadsPath];
-    [answer autorelease];
     return answer;
     
 }
@@ -345,7 +322,6 @@ static NSString* _SORT_BY_SIZE = @"size";
     NSString* homeDirectory = NSHomeDirectory();
     
     RGFile* answer = [[RGFile alloc] initWithPathname:homeDirectory];
-    [answer autorelease];
     return answer;
 
 
@@ -364,7 +340,6 @@ static NSString* _SORT_BY_SIZE = @"size";
     NSString* musicPath = [paths objectAtIndex:0];
     
     RGFile* answer = [[RGFile alloc] initWithPathname:musicPath];
-    [answer autorelease];
     return answer;
 
     
@@ -383,7 +358,6 @@ static NSString* _SORT_BY_SIZE = @"size";
     NSString* moviesPath = [paths objectAtIndex:0];
     
     RGFile* answer = [[RGFile alloc] initWithPathname:moviesPath];
-    [answer autorelease];
     return answer;
     
 }
@@ -394,7 +368,6 @@ static NSString* _SORT_BY_SIZE = @"size";
     
 
     JBJsonObject* answer = [[JBJsonObject alloc] init];
-    [answer autorelease];
     
     [answer setObject:name forKey:@"name"];
     [answer setObject:path forKey:@"path"];
@@ -407,7 +380,6 @@ static NSString* _SORT_BY_SIZE = @"size";
             [answer setObject:tagsInfo forKey:@"tags"];            
         }
         
-        [tagsInfo release];
     }
     
     return answer;
@@ -426,7 +398,6 @@ static NSString* _SORT_BY_SIZE = @"size";
     Log_enteredMethod();
     
     JBJsonArray* answer = [[JBJsonArray alloc] init];
-    [answer autorelease];
 
     
     // 'computer' folder ...
@@ -503,7 +474,6 @@ static NSString* _SORT_BY_SIZE = @"size";
     Log_enteredMethod();
     
     JBJsonArray* answer = [[JBJsonArray alloc] init];
-    [answer autorelease];
     
     
 #if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
@@ -597,13 +567,11 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     if( nil != error ) { 
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ callTo:@"[NSFileManager contentsOfDirectoryAtPath:error:]" failedWithError:error];
-        [e autorelease];
         @throw  e;
     }
     
     if( nil == contentsOfDirectory  ) {
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"nil == contentsOfDirectory; path = '%@'", path];
-        [e autorelease];
         @throw e;
     }
 
@@ -624,7 +592,6 @@ static NSString* _SORT_BY_SIZE = @"size";
             }
             
         }
-        [file release];
        
     }
 
@@ -676,21 +643,18 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     
     RGFile* target = [[RGFile alloc] initWithPathname:folderPath];
-    [target autorelease];
     
     // validate ... 
     {
 
         if( [RGFileService fileIsBlacklisted:target] ) { 
             BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:target]; folderPath = '%@'", folderPath];
-            [e autorelease];
             [e setFaultCode:_FILE_TYPE_IS_BLACKLISTED];
             @throw e;
         }
         
         if( ![target exists] ) { 
             BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![target exists]; folderPath = '%@'", folderPath];
-            [e autorelease];
             [e setFaultCode:_FOLDER_DOES_NOT_EXIST];
             @throw e;        
         }
@@ -698,7 +662,6 @@ static NSString* _SORT_BY_SIZE = @"size";
 
         if( ![target isDirectory] ) { 
             BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![target isDirectory]; folderPath = '%@'", folderPath];
-            [e autorelease];
             [e setFaultCode:_FOLDER_PATH_REFERENCES_FILE];
             @throw e;        
         }
@@ -706,14 +669,12 @@ static NSString* _SORT_BY_SIZE = @"size";
 
         if( ![target canRead] ) { 
             BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![target canRead]; folderPath = '%@'", folderPath];
-            [e autorelease];
             [e setFaultCode:_CANNOT_READ];
             @throw e;        
         }
     }
     
     JBJsonObject* answer = [[JBJsonObject alloc] init];
-    [answer autorelease];
     
     [answer setObject:folderPath forKey:@"folderPath"];
     [answer setLongLong:[target getFreeSpace] forKey:@"freeSpace"];
@@ -738,13 +699,11 @@ static NSString* _SORT_BY_SIZE = @"size";
     {
         [answer setObject:jsonFiles forKey:@"files"];
     }
-    [jsonFiles release];
 
     JBJsonArray* jsonFolders = [[JBJsonArray alloc] init];
     {
         [answer setObject:jsonFolders forKey:@"folders"];        
     }
-    [jsonFolders release];
 
     {
         
@@ -763,8 +722,6 @@ static NSString* _SORT_BY_SIZE = @"size";
             }
 
         }
-        [files release];
-        [folders release];
     }
     
     return answer;
@@ -871,7 +828,6 @@ static NSString* _SORT_BY_SIZE = @"size";
                 [properties setObject:@"/" forKey:@"folderSeparator"];
                 [associativeParamaters setObject:properties forKey:@"properties"];
             }
-            [properties release];
         }
         
         JBJsonArray* rootDevices = [self listRootDevices];
@@ -932,7 +888,6 @@ static NSString* _SORT_BY_SIZE = @"size";
 	
 	[self setFileJobManager:nil];
 	
-	[super dealloc];
 	
 }
 

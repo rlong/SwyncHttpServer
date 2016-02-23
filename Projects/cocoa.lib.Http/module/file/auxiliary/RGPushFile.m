@@ -115,13 +115,11 @@ static int _RENAME_ON_COMMIT_FAILED;
     
     if( [_partialContent length] != _fileLength ) { 
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[_partialContent getFileLength] != _fileLength; [_partialContent length] = %ld; _fileLength = %ld", [_partialContent length], _fileLength];
-        [e autorelease];
         [e setFaultCode:_UNEXPECTED_FILE_LENGTH];
         @throw e;
     }
     if( ![_partialContent renameTo:_target] ) { 
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![_partialContent renameTo:_target]; [_partialContent getPath] = '%@'; [_target getPath] = '%@'", [_partialContent getPath], [_target getPath]];
-        [e autorelease];
         [e setFaultCode:_RENAME_ON_COMMIT_FAILED];
         @throw e;
     }
@@ -148,19 +146,16 @@ static int _RENAME_ON_COMMIT_FAILED;
         if( resume ) { 
             if( ![answer->_partialContent exists] ) { 
                 BaseException* e = [[BaseException alloc] initWithOriginator:answer line:__LINE__ faultStringFormat:@"![answer->_partialContent exists]; filePath = '%@'", filePath];
-                [e autorelease];
                 @throw e;
             }
         } else { // just starting
             if( [answer->_partialContent exists] ) { 
                 
                 BaseException* e = [[BaseException alloc] initWithOriginator:answer line:__LINE__ faultStringFormat:@"[answer->_partialContent exists]; [[answer partialContent] getPath] = '%@'", [[answer partialContent] getPath]];
-                [e autorelease];
                 @throw e;
             }
             if( ![answer->_partialContent createNewFile] ) { 
                 BaseException* e = [[BaseException alloc] initWithOriginator:answer line:__LINE__ faultStringFormat:@"![answer->_partialContent createNewFile]; [[answer partialContent] getPath] = '%@'", [[answer partialContent] getPath]];
-                [e autorelease];
                 @throw e;
             }
         }
@@ -175,7 +170,6 @@ static int _RENAME_ON_COMMIT_FAILED;
 	[self setTarget:nil];
 	[self setPartialContent:nil];
     
-	[super dealloc];
 	
 }
 

@@ -266,7 +266,6 @@
 	[self setFileName:nil];
 	[self setUserError:nil];
 
-	[super dealloc];
 	
 }
 

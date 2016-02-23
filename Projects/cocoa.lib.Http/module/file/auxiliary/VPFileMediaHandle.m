@@ -65,7 +65,6 @@
 -(id<JBEntity>)toEntity {
     
     JBStreamEntity* answer = [[JBStreamEntity alloc] initWithContentSource:_contentSource contentLength:_contentLength mimeType:_mimeType];
-    [answer autorelease];
     
     return answer;
     
@@ -124,7 +123,6 @@
     [self setFilename:nil];
 	[self setUriSuffix:nil];
 
-	[super dealloc];
 	
 }
 

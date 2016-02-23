@@ -61,10 +61,10 @@
 // vvv http://stackoverflow.com/questions/2439020/wheres-the-iphone-mime-type-database
 
 +(NSString*) fileMIMEType:(NSString*) file {
-    CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)[file pathExtension], NULL);
+    CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)[file pathExtension], NULL);
     CFStringRef MIMEType = UTTypeCopyPreferredTagWithClass (UTI, kUTTagClassMIMEType);
     CFRelease(UTI);
-    return [(NSString *)MIMEType autorelease];
+    return (__bridge NSString *)MIMEType;
 }
 
 // ^^^ http://stackoverflow.com/questions/2439020/wheres-the-iphone-mime-type-database

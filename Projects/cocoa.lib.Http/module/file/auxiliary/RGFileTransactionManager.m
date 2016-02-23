@@ -56,8 +56,7 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
         transactionId = [newTransaction transactionId];
         [_activeTransactions setObject:newTransaction forKey:transactionId];
     }
-    [newTransaction release];
-        
+    
     return transactionId;
     
 }
@@ -74,7 +73,6 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
             
             if( ![fileJobDelegate isKindOfClass:[RGPushFile class]] ) { 
                 BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![fileJobDelegate isKindOfClass:[PushFile class]]; NSStringFromClass([fileJobDelegate class]) = '%@'", NSStringFromClass([fileJobDelegate class])];
-                [e autorelease];
                 @throw e;
             }
             // not nil and, the type is right ... 
@@ -93,7 +91,6 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
             RGFile* activeTarget = [[activeJob getDelegate] getTarget];
             if( [targetAbsolutePath isEqualToString:[activeTarget getAbsolutePath]] ) { 
                 BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[targetAbsolutePath isEqualToString:[activeTarget getAbsolutePath]]; targetAbsolutePath = '%@'", targetAbsolutePath];
-                [e autorelease];
                 [e setFaultCode:_PUSH_FILE_ALREADY_ACTIVE];
                 @throw e;
             }
@@ -107,7 +104,6 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
         [_activeTransactions setObject:resumedTransaction forKey:transactionId];
         
     }
-    [resumedTransaction release];
     
 }
 
@@ -118,7 +114,6 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
     
     if( nil == answer ) { 
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"nil == answer; transactionId = '%@'", transactionId];
-        [e autorelease];
         @throw e;
     }
     
@@ -152,7 +147,6 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
     
     
     NSMutableArray* transactionsToAbort = [[NSMutableArray alloc] init];
-    [transactionsToAbort autorelease];
     
     NSString* targetAbsolutePath = [target getAbsolutePath];
     
@@ -208,7 +202,6 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
 	
 	[self setActiveTransactions:nil];
 	
-	[super dealloc];
 	
 }
 

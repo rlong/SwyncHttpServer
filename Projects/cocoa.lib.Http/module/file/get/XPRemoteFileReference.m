@@ -70,8 +70,6 @@
     [self setUri:nil];
     [self setExtension:nil];
 
-
-	[super dealloc];
 	
 }
 

@@ -17,6 +17,7 @@
 #import "VPLocalStorage.h"
 #import "VACommonObjects.h"
 #import "VPMediaHandle.h"
+#import "VPMediaHandleSet.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -87,12 +88,10 @@ static NSString* _URI = @"/_dynamic_/av_amigo/GetFile";
     if( nil == range ) {
         
         answer = [[JBHttpResponse alloc] initWithStatus:HttpStatus_OK_200 entity:entity];
-        [answer autorelease];
     } else {
         
         answer = [[JBHttpResponse alloc] initWithStatus:HttpStatus_PARTIAL_CONTENT_206 entity:entity];
         [answer setRange:range];
-        [answer autorelease];
     }
     
     
@@ -166,7 +165,6 @@ static NSString* _URI = @"/_dynamic_/av_amigo/GetFile";
     [self setRequestHandlerUrl:nil];
 //	[self setGetFileListener:nil];
 
-	[super dealloc];
 	
 }
 
