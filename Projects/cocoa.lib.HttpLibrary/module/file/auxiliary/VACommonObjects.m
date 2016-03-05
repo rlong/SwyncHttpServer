@@ -45,37 +45,12 @@ static JBSecurityConfiguration* _securityConfiguration = nil;
     return _logConsumer;
 }
 
-//+(void)setLogConsumer:(JBSimpleLogConsumer*)logConsumer {
-//    
-//    if( nil != _logConsumer ) {
-//        [_logConsumer release];
-//    }
-//    
-//    _logConsumer = logConsumer;
-//    
-//    if( nil != _logConsumer ) {
-//        [_logConsumer retain];
-//    }
-//    
-//}
-//
-//
-//
-//+(XPRootViewController*)rootViewController {
-//    return _rootViewController;
-//}
-//
-//+(void)setRootViewController:(XPRootViewController*)rootViewController {
-//    if( nil != _rootViewController ) { 
-//        [_rootViewController release];
-//    }
-//    
-//    _rootViewController = rootViewController;
-//    
-//    if( nil != _rootViewController ) {
-//        [_rootViewController retain];
-//    }
-//}
++(void)setLogConsumer:(JBSimpleLogConsumer*)logConsumer {
+    
+    _logConsumer = logConsumer;
+    
+}
+
 
 
 
