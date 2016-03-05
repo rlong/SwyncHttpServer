@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 
 #import "FileTransactionDelegate.h"
-#import "RGFile.h"
+#import "HLFile.h"
 
 @interface RGPullFile : NSObject <FileTransactionDelegate> {
 
     // target
-    RGFile* _target;
+    HLFile* _target;
     //@property (nonatomic, retain) RGFile* target;
     //@synthesize target = _target;
 
@@ -26,6 +26,6 @@
 
 #pragma mark instance lifecycle
 
--(id)initWithTarget:(RGFile*)target;
+-(id)initWithTarget:(HLFile*)target;
 
 @end

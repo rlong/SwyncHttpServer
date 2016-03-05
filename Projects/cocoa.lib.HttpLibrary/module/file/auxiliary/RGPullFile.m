@@ -18,7 +18,7 @@
 
 // target
 //RGFile* _target;
-@property (nonatomic, retain) RGFile* target;
+@property (nonatomic, retain) HLFile* target;
 //@synthesize target = _target;
 
 @end 
@@ -40,7 +40,7 @@
 #pragma mark <FileJobDelegate> implementation 
 
 
--(RGFile*)getTarget {
+-(HLFile*)getTarget {
     
     return _target;
     
@@ -64,7 +64,7 @@
 
 #pragma mark instance lifecycle
 
--(id)initWithTarget:(RGFile*)target {
+-(id)initWithTarget:(HLFile*)target {
     
     RGPullFile* answer = [super init];
     

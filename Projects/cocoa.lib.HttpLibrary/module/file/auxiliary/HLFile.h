@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RGFile : NSObject {
+@interface HLFile : NSObject {
 
     // fileManager
 	NSFileManager* _fileManager;
@@ -98,7 +98,7 @@
 -(NSString*)getPath;
 -(BOOL)delete;
 -(long long)length;
--(BOOL)renameTo:(RGFile*)dest;
+-(BOOL)renameTo:(HLFile*)dest;
 -(NSDate*)getModificationDate;
 //-(NSNumber*)getSize;
 
@@ -115,7 +115,7 @@
 
 
 //-(id)initWithFileManager:(NSFileManager*)fileManager parentFile:(RGFile*)parent child:(NSString*)child;
--(id)initWithParentFile:(RGFile*)parent child:(NSString*)child;
+-(id)initWithParentFile:(HLFile*)parent child:(NSString*)child;
 
 
 @end

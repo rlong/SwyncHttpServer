@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-#import "RGFile.h"
+#import "HLFile.h"
 
 @class RGFileTransaction;
 
 @protocol FileTransactionDelegate <NSObject>
 
 
--(RGFile*)getTarget;
+-(HLFile*)getTarget;
 
 -(void)abort:(RGFileTransaction*)fileJob;
 -(void)commit:(RGFileTransaction*)fileJob;

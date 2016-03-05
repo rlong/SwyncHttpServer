@@ -24,13 +24,13 @@
 
 // target
 //RGFile* _target;
-@property (nonatomic, retain) RGFile* target;
+@property (nonatomic, retain) HLFile* target;
 //@synthesize target = _target;
 
 
 // partialContent
 //RGFile* _partialContent;
-@property (nonatomic, retain) RGFile* partialContent;
+@property (nonatomic, retain) HLFile* partialContent;
 //@synthesize partialContent = _partialContent;
 
 
@@ -83,7 +83,7 @@ static int _RENAME_ON_COMMIT_FAILED;
 
 #pragma mark <FileJobDelegate> implementation 
 
--(RGFile*)getTarget {
+-(HLFile*)getTarget {
     return _target;
 }
 
@@ -137,11 +137,11 @@ static int _RENAME_ON_COMMIT_FAILED;
     
     if( nil != answer ) {
         
-        answer->_target = [[RGFile alloc] initWithPathname:filePath];
+        answer->_target = [[HLFile alloc] initWithPathname:filePath];
         answer->_fileLength = fileLength;
         
         NSString* partialContentFilename = [filePath stringByAppendingString:@".partial_content"];
-        answer->_partialContent = [[RGFile alloc] initWithPathname:partialContentFilename];
+        answer->_partialContent = [[HLFile alloc] initWithPathname:partialContentFilename];
         
         if( resume ) { 
             if( ![answer->_partialContent exists] ) { 

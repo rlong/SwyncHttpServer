@@ -12,14 +12,14 @@
 #import "JBLog.h"
 #import "JBMemoryModel.h"
 
-#import "RGFile.h"
+#import "HLFile.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-@interface RGFile () 
+@interface HLFile () 
 
 // fileManager
 //NSFileManager* _fileManager;
@@ -87,7 +87,7 @@
 #pragma mark -
 
 
-@implementation RGFile
+@implementation HLFile
 
 static NSData* _emptyFile = nil;
 
@@ -302,7 +302,7 @@ static NSData* _emptyFile = nil;
 }
 
 
--(BOOL)renameTo:(RGFile*)dest {
+-(BOOL)renameTo:(HLFile*)dest {
     
     
     
@@ -387,7 +387,7 @@ static NSData* _emptyFile = nil;
 
 -(id)initWithFileManager:(NSFileManager*)fileManager pathname:(NSString*)pathname { 
     
-    RGFile* answer = [super init];
+    HLFile* answer = [super init];
     
     if( nil != answer ) { 
         
@@ -418,13 +418,13 @@ static NSData* _emptyFile = nil;
 
 -(id)initWithFileManager:(NSFileManager*)fileManager parentPathname:(NSString*)parentPathname child:(NSString*)child { 
 
-    RGFile* answer = [super init];
+    HLFile* answer = [super init];
     
     if( nil != answer ) { 
 
         [answer setFileManager:fileManager];
 
-        NSString* pathname = [RGFile combineParentPath:parentPathname childPath:child];
+        NSString* pathname = [HLFile combineParentPath:parentPathname childPath:child];
         [answer setPathname:pathname];
 
         [answer setIsExecutableFile:nil];
@@ -449,17 +449,17 @@ static NSData* _emptyFile = nil;
 
 }
 
--(id)initWithFileManager:(NSFileManager*)fileManager parentFile:(RGFile*)parent child:(NSString*)child { 
+-(id)initWithFileManager:(NSFileManager*)fileManager parentFile:(HLFile*)parent child:(NSString*)child { 
     
     
-    RGFile* answer = [super init];
+    HLFile* answer = [super init];
     
     if( nil != answer ) { 
         
         [answer setFileManager:fileManager];
         
         NSString* parentPathname = parent->_pathname;
-        NSString* pathname = [RGFile combineParentPath:parentPathname childPath:child];
+        NSString* pathname = [HLFile combineParentPath:parentPathname childPath:child];
         [answer setPathname:pathname];
         
         [answer setIsExecutableFile:nil];
@@ -474,7 +474,7 @@ static NSData* _emptyFile = nil;
 
 }
 
--(id)initWithParentFile:(RGFile*)parent child:(NSString*)child { 
+-(id)initWithParentFile:(HLFile*)parent child:(NSString*)child { 
     
     NSFileManager* defaultManager = [NSFileManager defaultManager];
     

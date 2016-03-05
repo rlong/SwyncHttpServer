@@ -10,18 +10,18 @@
 
 
 #import "FileTransactionDelegate.h"
-#import "RGFile.h"
+#import "HLFile.h"
 
 @interface RGPushFile : NSObject <FileTransactionDelegate> {
     
     
     // target
-	RGFile* _target;
+	HLFile* _target;
 	//@property (nonatomic, retain) RGFile* target;
 	//@synthesize target = _target;
     
     // partialContent
-	RGFile* _partialContent;
+	HLFile* _partialContent;
 	//@property (nonatomic, retain) RGFile* partialContent;
 	//@synthesize partialContent = _partialContent;
     

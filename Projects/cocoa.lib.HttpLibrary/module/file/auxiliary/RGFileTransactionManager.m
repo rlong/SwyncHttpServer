@@ -82,13 +82,13 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
     
     // if another transactionid is active for the same file, then fail
     {
-        RGFile* target = [pushFile getTarget];
+        HLFile* target = [pushFile getTarget];
         NSString* targetAbsolutePath = [target getAbsolutePath];
         
         for( NSString* activeTransactionId in _activeTransactions ) {
             
             RGFileTransaction* activeJob = [_activeTransactions objectForKey:activeTransactionId];
-            RGFile* activeTarget = [[activeJob getDelegate] getTarget];
+            HLFile* activeTarget = [[activeJob getDelegate] getTarget];
             if( [targetAbsolutePath isEqualToString:[activeTarget getAbsolutePath]] ) { 
                 BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[targetAbsolutePath isEqualToString:[activeTarget getAbsolutePath]]; targetAbsolutePath = '%@'", targetAbsolutePath];
                 [e setFaultCode:_PUSH_FILE_ALREADY_ACTIVE];
@@ -143,7 +143,7 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
     
 }
 
--(void)abortTransactions:(RGFile*)target {
+-(void)abortTransactions:(HLFile*)target {
     
     
     NSMutableArray* transactionsToAbort = [[NSMutableArray alloc] init];
@@ -154,7 +154,7 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
     for( NSString* activeTransactionId in _activeTransactions ) {
         
         RGFileTransaction* activeTransaction = [_activeTransactions objectForKey:activeTransactionId];
-        RGFile* activeTransactionTarget = [[activeTransaction getDelegate] getTarget];
+        HLFile* activeTransactionTarget = [[activeTransaction getDelegate] getTarget];
         
         if( [targetAbsolutePath isEqualToString:[activeTransactionTarget getAbsolutePath]] ) { 
             [transactionsToAbort addObject:activeTransactionId];

@@ -435,7 +435,7 @@
         
         for( NSUInteger i = 0, count = [files count]; i < count; i++ ) {
             
-            RGFile* file = [files objectAtIndex:i];
+            HLFile* file = [files objectAtIndex:i];
             
             NSString* filename = [file getName];
             NSString* contentType = [VPStorageSelectConductorHelper getContentTypeForLocalStorageFilename:filename];

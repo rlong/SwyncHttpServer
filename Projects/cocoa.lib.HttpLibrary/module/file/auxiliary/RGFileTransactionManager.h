@@ -30,7 +30,7 @@
 -(BOOL)hasTransaction:(NSString*)transactionId;
 
 -(void)abort:(NSString*)transactionId;
--(void)abortTransactions:(RGFile*)target;
+-(void)abortTransactions:(HLFile*)target;
 
 -(void)commit:(NSString*)transactionId;
 
