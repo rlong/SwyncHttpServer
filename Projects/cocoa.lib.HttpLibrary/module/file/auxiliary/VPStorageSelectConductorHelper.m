@@ -11,7 +11,7 @@
 
 #import "JBLog.h"
 
-#import "VACommonObjects.h"
+#import "HLCommonObjects.h"
 
 #import "VPStorageSelectConductorHelper.h"
 #import "XPStorageMetaData.h"

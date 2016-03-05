@@ -17,7 +17,7 @@
 #import "XPGetFileRequestHandler.h"
 #import "XPGetFileService.h"
 #import "VPLocalStorage.h"
-#import "VACommonObjects.h"
+#import "HLCommonObjects.h"
 #import "VPMediaHandle.h"
 #import "VPMediaHandleSet.h"
 #import "XPHostnameUtilities.h"
@@ -51,7 +51,7 @@ static JBServiceDescription* _SERVICE_DESCRIPTION = nil;
     JBJsonArray* answer = [[JBJsonArray alloc] init];
     
     
-    VPLocalStorage* localStorage = [VACommonObjects localStorage];
+    VPLocalStorage* localStorage = [HLCommonObjects localStorage];
     VPMediaHandleSet* mediaHandles = [localStorage toMediaHandleSet];
     
     for( NSUInteger i = 0, count = [mediaHandles getHandleCount]; i < count; i++ ) {

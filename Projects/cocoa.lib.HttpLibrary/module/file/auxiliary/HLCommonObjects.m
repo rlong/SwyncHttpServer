@@ -12,12 +12,10 @@
 #import "JBJsonStringHandler.h"
 
 
-
-//#import "VAApplicationDelegate.h"
-#import "VACommonObjects.h"
+#import "HLCommonObjects.h"
 
 
-@implementation VACommonObjects  {
+@implementation HLCommonObjects  {
     
 }
 

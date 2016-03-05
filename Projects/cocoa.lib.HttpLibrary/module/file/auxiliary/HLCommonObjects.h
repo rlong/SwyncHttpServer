@@ -16,7 +16,7 @@
 #import "VPLocalStorage.h"
 
 
-@interface VACommonObjects : NSObject {
+@interface HLCommonObjects : NSObject {
     
 }
 

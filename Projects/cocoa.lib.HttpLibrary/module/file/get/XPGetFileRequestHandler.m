@@ -15,7 +15,7 @@
 
 #import "XPGetFileRequestHandler.h"
 #import "VPLocalStorage.h"
-#import "VACommonObjects.h"
+#import "HLCommonObjects.h"
 #import "VPMediaHandle.h"
 #import "VPMediaHandleSet.h"
 
@@ -62,7 +62,7 @@ static NSString* _URI = @"/_dynamic_/av_amigo/GetFile";
     
     
     
-    VPLocalStorage* localStorage = [VACommonObjects localStorage];
+    VPLocalStorage* localStorage = [HLCommonObjects localStorage];
     VPMediaHandleSet* mediaHandles = [localStorage toMediaHandleSet];
 
     
