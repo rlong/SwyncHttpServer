@@ -14,7 +14,7 @@
 #import "HLCommonObjects.h"
 
 #import "VPStorageSelectConductorHelper.h"
-#import "XPStorageMetaData.h"
+#import "HLStorageMetaData.h"
 
 @implementation VPStorageSelectConductorHelper
 
@@ -72,7 +72,7 @@
 +(NSString*)getContentTypeForLocalStorageFilename:(NSString*)filename {
     
 
-    NSString* answer = [XPStorageMetaData getContentTypeForFilename:filename];
+    NSString* answer = [HLStorageMetaData getContentTypeForFilename:filename];
     
     if( nil == answer ) {
         

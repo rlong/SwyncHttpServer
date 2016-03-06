@@ -20,13 +20,13 @@
 #import "VPFileMediaHandle.h"
 #import "VPMediaHandleSet.h"
 
-#import "XPGetFileRequestHandler.h"
-#import "XPStorageManagerHelper.h"
+#import "HLGetFileRequestHandler.h"
+#import "HLStorageManagerHelper.h"
 
 #import "VPLocalStorage.h"
 #import "VPStorageSelectConductorHelper.h"
 
-#import "RGFileService.h"
+#import "HLFileService.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -70,9 +70,9 @@
 ////    // determine iOS version (_isIos500orLess/_isIos501/_isIos510orGreater) ... 
 ////    {
 ////
-////        NSUInteger majorVersion = [XPIosVersion majorVersion];
-////        NSUInteger minorVersion = [XPIosVersion minorVersion];
-////        NSUInteger maintenanceVersion = [XPIosVersion maintenanceVersion];
+////        NSUInteger majorVersion = [HLIosVersion majorVersion];
+////        NSUInteger minorVersion = [HLIosVersion minorVersion];
+////        NSUInteger maintenanceVersion = [HLIosVersion maintenanceVersion];
 ////        
 ////        if( majorVersion > 5 ) {
 ////            _isIos510orGreater = true;
@@ -225,9 +225,9 @@
     {
         
         NSString* fileSystemPath = [JBFolderUtilities getDocumentDirectory];
-        NSString* sort = [RGFileService SORT_BY_NAME];
+        NSString* sort = [HLFileService SORT_BY_NAME];
         
-        [RGFileService listPath:fileSystemPath files:files folders:folders sort:sort ascending:true];
+        [HLFileService listPath:fileSystemPath files:files folders:folders sort:sort ascending:true];
         
         answer = (uint32_t)[files count];
         
@@ -238,7 +238,7 @@
 }
 //// vvv scraped from RGFileService
 //
-//+(BOOL)fileIsBlacklisted:(XPFile*)candidate {
+//+(BOOL)fileIsBlacklisted:(HLFile*)candidate {
 //    
 //    NSString* candidateName = [[candidate getName] lowercaseString];
 //    
@@ -262,7 +262,7 @@
 //    uint32_t answer = 0;
 //
 //    NSString* documentDirectoryPath = [JBFolderUtilities getDocumentDirectory];
-//    XPFile* documentDirectory = [[XPFile alloc] initWithPathname:documentDirectoryPath];
+//    HLFile* documentDirectory = [[HLFile alloc] initWithPathname:documentDirectoryPath];
 //    JBAutorelease( documentDirectory );
 //    
 //    NSArray* listing = [documentDirectory list];
@@ -270,8 +270,8 @@
 //    for( NSString* childsName in listing ) {
 //        
 //    
-//        XPFile* child = [[XPFile alloc] initWithParentFile:documentDirectory child:childsName];
-//        if( [child isFile] && ![XPLocalStorage fileIsBlacklisted:child] ) {
+//        HLFile* child = [[HLFile alloc] initWithParentFile:documentDirectory child:childsName];
+//        if( [child isFile] && ![HLLocalStorage fileIsBlacklisted:child] ) {
 //            answer++;
 //        }
 //        JBRelease( child );
@@ -296,7 +296,7 @@
 
     NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
 
-    return [XPStorageManagerHelper getFreeSpaceForPath:parentFolder];
+    return [HLStorageManagerHelper getFreeSpaceForPath:parentFolder];
     
 }
 
@@ -387,7 +387,7 @@
     
     for( NSString* filename in contentsOfDirectory ) {
 
-        if( ![XPStorageManagerHelper removeFileWithName:filename inFolder:parentFolder swallowErrors:swallowErrors] ) {
+        if( ![HLStorageManagerHelper removeFileWithName:filename inFolder:parentFolder swallowErrors:swallowErrors] ) {
 
             answer = false;
         }
@@ -402,7 +402,7 @@
 
     NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
 
-    return [XPStorageManagerHelper removeFileWithName:filename inFolder:parentFolder swallowErrors:swallowErrors];
+    return [HLStorageManagerHelper removeFileWithName:filename inFolder:parentFolder swallowErrors:swallowErrors];
     
 }
 
@@ -411,7 +411,7 @@
 
     NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
 
-    return [XPStorageManagerHelper sizeOfFileWithName:filename inFolder:parentFolder];
+    return [HLStorageManagerHelper sizeOfFileWithName:filename inFolder:parentFolder];
 }
 
 
@@ -423,7 +423,7 @@
 //        JBIPAddress* wifiIpAddress = [JBNetworkUtilities getWifiIpAddress];
 //        NSString* wifiIpAddressString = [wifiIpAddress toString];
 //        
-//        urlTemplate = [NSString stringWithFormat:@"http://%@:%d%@", wifiIpAddressString, [XPHttpServer PORT], [XPGetFileRequestHandler REQUEST_HANDLER_URI]];
+//        urlTemplate = [NSString stringWithFormat:@"http://%@:%d%@", wifiIpAddressString, [HLHttpServer PORT], [HLGetFileRequestHandler REQUEST_HANDLER_URI]];
 //        
 //        Log_debugString( urlTemplate );
 //        
@@ -467,8 +467,8 @@
     NSMutableArray* folders = [[NSMutableArray alloc] init];
     {
         
-        NSString* sort = [RGFileService SORT_BY_NAME];
-        [RGFileService listPath:fileSystemPath files:files folders:folders sort:sort ascending:true];
+        NSString* sort = [HLFileService SORT_BY_NAME];
+        [HLFileService listPath:fileSystemPath files:files folders:folders sort:sort ascending:true];
        
         
         answer = [self toMediaHandleSetWithFiles:files];
@@ -489,7 +489,7 @@
 //-(NSString*)getFileSystemPath {
 //    
 //    if( !_setupCalled ){
-//        Log_warnFormat(@"!_setupCalled; [XPLocalStorage setup] should have been called before. ");
+//        Log_warnFormat(@"!_setupCalled; [HLLocalStorage setup] should have been called before. ");
 //        [self setup];
 //        
 //    }
@@ -581,7 +581,7 @@
 //-(void)setup {
 //    
 //    
-//    // marks documents folder so that it will be expluded from iCloud
+//    // marks documents folder so that it will be eHLluded from iCloud
 //    {
 //        
 //    }
@@ -659,7 +659,7 @@
 //
 //-(id)initWithSubFolderName:(NSString*)subFolderName {
 //    
-//    XPLocalStorage* answer = [super init];
+//    HLLocalStorage* answer = [super init];
 //    if( nil != answer ) {
 //        
 //        // vvv 'AVLocalStorage' for legacy reasons

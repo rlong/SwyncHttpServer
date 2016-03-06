@@ -10,15 +10,15 @@
 
 #import "HLFile.h"
 
-@class RGFileTransaction;
+@class HLFileTransaction;
 
 @protocol FileTransactionDelegate <NSObject>
 
 
 -(HLFile*)getTarget;
 
--(void)abort:(RGFileTransaction*)fileJob;
--(void)commit:(RGFileTransaction*)fileJob;
+-(void)abort:(HLFileTransaction*)fileJob;
+-(void)commit:(HLFileTransaction*)fileJob;
 
 
 @end

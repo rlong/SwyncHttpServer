@@ -12,14 +12,14 @@
 @class VPFileMediaHandle;
 @class VPMediaHandleSet;
 
-#import "XPStorageManager.h"
+#import "HLStorageManager.h"
 
 
 // see https://developer.apple.com/library/ios/#qa/qa1719/_index.html
 // and http://developer.apple.com/library/mac/#documentation/FileManagement/Conceptual/FileSystemProgrammingGUide/FileSystemOverview/FileSystemOverview.html
 // and http://www.marco.org/2011/10/13/ios5-caches-cleaning
 
-@interface VPLocalStorage : NSObject <XPStorageManager> {
+@interface VPLocalStorage : NSObject <HLStorageManager> {
     
 
 //    // storagePath
