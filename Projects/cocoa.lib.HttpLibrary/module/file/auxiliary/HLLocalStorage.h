@@ -8,18 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-
-@class VPFileMediaHandle;
-@class VPMediaHandleSet;
-
 #import "HLStorageManager.h"
+
+
+@class HLFileMediaHandle;
+@class HLMediaHandleSet;
+
 
 
 // see https://developer.apple.com/library/ios/#qa/qa1719/_index.html
 // and http://developer.apple.com/library/mac/#documentation/FileManagement/Conceptual/FileSystemProgrammingGUide/FileSystemOverview/FileSystemOverview.html
 // and http://www.marco.org/2011/10/13/ios5-caches-cleaning
 
-@interface VPLocalStorage : NSObject <HLStorageManager> {
+@interface HLLocalStorage : NSObject <HLStorageManager> {
     
 
 //    // storagePath
@@ -39,8 +40,8 @@
 -(uint64_t)getFreeSpace;
 
 
--(VPFileMediaHandle*)mediaHandleWithFilename:(NSString*)filename mimeType:(NSString*)mimeType;
--(VPFileMediaHandle*)mediaHandleWithFilename:(NSString*)filename;
+-(HLFileMediaHandle*)mediaHandleWithFilename:(NSString*)filename mimeType:(NSString*)mimeType;
+-(HLFileMediaHandle*)mediaHandleWithFilename:(NSString*)filename;
 
 -(BOOL)removeAllFilesSwallowErrors:(BOOL)swallowErrors;
 
@@ -50,7 +51,7 @@
 //-(void)setup;
 
 
--(VPMediaHandleSet*)toMediaHandleSet;
+-(HLMediaHandleSet*)toMediaHandleSet;
 
 +(void)ensureFilesAreInDocuments;
 

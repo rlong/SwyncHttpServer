@@ -13,7 +13,7 @@
 #import "JBSecurityConfiguration.h"
 #import "JBSimpleLogConsumer.h"
 
-#import "VPLocalStorage.h"
+#import "HLLocalStorage.h"
 
 
 @interface HLCommonObjects : NSObject {
@@ -21,7 +21,7 @@
 }
 
 
-+(VPLocalStorage*)localStorage;
++(HLLocalStorage*)localStorage;
 
 
 +(JBSimpleLogConsumer*)getLogConsumer;

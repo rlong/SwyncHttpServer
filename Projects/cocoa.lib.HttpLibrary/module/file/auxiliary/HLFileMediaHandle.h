@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "VPMediaHandle.h"
+#import "HLMediaHandle.h"
 
-@interface VPFileMediaHandle : NSObject <VPMediaHandle> {
+@interface HLFileMediaHandle : NSObject <HLMediaHandle> {
 
     
     // contentSource

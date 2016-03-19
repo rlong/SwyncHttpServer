@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface VPStorageSelectConductorHelper : NSObject
+@interface HLStorageSelectConductorHelper : NSObject
 
 
 +(NSString*)getContentTypeForLocalStorageFilename:(NSString*)filename;

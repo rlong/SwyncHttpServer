@@ -10,9 +10,9 @@
 
 
 
-#import "VPMediaHandle.h"
+#import "HLMediaHandle.h"
 
-@interface VPMediaHandleSet : NSObject {
+@interface HLMediaHandleSet : NSObject {
     
     // handles
     NSArray* _handles;
@@ -20,7 +20,7 @@
     //@synthesize handles = _handles;
 
     // currentHandle
-    id<VPMediaHandle> _currentHandle;
+    id<HLMediaHandle> _currentHandle;
     //@property (nonatomic, retain) AVMediaHandle* currentHandle;
     //@synthesize currentHandle = _currentHandle;
 
@@ -29,17 +29,17 @@
 //+(XPMediaHandleSet*)EMPTY_MEDIA_HANDLE_SET;
 
 -(NSUInteger)getHandleCount;
--(id<VPMediaHandle>)getHandleAtIndex:(NSUInteger)index;
+-(id<HLMediaHandle>)getHandleAtIndex:(NSUInteger)index;
 
 // will return nil, if the suffix is not found
--(id<VPMediaHandle>)getHandleWithUri:(NSString*)uri;
+-(id<HLMediaHandle>)getHandleWithUri:(NSString*)uri;
 
 
 #pragma mark -
 #pragma mark instance lifecycle
 
 -(id)init;
--(id)initWithMediaHandle:(id<VPMediaHandle>)mediaHandle;
+-(id)initWithMediaHandle:(id<HLMediaHandle>)mediaHandle;
 -(id)initWithMediaHandles:(NSArray*)mediaHandles;
 
 #pragma mark -

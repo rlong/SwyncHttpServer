@@ -20,7 +20,7 @@
 }
 
 
-static VPLocalStorage* _localStorage = nil;
+static HLLocalStorage* _localStorage = nil;
 static JBSimpleLogConsumer* _logConsumer= nil;
 static JBSecurityConfiguration* _securityConfiguration = nil;
 
@@ -32,7 +32,7 @@ static JBSecurityConfiguration* _securityConfiguration = nil;
 
 
 
-+(VPLocalStorage*)localStorage {
++(HLLocalStorage*)localStorage {
     
     return _localStorage;
     
@@ -81,7 +81,7 @@ static JBSecurityConfiguration* _securityConfiguration = nil;
     }
     
     
-    _localStorage = [[VPLocalStorage alloc] init];
+    _localStorage = [[HLLocalStorage alloc] init];
 //    [_localStorage setup];
 }
 

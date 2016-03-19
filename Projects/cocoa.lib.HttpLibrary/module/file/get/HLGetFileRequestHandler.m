@@ -14,10 +14,10 @@
 
 
 #import "HLGetFileRequestHandler.h"
-#import "VPLocalStorage.h"
 #import "HLCommonObjects.h"
-#import "VPMediaHandle.h"
-#import "VPMediaHandleSet.h"
+#import "HLLocalStorage.h"
+#import "HLMediaHandle.h"
+#import "HLMediaHandleSet.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -62,11 +62,11 @@ static NSString* _URI = @"/_dynamic_/av_amigo/GetFile";
     
     
     
-    VPLocalStorage* localStorage = [HLCommonObjects localStorage];
-    VPMediaHandleSet* mediaHandles = [localStorage toMediaHandleSet];
+    HLLocalStorage* localStorage = [HLCommonObjects localStorage];
+    HLMediaHandleSet* mediaHandles = [localStorage toMediaHandleSet];
 
     
-    id<VPMediaHandle> mediaHandle = [mediaHandles getHandleWithUri:uri];
+    id<HLMediaHandle> mediaHandle = [mediaHandles getHandleWithUri:uri];
     if( nil == mediaHandle ) {
         Log_errorFormat(@"nil == mediaHandle; uri = '%@'", uri);
         @throw [JBHttpErrorHelper notFound404FromOriginator:self line:__LINE__];

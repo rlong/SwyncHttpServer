@@ -10,7 +10,7 @@
 
 #import "JBEntity.h"
 
-@protocol VPMediaHandle <NSObject>
+@protocol HLMediaHandle <NSObject>
 
 
 -(NSString*)getFilename;

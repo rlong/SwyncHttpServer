@@ -8,14 +8,14 @@
 
 #import "JBStreamEntity.h"
 
-#import "VPFileMediaHandle.h"
+#import "HLFileMediaHandle.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-@interface VPFileMediaHandle ()
+@interface HLFileMediaHandle ()
 
 // contentSource
 //NSURL* _contentSource;
@@ -49,7 +49,7 @@
 
 
 
-@implementation VPFileMediaHandle
+@implementation HLFileMediaHandle
 
 
 -(unsigned long long)getContentLength {
@@ -100,7 +100,7 @@
 
 -(id)initWithContentSource:(NSURL*)contentSource contentLength:(unsigned long long)contentLength mimeType:(NSString*)mimeType filename:(NSString*)filename {
     
-    VPFileMediaHandle* answer = [super init];
+    HLFileMediaHandle* answer = [super init];
     
     if( nil != answer ) {
         
@@ -109,7 +109,7 @@
         [answer setMimeType:mimeType];
         [answer setFilename:filename];
         
-        NSString* uriSuffix = [VPFileMediaHandle uriSuffixForFilename:filename];
+        NSString* uriSuffix = [HLFileMediaHandle uriSuffixForFilename:filename];
         [answer setUriSuffix:uriSuffix];
     }
     

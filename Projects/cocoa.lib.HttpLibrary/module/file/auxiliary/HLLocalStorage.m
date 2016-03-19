@@ -7,7 +7,7 @@
 //
 
 #include <sys/xattr.h>
-#include <UIKit/UIKit.h> // for 'UIDevice' below
+// #include <UIKit/UIKit.h> // for 'UIDevice' below
 
 
 #import "JBBaseException.h"
@@ -17,14 +17,14 @@
 #import "JBMemoryModel.h"
 #import "JBNetworkUtilities.h"
 
-#import "VPFileMediaHandle.h"
-#import "VPMediaHandleSet.h"
+#import "HLFileMediaHandle.h"
+#import "HLMediaHandleSet.h"
 
 #import "HLGetFileRequestHandler.h"
 #import "HLStorageManagerHelper.h"
 
-#import "VPLocalStorage.h"
-#import "VPStorageSelectConductorHelper.h"
+#import "HLLocalStorage.h"
+#import "HLStorageSelectConductorHelper.h"
 
 #import "HLFileService.h"
 
@@ -32,7 +32,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-@interface VPLocalStorage ()
+@interface HLLocalStorage ()
 
 // storagePath
 //NSString* _storagePath;
@@ -52,7 +52,7 @@
 // and "App Backup Best Practices" in `iPhoneAppProgrammingGuide` ( /Volumes/shared-disk/document-library/information-technology/apple.ios/iPhoneAppProgrammingGuide.2013-01-28.pdf)
 // and http://developer.apple.com/library/mac/#documentation/FileManagement/Conceptual/FileSystemProgrammingGUide/FileSystemOverview/FileSystemOverview.html
 // and http://www.marco.org/2011/10/13/ios5-caches-cleaning
-@implementation VPLocalStorage
+@implementation HLLocalStorage
 
 
 
@@ -313,7 +313,7 @@
     
 }
 
--(VPFileMediaHandle*)mediaHandleWithFilename:(NSString*)filename mimeType:(NSString*)mimeType {
+-(HLFileMediaHandle*)mediaHandleWithFilename:(NSString*)filename mimeType:(NSString*)mimeType {
     
     
     NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
@@ -321,13 +321,13 @@
     NSString* fullPath = [parentFolder stringByAppendingPathComponent:filename];
     NSURL* url = [NSURL fileURLWithPath:fullPath];
     uint64_t contentLength = [JBFileUtilities getFileLength:fullPath];
-    VPFileMediaHandle* answer = [[VPFileMediaHandle alloc] initWithContentSource:url contentLength:contentLength mimeType:mimeType filename:filename];
+    HLFileMediaHandle* answer = [[HLFileMediaHandle alloc] initWithContentSource:url contentLength:contentLength mimeType:mimeType filename:filename];
     
     return answer;
     
 }
 
--(VPFileMediaHandle*)mediaHandleWithFilename:(NSString*)filename {
+-(HLFileMediaHandle*)mediaHandleWithFilename:(NSString*)filename {
     
     return [self mediaHandleWithFilename:filename mimeType:nil];
     
@@ -416,7 +416,7 @@
 
 
 
--(VPMediaHandleSet*)toMediaHandleSetWithFiles:(NSArray*)files {
+-(HLMediaHandleSet*)toMediaHandleSetWithFiles:(NSArray*)files {
     
 //    NSString* urlTemplate;
 //    {
@@ -429,7 +429,7 @@
 //        
 //    }
     
-    VPMediaHandleSet* answer;
+    HLMediaHandleSet* answer;
     {
         NSMutableArray* mediaHandleArray = [[NSMutableArray alloc] init];
         
@@ -438,15 +438,15 @@
             HLFile* file = [files objectAtIndex:i];
             
             NSString* filename = [file getName];
-            NSString* contentType = [VPStorageSelectConductorHelper getContentTypeForLocalStorageFilename:filename];
+            NSString* contentType = [HLStorageSelectConductorHelper getContentTypeForLocalStorageFilename:filename];
 
-            VPFileMediaHandle* mediaHandle = [self mediaHandleWithFilename:filename mimeType:contentType];
+            HLFileMediaHandle* mediaHandle = [self mediaHandleWithFilename:filename mimeType:contentType];
             [mediaHandleArray addObject:mediaHandle];
 
         }
 
 
-        answer = [[VPMediaHandleSet alloc] initWithMediaHandles:mediaHandleArray];
+        answer = [[HLMediaHandleSet alloc] initWithMediaHandles:mediaHandleArray];
 
     }
     return answer;
@@ -457,9 +457,9 @@
 
 
 
--(VPMediaHandleSet*)toMediaHandleSet {
+-(HLMediaHandleSet*)toMediaHandleSet {
     
-    VPMediaHandleSet* answer;
+    HLMediaHandleSet* answer;
     
     NSString* fileSystemPath = [JBFolderUtilities getDocumentDirectory];
     

@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 HexBeerium. All rights reserved.
 //
 
-#import "VPMediaHandleSet.h"
+#import "HLMediaHandleSet.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-@interface VPMediaHandleSet ()
+@interface HLMediaHandleSet ()
 
 
 // handles
@@ -22,7 +22,7 @@
 
 // currentHandle
 //AVMediaHandle* _currentHandle;
-@property (nonatomic, retain) id<VPMediaHandle> currentHandle;
+@property (nonatomic, retain) id<HLMediaHandle> currentHandle;
 //@synthesize currentHandle = _currentHandle;
 
 @end
@@ -32,13 +32,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
 
-@implementation VPMediaHandleSet
+@implementation HLMediaHandleSet
 
-static VPMediaHandleSet* _EMPTY_MEDIA_HANDLE_SET = nil;
+static HLMediaHandleSet* _EMPTY_MEDIA_HANDLE_SET = nil;
 
 +(void)initialize {
     
-    _EMPTY_MEDIA_HANDLE_SET = [[VPMediaHandleSet alloc] init];
+    _EMPTY_MEDIA_HANDLE_SET = [[HLMediaHandleSet alloc] init];
 	
 }
 
@@ -52,15 +52,15 @@ static VPMediaHandleSet* _EMPTY_MEDIA_HANDLE_SET = nil;
     return [_handles count];
 }
 
--(id<VPMediaHandle>)getHandleAtIndex:(NSUInteger)index {
+-(id<HLMediaHandle>)getHandleAtIndex:(NSUInteger)index {
     
-    return (id<VPMediaHandle>)[_handles objectAtIndex:index];
+    return (id<HLMediaHandle>)[_handles objectAtIndex:index];
     
 }
 
 
 // will return nil, if the suffix is not found
--(id<VPMediaHandle>)getHandleWithUri:(NSString*)uri {
+-(id<HLMediaHandle>)getHandleWithUri:(NSString*)uri {
     
     @synchronized(self) {
         
@@ -76,7 +76,7 @@ static VPMediaHandleSet* _EMPTY_MEDIA_HANDLE_SET = nil;
     
     for( NSUInteger i = 0, count = [_handles count]; i < count; i++ ) {
         
-        id<VPMediaHandle> candidate = (id<VPMediaHandle>)[_handles objectAtIndex:i];
+        id<HLMediaHandle> candidate = (id<HLMediaHandle>)[_handles objectAtIndex:i];
         
         NSString* candidateUriSuffix = [candidate uriSuffix];
         NSRange range = [uri rangeOfString:candidateUriSuffix];
@@ -100,7 +100,7 @@ static VPMediaHandleSet* _EMPTY_MEDIA_HANDLE_SET = nil;
 
 -(id)init {
     
-    VPMediaHandleSet* answer = [super init];
+    HLMediaHandleSet* answer = [super init];
     
     
     if( nil != answer ) {
@@ -116,9 +116,9 @@ static VPMediaHandleSet* _EMPTY_MEDIA_HANDLE_SET = nil;
 
 
 
--(id)initWithMediaHandle:(id<VPMediaHandle>)mediaHandle {
+-(id)initWithMediaHandle:(id<HLMediaHandle>)mediaHandle {
     
-    VPMediaHandleSet* answer = [super init];
+    HLMediaHandleSet* answer = [super init];
     
     if( nil != answer ) {
         
@@ -134,7 +134,7 @@ static VPMediaHandleSet* _EMPTY_MEDIA_HANDLE_SET = nil;
 
 -(id)initWithMediaHandles:(NSArray*)mediaHandles {
 
-    VPMediaHandleSet* answer = [super init];
+    HLMediaHandleSet* answer = [super init];
     
     if( nil != answer ) {
         

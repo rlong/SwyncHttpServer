@@ -16,10 +16,10 @@
 
 #import "HLGetFileRequestHandler.h"
 #import "HLGetFileService.h"
-#import "VPLocalStorage.h"
+#import "HLLocalStorage.h"
 #import "HLCommonObjects.h"
-#import "VPMediaHandle.h"
-#import "VPMediaHandleSet.h"
+#import "HLMediaHandle.h"
+#import "HLMediaHandleSet.h"
 #import "HLHostnameUtilities.h"
 
 @implementation HLGetFileService
@@ -51,12 +51,12 @@ static JBServiceDescription* _SERVICE_DESCRIPTION = nil;
     JBJsonArray* answer = [[JBJsonArray alloc] init];
     
     
-    VPLocalStorage* localStorage = [HLCommonObjects localStorage];
-    VPMediaHandleSet* mediaHandles = [localStorage toMediaHandleSet];
+    HLLocalStorage* localStorage = [HLCommonObjects localStorage];
+    HLMediaHandleSet* mediaHandles = [localStorage toMediaHandleSet];
     
     for( NSUInteger i = 0, count = [mediaHandles getHandleCount]; i < count; i++ ) {
         
-        id<VPMediaHandle> mediaHandle = [mediaHandles getHandleAtIndex:i];
+        id<HLMediaHandle> mediaHandle = [mediaHandles getHandleAtIndex:i];
         
         NSString* filename = [mediaHandle getFilename];
         unsigned long long filesize = [mediaHandle getContentLength];

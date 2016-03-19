@@ -521,14 +521,13 @@ static NSString* _SORT_BY_SIZE = @"size";
             
             // vvv https://developer.apple.com/carbon/tipsandtricks.html#CFStringFromUnicode
             
-            NSString* volNameString = (NSString*)CFStringCreateWithCharacters( kCFAllocatorDefault, volName.unicode, volName.length );
-            [volNameString autorelease];
+            NSString* volNameString = (NSString*)CFBridgingRelease(CFStringCreateWithCharacters( kCFAllocatorDefault, volName.unicode, volName.length ));
             
             // ^^^ https://developer.apple.com/carbon/tipsandtricks.html#CFStringFromUnicode
             
             // vvv http://stackoverflow.com/questions/2033077/cocoa-objective-c-for-os-x-get-volume-mount-point-from-path
             
-            NSURL *url = [(NSURL *)CFURLCreateFromFSRef(NULL, &volumeFSRef) autorelease];
+            NSURL *url = (NSURL *)CFBridgingRelease(CFURLCreateFromFSRef(NULL, &volumeFSRef));
             NSString *path = [url path];
             
             // ^^^ http://stackoverflow.com/questions/2033077/cocoa-objective-c-for-os-x-get-volume-mount-point-from-path
