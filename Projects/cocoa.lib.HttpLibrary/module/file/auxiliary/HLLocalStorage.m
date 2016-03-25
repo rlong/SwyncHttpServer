@@ -10,6 +10,8 @@
 // #include <UIKit/UIKit.h> // for 'UIDevice' below
 
 
+#import "CAFile.h"
+
 #import "JBBaseException.h"
 #import "JBFileUtilities.h"
 #import "JBFolderUtilities.h"
@@ -435,7 +437,7 @@
         
         for( NSUInteger i = 0, count = [files count]; i < count; i++ ) {
             
-            HLFile* file = [files objectAtIndex:i];
+            CAFile* file = [files objectAtIndex:i];
             
             NSString* filename = [file getName];
             NSString* contentType = [HLStorageSelectConductorHelper getContentTypeForLocalStorageFilename:filename];

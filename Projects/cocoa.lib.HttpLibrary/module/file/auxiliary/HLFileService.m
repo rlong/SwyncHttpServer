@@ -6,6 +6,8 @@
 //  Copyright 2011 HexBeerium. All rights reserved.
 //
 
+#import "CAFile.h"
+
 #import "JBBaseException.h"
 #import "JBJsonObject.h"
 #import "JBLog.h"
@@ -15,7 +17,6 @@
 #import "HLFileService.h"
 #import "HLFileServiceErrorCodes.h"
 #import "HLPullFile.h"
-#import "HLFile.h"
 #import "HLFileServiceConstants.h"
 #import "HLFileSorters.h"
 #import "HLPullFile.h"
@@ -89,7 +90,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     return _SORT_BY_SIZE;
 }
 
-+(BOOL)fileIsBlacklisted:(HLFile*)candidate {
++(BOOL)fileIsBlacklisted:(CAFile*)candidate {
     
     NSString* candidateName = [[candidate getName] lowercaseString];
     
@@ -106,7 +107,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 
 -(JBJsonObject*)beginPush:(NSString*)filePath fileLength:(long)fileLength { 
     
-    HLFile* taHLet = [[HLFile alloc] initWithPathname:filePath];
+    CAFile* taHLet = [[CAFile alloc] initWithPathname:filePath];
     
     if( [HLFileService fileIsBlacklisted:taHLet] ) { 
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; filePath = '%@'", filePath];
@@ -136,7 +137,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 
 -(JBJsonObject*)beginPull:(NSString*)filePath {
     
-    HLFile* taHLet = [[HLFile alloc] initWithPathname:filePath];
+    CAFile* taHLet = [[CAFile alloc] initWithPathname:filePath];
     
     {
         
@@ -186,7 +187,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 -(JBJsonObject*)resumePush:(NSString*)transactionId filePath:(NSString*)filePath fileLength:(long)fileLength {
     
     
-    HLFile* taHLet = [[HLFile alloc] initWithPathname:filePath];
+    CAFile* taHLet = [[CAFile alloc] initWithPathname:filePath];
     
     if( [HLFileService fileIsBlacklisted:taHLet] ) { 
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; filePath = '%@'", filePath];
@@ -223,7 +224,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 
 -(JBJsonObject*)getFileInfo:(NSString*)filePath {
     
-    HLFile* taHLet = [[HLFile alloc] initWithPathname:filePath];
+    CAFile* taHLet = [[CAFile alloc] initWithPathname:filePath];
     
     if( [HLFileService fileIsBlacklisted:taHLet] ) { 
         BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; filePath = '%@'", filePath];
@@ -257,15 +258,15 @@ static NSString* _SORT_BY_SIZE = @"size";
 
 
 // can return nil
--(HLFile*)getComputer {
+-(CAFile*)getComputer {
     
-    HLFile* answer = [[HLFile alloc] initWithPathname:@"/"];
+    CAFile* answer = [[CAFile alloc] initWithPathname:@"/"];
     return answer;
     
 }
 
 // can return nil
--(HLFile*)getDesktop {
+-(CAFile*)getDesktop {
         
     NSArray* paths =  NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES);
     
@@ -275,7 +276,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     NSString* desktopPath = [paths objectAtIndex:0];
     
-    HLFile* answer = [[HLFile alloc] initWithPathname:desktopPath];
+    CAFile* answer = [[CAFile alloc] initWithPathname:desktopPath];
     return answer;
     
     
@@ -284,7 +285,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 
 
 // can return nil
--(HLFile*)getDocuments {
+-(CAFile*)getDocuments {
     
     NSArray* paths =  NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
@@ -293,7 +294,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     }
     
     NSString* documentsPath = [paths objectAtIndex:0];
-    HLFile* answer = [[HLFile alloc] initWithPathname:documentsPath];
+    CAFile* answer = [[CAFile alloc] initWithPathname:documentsPath];
     return answer;
 
 
@@ -302,7 +303,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 
 
 // can return nil
--(HLFile*)getDownloads {
+-(CAFile*)getDownloads {
 
     NSArray* paths =  NSSearchPathForDirectoriesInDomains(NSDownloadsDirectory, NSUserDomainMask, YES);
     
@@ -312,18 +313,18 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     NSString* downloadsPath = [paths objectAtIndex:0];
     
-    HLFile* answer = [[HLFile alloc] initWithPathname:downloadsPath];
+    CAFile* answer = [[CAFile alloc] initWithPathname:downloadsPath];
     return answer;
     
 }
 
 // can return nil
--(HLFile*)getHome {
+-(CAFile*)getHome {
 
     
     NSString* homeDirectory = NSHomeDirectory();
     
-    HLFile* answer = [[HLFile alloc] initWithPathname:homeDirectory];
+    CAFile* answer = [[CAFile alloc] initWithPathname:homeDirectory];
     return answer;
 
 
@@ -331,7 +332,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 }
 
 // can return nil
--(HLFile*)getMusic {
+-(CAFile*)getMusic {
 
     NSArray* paths =  NSSearchPathForDirectoriesInDomains(NSMusicDirectory, NSUserDomainMask, YES);
     
@@ -341,7 +342,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     NSString* musicPath = [paths objectAtIndex:0];
     
-    HLFile* answer = [[HLFile alloc] initWithPathname:musicPath];
+    CAFile* answer = [[CAFile alloc] initWithPathname:musicPath];
     return answer;
 
     
@@ -349,7 +350,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 
 
 // can return nil
--(HLFile*)getVideos {
+-(CAFile*)getVideos {
     
     NSArray* paths =  NSSearchPathForDirectoriesInDomains(NSMoviesDirectory, NSUserDomainMask, YES);
     
@@ -359,7 +360,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 
     NSString* moviesPath = [paths objectAtIndex:0];
     
-    HLFile* answer = [[HLFile alloc] initWithPathname:moviesPath];
+    CAFile* answer = [[CAFile alloc] initWithPathname:moviesPath];
     return answer;
     
 }
@@ -389,7 +390,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 }
 
 // tag can be nil
--(JBJsonObject*)toRootFileInfo:(HLFile*)file tag:(NSString*)tag { 
+-(JBJsonObject*)toRootFileInfo:(CAFile*)file tag:(NSString*)tag {
     
     return [self toRootFileInfoForName:[file getName] path:[file getPath] tag:tag];
 
@@ -404,7 +405,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     // 'computer' folder ...
     {
-        HLFile* computer = [self getComputer];
+        CAFile* computer = [self getComputer];
         if( nil != computer ) { 
             JBJsonObject* computerInfo = [self toRootFileInfo:computer tag:@"computer"];
             [answer add:computerInfo];
@@ -414,7 +415,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     // 'home' folder 
     {
-        HLFile* homeFolder = [self getHome];
+        CAFile* homeFolder = [self getHome];
         if( nil != homeFolder ) { 
             JBJsonObject* homeInfo = [self toRootFileInfo:homeFolder tag:@"home"];
             [answer add:homeInfo];
@@ -423,7 +424,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     // desktop folder ...
     {
-        HLFile* desktop = [self getDesktop];
+        CAFile* desktop = [self getDesktop];
         if( nil != desktop ) { 
             JBJsonObject* desktopInfo = [self toRootFileInfo:desktop tag:@"desktop"];
             [answer add:desktopInfo];                                
@@ -433,7 +434,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     // Documents ...
     {
-        HLFile* documents = [self getDocuments];
+        CAFile* documents = [self getDocuments];
         if( nil != documents )  {
             JBJsonObject* documentsInfo = [self toRootFileInfo:documents tag:@"documents"];
             [answer add:documentsInfo];
@@ -442,7 +443,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     // Downloads
     {
-        HLFile* downloads = [self getDownloads];
+        CAFile* downloads = [self getDownloads];
         if( nil != downloads ) { 
             JBJsonObject* downloadsInfo = [self toRootFileInfo:downloads tag:@"downloads"];
             [answer add:downloadsInfo];
@@ -451,7 +452,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     // Music 
     {
-        HLFile* music = [self getMusic];
+        CAFile* music = [self getMusic];
         if( nil != music ) { 
             JBJsonObject* musicInfo = [self toRootFileInfo:music tag:@"music"];
             [answer add:musicInfo];
@@ -460,7 +461,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     // Video
     {
-        HLFile* videos = [self getVideos];
+        CAFile* videos = [self getVideos];
         if( nil != videos ) { 
             JBJsonObject* videosInfo = [self toRootFileInfo:videos tag:@"videos"];
             [answer add:videosInfo];
@@ -578,7 +579,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 
     for( NSString* directoryEntry in contentsOfDirectory ) { 
         
-        HLFile* file = [[HLFile alloc] initWithParentPathname:path child:directoryEntry];
+        CAFile* file = [[CAFile alloc] initWithParentPathname:path child:directoryEntry];
         {
             if( ![HLFileService fileIsBlacklisted:file] ) {
                 
@@ -643,7 +644,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 -(JBJsonObject*)listFolderPath:(NSString*)folderPath sort:(NSString*)sort ascending:(BOOL)ascending { 
     
     
-    HLFile* taHLet = [[HLFile alloc] initWithPathname:folderPath];
+    CAFile* taHLet = [[CAFile alloc] initWithPathname:folderPath];
     
     // validate ... 
     {
@@ -714,11 +715,11 @@ static NSString* _SORT_BY_SIZE = @"size";
             
             [HLFileService listPath:[taHLet getPath] files:files folders:folders sort:sort ascending:ascending];
             
-            for( HLFile* file in files ) {
+            for( CAFile* file in files ) {
                 [jsonFiles add:[file getName]];
             }
             
-            for( HLFile* folder in folders ) { 
+            for( CAFile* folder in folders ) {
                 [jsonFolders add:[folder getName]];
             }
 
@@ -727,6 +728,12 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     return answer;
 
+}
+
+
+
+-(void)ping {
+    Log_enteredMethod();
 }
 
 
@@ -806,8 +813,8 @@ static NSString* _SORT_BY_SIZE = @"size";
 
         JBJsonObject* associativeParamaters = [request associativeParamaters];
         NSString* folderPath = [HLFilePathUtilities getFolderPath:associativeParamaters];
-        NSString* sort = [associativeParamaters stringForKey:@"sortBy"];
-        bool ascending = [associativeParamaters boolForKey:@"ascendingOrder"];
+        NSString* sort = [associativeParamaters stringForKey:@"sortBy" defaultValue:[HLFileService SORT_BY_NAME]];
+        bool ascending = [associativeParamaters boolForKey:@"ascendingOrder" defaultValue:true];
         
         JBJsonObject* listing = [self listFolderPath:folderPath sort:sort ascending:ascending];
         
@@ -840,6 +847,15 @@ static NSString* _SORT_BY_SIZE = @"size";
         return answer;
         
     }
+    
+    if( [@"ping" isEqualToString:methodName] ) {
+        
+        [self ping];
+        
+        return [JBBrokerMessage buildResponse:request];
+        
+    }
+
     
     if( [@"resumePush" isEqualToString:methodName] ) { 
         

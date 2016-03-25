@@ -8,14 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "HLFile.h"
-
+@class CAFile;
 @class HLFileTransaction;
 
 @protocol FileTransactionDelegate <NSObject>
 
 
--(HLFile*)getTarget;
+-(CAFile*)getTarget;
 
 -(void)abort:(HLFileTransaction*)fileJob;
 -(void)commit:(HLFileTransaction*)fileJob;

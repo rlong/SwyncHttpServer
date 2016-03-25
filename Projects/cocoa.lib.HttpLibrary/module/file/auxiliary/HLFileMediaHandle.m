@@ -51,6 +51,38 @@
 
 @implementation HLFileMediaHandle
 
+#pragma mark - instance lifecycle
+
+-(id)initWithContentSource:(NSURL*)contentSource contentLength:(unsigned long long)contentLength mimeType:(NSString*)mimeType filename:(NSString*)filename {
+    
+    HLFileMediaHandle* answer = [super init];
+    
+    if( nil != answer ) {
+        
+        [answer setContentSource:contentSource];
+        [answer setContentLength:contentLength];
+        [answer setMimeType:mimeType];
+        [answer setFilename:filename];
+        
+        NSString* uriSuffix = [HLFileMediaHandle uriSuffixForFilename:filename];
+        [answer setUriSuffix:uriSuffix];
+    }
+    
+    return answer;
+}
+
+-(void)dealloc {
+    
+    [self setContentSource:nil];
+    [self setMimeType:nil];
+    [self setFilename:nil];
+    [self setUriSuffix:nil];
+    
+    
+}
+
+#pragma mark -
+
 
 -(unsigned long long)getContentLength {
     return _contentLength;
@@ -95,39 +127,9 @@
 }
 
 
-#pragma mark -
-#pragma mark instance lifecycle
 
--(id)initWithContentSource:(NSURL*)contentSource contentLength:(unsigned long long)contentLength mimeType:(NSString*)mimeType filename:(NSString*)filename {
-    
-    HLFileMediaHandle* answer = [super init];
-    
-    if( nil != answer ) {
-        
-        [answer setContentSource:contentSource];
-        [answer setContentLength:contentLength];
-        [answer setMimeType:mimeType];
-        [answer setFilename:filename];
-        
-        NSString* uriSuffix = [HLFileMediaHandle uriSuffixForFilename:filename];
-        [answer setUriSuffix:uriSuffix];
-    }
-    
-    return answer;
-}
 
--(void)dealloc {
-	
-    [self setContentSource:nil];
-	[self setMimeType:nil];
-    [self setFilename:nil];
-	[self setUriSuffix:nil];
-
-	
-}
-
-#pragma mark -
-#pragma mark fields
+#pragma mark - fields
 
 
 // contentSource

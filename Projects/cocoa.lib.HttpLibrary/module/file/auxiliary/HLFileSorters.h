@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-#import "HLFile.h"
+#import "CAFile.h"
 
 
-NSInteger HLFileSorters_sortByAgeAscending( HLFile* f1, HLFile* f2, void *context);
-NSInteger HLFileSorters_sortByAgeDescending( HLFile* f1, HLFile* f2, void *context);
+NSInteger HLFileSorters_sortByAgeAscending( CAFile* f1, CAFile* f2, void *context);
+NSInteger HLFileSorters_sortByAgeDescending( CAFile* f1, CAFile* f2, void *context);
 
-NSInteger HLFileSorters_sortByNameAscending( HLFile* f1, HLFile* f2, void *context);
-NSInteger HLFileSorters_sortByNameDescending( HLFile* f1, HLFile* f2, void *context);
+NSInteger HLFileSorters_sortByNameAscending( CAFile* f1, CAFile* f2, void *context);
+NSInteger HLFileSorters_sortByNameDescending( CAFile* f1, CAFile* f2, void *context);
 
-NSInteger HLFileSorters_sortBySizeAscending( HLFile* f1, HLFile* f2, void *context);
-NSInteger HLFileSorters_sortBySizeDescending( HLFile* f1, HLFile* f2, void *context);
+NSInteger HLFileSorters_sortBySizeAscending( CAFile* f1, CAFile* f2, void *context);
+NSInteger HLFileSorters_sortBySizeDescending( CAFile* f1, CAFile* f2, void *context);

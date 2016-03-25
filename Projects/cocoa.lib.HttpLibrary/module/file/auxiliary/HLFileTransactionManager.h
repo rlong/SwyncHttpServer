@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class CAFile;
 #import "HLFileTransaction.h"
 #import "FileTransactionDelegate.h"
 #import "HLPushFile.h"
@@ -30,7 +31,7 @@
 -(BOOL)hasTransaction:(NSString*)transactionId;
 
 -(void)abort:(NSString*)transactionId;
--(void)abortTransactions:(HLFile*)taHLet;
+-(void)abortTransactions:(CAFile*)taHLet;
 
 -(void)commit:(NSString*)transactionId;
 

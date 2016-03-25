@@ -162,7 +162,7 @@ static NSCharacterSet* _dotCharacterSet = nil;
 
 
 
-NSInteger HLFileSorters_sortByAgeAscending( HLFile* f1, HLFile* f2, void *context) {
+NSInteger HLFileSorters_sortByAgeAscending( CAFile* f1, CAFile* f2, void *context) {
     
     NSDate* date1 = [f1 getModificationDate];
     NSDate* date2 = [f2 getModificationDate];
@@ -171,7 +171,7 @@ NSInteger HLFileSorters_sortByAgeAscending( HLFile* f1, HLFile* f2, void *contex
     
 }
 
-NSInteger HLFileSorters_sortByAgeDescending( HLFile* f1, HLFile* f2, void *context) {
+NSInteger HLFileSorters_sortByAgeDescending( CAFile* f1, CAFile* f2, void *context) {
     
     NSDate* date1 = [f1 getModificationDate];
     NSDate* date2 = [f2 getModificationDate];
@@ -181,7 +181,7 @@ NSInteger HLFileSorters_sortByAgeDescending( HLFile* f1, HLFile* f2, void *conte
 }
 
 
-NSInteger HLFileSorters_sortByNameAscending( HLFile* f1, HLFile* f2, void *context){
+NSInteger HLFileSorters_sortByNameAscending( CAFile* f1, CAFile* f2, void *context){
     
     
     NSString* name1 = [f1 getName];
@@ -191,7 +191,7 @@ NSInteger HLFileSorters_sortByNameAscending( HLFile* f1, HLFile* f2, void *conte
 }
 
 
-NSInteger HLFileSorters_sortByNameDescending( HLFile* f1, HLFile* f2, void *context){
+NSInteger HLFileSorters_sortByNameDescending( CAFile* f1, CAFile* f2, void *context){
     
     
     NSString* name1 = [f1 getName];
@@ -202,7 +202,7 @@ NSInteger HLFileSorters_sortByNameDescending( HLFile* f1, HLFile* f2, void *cont
 }
 
 
-NSInteger HLFileSorters_sortBySizeAscending( HLFile* f1, HLFile* f2, void *context){
+NSInteger HLFileSorters_sortBySizeAscending( CAFile* f1, CAFile* f2, void *context){
     
 //    NSNumber* size1 = [f1 getSize];
 //    NSNumber* size2 = [f2 getSize];
@@ -224,7 +224,7 @@ NSInteger HLFileSorters_sortBySizeAscending( HLFile* f1, HLFile* f2, void *conte
     
 }
 
-NSInteger HLFileSorters_sortBySizeDescending( HLFile* f1, HLFile* f2, void *context){
+NSInteger HLFileSorters_sortBySizeDescending( CAFile* f1, CAFile* f2, void *context){
     
 //    NSNumber* size1 = [f1 getSize];
 //    NSNumber* size2 = [f2 getSize];

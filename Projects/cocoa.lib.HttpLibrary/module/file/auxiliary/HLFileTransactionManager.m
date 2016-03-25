@@ -6,10 +6,12 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "CAFile.h"
+#import "CALog.h"
+
 #import "JBBaseException.h"
 #import "HLFileTransactionManager.h"
 #import "HLFileServiceErrorCodes.h"
-#import "JBLog.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -82,13 +84,13 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
     
     // if another transactionid is active for the same file, then fail
     {
-        HLFile* taHLet = [pushFile getTarget];
+        CAFile* taHLet = [pushFile getTarget];
         NSString* taHLetAbsolutePath = [taHLet getAbsolutePath];
         
         for( NSString* activeTransactionId in _activeTransactions ) {
             
             HLFileTransaction* activeJob = [_activeTransactions objectForKey:activeTransactionId];
-            HLFile* activeTarget = [[activeJob getDelegate] getTarget];
+            CAFile* activeTarget = [[activeJob getDelegate] getTarget];
             if( [taHLetAbsolutePath isEqualToString:[activeTarget getAbsolutePath]] ) {
                 BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[taHLetAbsolutePath isEqualToString:[activeTaHLet getAbsolutePath]]; taHLetAbsolutePath = '%@'", taHLetAbsolutePath];
                 [e setFaultCode:_PUSH_FILE_ALREADY_ACTIVE];
@@ -143,7 +145,7 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
     
 }
 
--(void)abortTransactions:(HLFile*)taHLet {
+-(void)abortTransactions:(CAFile*)taHLet {
     
     
     NSMutableArray* transactionsToAbort = [[NSMutableArray alloc] init];
@@ -154,7 +156,7 @@ static int _PUSH_FILE_ALREADY_ACTIVE;
     for( NSString* activeTransactionId in _activeTransactions ) {
         
         HLFileTransaction* activeTransaction = [_activeTransactions objectForKey:activeTransactionId];
-        HLFile* activeTransactionTaHLet = [[activeTransaction getDelegate] getTarget];
+        CAFile* activeTransactionTaHLet = [[activeTransaction getDelegate] getTarget];
         
         if( [taHLetAbsolutePath isEqualToString:[activeTransactionTaHLet getAbsolutePath]] ) { 
             [transactionsToAbort addObject:activeTransactionId];

@@ -10,18 +10,18 @@
 
 
 #import "FileTransactionDelegate.h"
-#import "HLFile.h"
+#import "CAFile.h"
 
 @interface HLPushFile : NSObject <FileTransactionDelegate> {
     
     
     // target
-	HLFile* _target;
+	CAFile* _target;
 	//@property (nonatomic, retain) HLFile* target;
 	//@synthesize target = _target;
     
     // partialContent
-	HLFile* _partialContent;
+	CAFile* _partialContent;
 	//@property (nonatomic, retain) HLFile* partialContent;
 	//@synthesize partialContent = _partialContent;
     

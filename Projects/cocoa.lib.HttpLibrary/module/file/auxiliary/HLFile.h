@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+
+__attribute__ ((deprecated)) // 2016-03-25 use CAFile
 @interface HLFile : NSObject {
 
     // fileManager

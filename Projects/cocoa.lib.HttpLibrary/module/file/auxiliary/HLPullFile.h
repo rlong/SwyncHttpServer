@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 
 #import "FileTransactionDelegate.h"
-#import "HLFile.h"
+#import "CAFile.h"
 
 @interface HLPullFile : NSObject <FileTransactionDelegate> {
 
     // target
-    HLFile* _target;
+    CAFile* _target;
     //@property (nonatomic, retain) HLFile* target;
     //@synthesize target = _target;
 
@@ -26,6 +26,6 @@
 
 #pragma mark instance lifecycle
 
--(id)initWithTarget:(HLFile*)target;
+-(id)initWithTarget:(CAFile*)target;
 
 @end

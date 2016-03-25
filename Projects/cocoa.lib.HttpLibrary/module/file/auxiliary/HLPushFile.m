@@ -7,6 +7,7 @@
 //
 
 
+#import "CAFile.h"
 
 #import "JBBaseException.h"
 #import "JBInputStreamHelper.h"
@@ -26,13 +27,13 @@
 
 // target
 //HLFile* _target;
-@property (nonatomic, retain) HLFile* target;
+@property (nonatomic, retain) CAFile* target;
 //@synthesize target = _target;
 
 
 // partialContent
 //HLFile* _partialContent;
-@property (nonatomic, retain) HLFile* partialContent;
+@property (nonatomic, retain) CAFile* partialContent;
 //@synthesize partialContent = _partialContent;
 
 
@@ -85,7 +86,7 @@ static int _RENAME_ON_COMMIT_FAILED;
 
 #pragma mark <FileJobDelegate> implementation 
 
--(HLFile*)getTarget {
+-(CAFile*)getTarget {
     return _target;
 }
 
@@ -139,11 +140,11 @@ static int _RENAME_ON_COMMIT_FAILED;
     
     if( nil != answer ) {
         
-        answer->_target = [[HLFile alloc] initWithPathname:filePath];
+        answer->_target = [[CAFile alloc] initWithPathname:filePath];
         answer->_fileLength = fileLength;
         
         NSString* partialContentFilename = [filePath stringByAppendingString:@".partial_content"];
-        answer->_partialContent = [[HLFile alloc] initWithPathname:partialContentFilename];
+        answer->_partialContent = [[CAFile alloc] initWithPathname:partialContentFilename];
         
         if( resume ) { 
             if( ![answer->_partialContent exists] ) { 
