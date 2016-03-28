@@ -49,7 +49,7 @@ static NSString* _FOLDER_PATH = @"folderPath";
 
 
 // 'filePath' || ('parentFolderPath' && 'fileName')
-+(NSString*)getFilePath:(JBJsonObject*)jsonObject {
++(NSString*)getFilePath:(CAJsonObject*)jsonObject {
     
     NSString* answer = [jsonObject stringForKey:_FILE_PATH defaultValue:nil];
     if( nil != answer ) { 
@@ -74,7 +74,7 @@ static NSString* _FOLDER_PATH = @"folderPath";
 
 
 // 'folderPath' || ('parentFolderPath' && 'folderName')
-+(NSString*)getFolderPath:(JBJsonObject*)jsonObject {
++(NSString*)getFolderPath:(CAJsonObject*)jsonObject {
 
     NSString* answer = [jsonObject stringForKey:_FOLDER_PATH defaultValue:nil];
     if( nil != answer ) { 

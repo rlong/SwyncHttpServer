@@ -8,10 +8,9 @@
 
 #import "CAFile.h"
 
-#import "JBBaseException.h"
-#import "JBJsonObject.h"
-#import "JBLog.h"
-#import "JBServiceHelper.h"
+#import "CABaseException.h"
+#import "CAJsonObject.h"
+#import "CALog.h"
 
 #import "HLFilePathUtilities.h"
 #import "HLFileService.h"
@@ -20,6 +19,7 @@
 #import "HLFileServiceConstants.h"
 #import "HLFileSorters.h"
 #import "HLPullFile.h"
+#import "HLServiceHelper.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@
 @implementation HLFileService
 
 
-static JBServiceDescription* _SERVICE_DESCRIPTION = nil; 
+static HLServiceDescription* _SERVICE_DESCRIPTION = nil;
 
 
 static int _CANNOT_READ; 
@@ -62,7 +62,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 
 +(void)initialize {
     
-    _SERVICE_DESCRIPTION = [[JBServiceDescription alloc] initWithServiceName:[HLFileServiceConstants SERVICE_NAME]];
+    _SERVICE_DESCRIPTION = [[HLServiceDescription alloc] initWithServiceName:[HLFileServiceConstants SERVICE_NAME]];
 
     
     int baseErrorCode = [HLFileServiceErrorCodes getFileServiceErrorCode];
@@ -105,7 +105,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     return false;
 }
 
--(JBJsonObject*)beginPush:(NSString*)filePath fileLength:(long)fileLength { 
+-(CAJsonObject*)beginPush:(NSString*)filePath fileLength:(long)fileLength { 
     
     CAFile* taHLet = [[CAFile alloc] initWithPathname:filePath];
     
@@ -126,7 +126,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     HLPushFile* fileTransaction = [[HLPushFile alloc] initWithResume:false filePath:filePath fileLength:fileLength];
     
-    JBJsonObject* answer = [[JBJsonObject alloc] init];
+    CAJsonObject* answer = [[CAJsonObject alloc] init];
     NSString* transactionId = [_fileJobManager begin:fileTransaction];
     [answer setObject:transactionId forKey:[HLFileServiceConstants PULL_PUSH_TRANSACTION_ID]];
     return answer;
@@ -135,7 +135,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 }
 
 
--(JBJsonObject*)beginPull:(NSString*)filePath {
+-(CAJsonObject*)beginPull:(NSString*)filePath {
     
     CAFile* taHLet = [[CAFile alloc] initWithPathname:filePath];
     
@@ -168,7 +168,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     }
     
  
-    JBJsonObject* answer = [[JBJsonObject alloc] init];
+    CAJsonObject* answer = [[CAJsonObject alloc] init];
     
     HLPullFile* fileTransaction = [[HLPullFile alloc] initWithTarget:taHLet];
     //[fileTransaction autorelease];
@@ -184,7 +184,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 }
 
 
--(JBJsonObject*)resumePush:(NSString*)transactionId filePath:(NSString*)filePath fileLength:(long)fileLength {
+-(CAJsonObject*)resumePush:(NSString*)transactionId filePath:(NSString*)filePath fileLength:(long)fileLength {
     
     
     CAFile* taHLet = [[CAFile alloc] initWithPathname:filePath];
@@ -200,7 +200,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     [_fileJobManager resumeWithTransactionId:transactionId pushFile:fileTransaction];
     
-    JBJsonObject* answer = [[JBJsonObject alloc] init];
+    CAJsonObject* answer = [[CAJsonObject alloc] init];
 
     [answer setObject:transactionId forKey:[HLFileServiceConstants PULL_PUSH_TRANSACTION_ID]];
     [answer setLongLong:[fileTransaction getFileLength] forKey:[HLFileServiceConstants PULL_FILE_LENGTH]];
@@ -222,7 +222,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     
 }
 
--(JBJsonObject*)getFileInfo:(NSString*)filePath {
+-(CAJsonObject*)getFileInfo:(NSString*)filePath {
     
     CAFile* taHLet = [[CAFile alloc] initWithPathname:filePath];
     
@@ -232,7 +232,7 @@ static NSString* _SORT_BY_SIZE = @"size";
         @throw e;
     }
     
-    JBJsonObject* answer = [[JBJsonObject alloc] init];
+    CAJsonObject* answer = [[CAJsonObject alloc] init];
 
     [answer setBool:[taHLet exists] forKey:@"exists"];
     
@@ -367,17 +367,17 @@ static NSString* _SORT_BY_SIZE = @"size";
 
 
 // tag can be nil
--(JBJsonObject*)toRootFileInfoForName:(NSString*)name path:(NSString*)path tag:(NSString*)tag { 
+-(CAJsonObject*)toRootFileInfoForName:(NSString*)name path:(NSString*)path tag:(NSString*)tag { 
     
 
-    JBJsonObject* answer = [[JBJsonObject alloc] init];
+    CAJsonObject* answer = [[CAJsonObject alloc] init];
     
     [answer setObject:name forKey:@"name"];
     [answer setObject:path forKey:@"path"];
     
     if( nil != tag ) { 
         
-        JBJsonArray* tagsInfo = [[JBJsonArray alloc] init];        
+        CAJsonArray* tagsInfo = [[CAJsonArray alloc] init];        
         {
             [tagsInfo add:tag];
             [answer setObject:tagsInfo forKey:@"tags"];            
@@ -390,24 +390,24 @@ static NSString* _SORT_BY_SIZE = @"size";
 }
 
 // tag can be nil
--(JBJsonObject*)toRootFileInfo:(CAFile*)file tag:(NSString*)tag {
+-(CAJsonObject*)toRootFileInfo:(CAFile*)file tag:(NSString*)tag {
     
     return [self toRootFileInfoForName:[file getName] path:[file getPath] tag:tag];
 
 }
 
--(JBJsonArray*)listRootPlaces {
+-(CAJsonArray*)listRootPlaces {
     
     Log_enteredMethod();
     
-    JBJsonArray* answer = [[JBJsonArray alloc] init];
+    CAJsonArray* answer = [[CAJsonArray alloc] init];
 
     
     // 'computer' folder ...
     {
         CAFile* computer = [self getComputer];
         if( nil != computer ) { 
-            JBJsonObject* computerInfo = [self toRootFileInfo:computer tag:@"computer"];
+            CAJsonObject* computerInfo = [self toRootFileInfo:computer tag:@"computer"];
             [answer add:computerInfo];
             
         }
@@ -417,7 +417,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     {
         CAFile* homeFolder = [self getHome];
         if( nil != homeFolder ) { 
-            JBJsonObject* homeInfo = [self toRootFileInfo:homeFolder tag:@"home"];
+            CAJsonObject* homeInfo = [self toRootFileInfo:homeFolder tag:@"home"];
             [answer add:homeInfo];
         }
     }
@@ -426,7 +426,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     {
         CAFile* desktop = [self getDesktop];
         if( nil != desktop ) { 
-            JBJsonObject* desktopInfo = [self toRootFileInfo:desktop tag:@"desktop"];
+            CAJsonObject* desktopInfo = [self toRootFileInfo:desktop tag:@"desktop"];
             [answer add:desktopInfo];                                
         }
         
@@ -436,7 +436,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     {
         CAFile* documents = [self getDocuments];
         if( nil != documents )  {
-            JBJsonObject* documentsInfo = [self toRootFileInfo:documents tag:@"documents"];
+            CAJsonObject* documentsInfo = [self toRootFileInfo:documents tag:@"documents"];
             [answer add:documentsInfo];
         }
     }
@@ -445,7 +445,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     {
         CAFile* downloads = [self getDownloads];
         if( nil != downloads ) { 
-            JBJsonObject* downloadsInfo = [self toRootFileInfo:downloads tag:@"downloads"];
+            CAJsonObject* downloadsInfo = [self toRootFileInfo:downloads tag:@"downloads"];
             [answer add:downloadsInfo];
         }
     }
@@ -454,7 +454,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     {
         CAFile* music = [self getMusic];
         if( nil != music ) { 
-            JBJsonObject* musicInfo = [self toRootFileInfo:music tag:@"music"];
+            CAJsonObject* musicInfo = [self toRootFileInfo:music tag:@"music"];
             [answer add:musicInfo];
         }
     }
@@ -463,7 +463,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     {
         CAFile* videos = [self getVideos];
         if( nil != videos ) { 
-            JBJsonObject* videosInfo = [self toRootFileInfo:videos tag:@"videos"];
+            CAJsonObject* videosInfo = [self toRootFileInfo:videos tag:@"videos"];
             [answer add:videosInfo];
         }
     }
@@ -472,12 +472,14 @@ static NSString* _SORT_BY_SIZE = @"size";
     
 }
 
--(JBJsonArray*)listRootDevices {
+-(CAJsonArray*)listRootDevices {
     
     Log_enteredMethod();
     
-    JBJsonArray* answer = [[JBJsonArray alloc] init];
+    CAJsonArray* answer = [[CAJsonArray alloc] init];
     
+    
+#ifdef COMPILER_IS_A_GOAT
     
 #if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
     
@@ -512,6 +514,8 @@ static NSString* _SORT_BY_SIZE = @"size";
     // with a particular volume. The terminating error code for full traversal of
     // this list is nsvErr. In order to completely traverse the entire list, you
     // may have to bump the index count when encountering other errors (for example, ioErr).
+    
+    
     for( ; errStatus != longNsvErr; volIndex++ ) {
         
         
@@ -535,7 +539,7 @@ static NSString* _SORT_BY_SIZE = @"size";
             
             Log_debugString( path );
             
-            JBJsonObject* deviceInfo = [self toRootFileInfoForName:volNameString path:path tag:nil];
+            CAJsonObject* deviceInfo = [self toRootFileInfoForName:volNameString path:path tag:nil];
             [answer add:deviceInfo];
             
             
@@ -553,6 +557,8 @@ static NSString* _SORT_BY_SIZE = @"size";
     Log_warn(@"!defined(__MAC_OS_X_VERSION_MIN_REQUIRED)");
     
 #endif
+
+#endif // COMPILER_IS_A_GOAT
 
     return answer;
     
@@ -641,7 +647,7 @@ static NSString* _SORT_BY_SIZE = @"size";
 
 // sort = "name" or "age"
 // order = "ascending" or "descending"
--(JBJsonObject*)listFolderPath:(NSString*)folderPath sort:(NSString*)sort ascending:(BOOL)ascending { 
+-(CAJsonObject*)listFolderPath:(NSString*)folderPath sort:(NSString*)sort ascending:(BOOL)ascending { 
     
     
     CAFile* taHLet = [[CAFile alloc] initWithPathname:folderPath];
@@ -676,7 +682,7 @@ static NSString* _SORT_BY_SIZE = @"size";
         }
     }
     
-    JBJsonObject* answer = [[JBJsonObject alloc] init];
+    CAJsonObject* answer = [[CAJsonObject alloc] init];
     
     [answer setObject:folderPath forKey:@"folderPath"];
     [answer setLongLong:[taHLet getFreeSpace] forKey:@"freeSpace"];
@@ -697,12 +703,12 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     
     
-    JBJsonArray* jsonFiles = [[JBJsonArray alloc] init];
+    CAJsonArray* jsonFiles = [[CAJsonArray alloc] init];
     {
         [answer setObject:jsonFiles forKey:@"files"];
     }
 
-    JBJsonArray* jsonFolders = [[JBJsonArray alloc] init];
+    CAJsonArray* jsonFolders = [[CAJsonArray alloc] init];
     {
         [answer setObject:jsonFolders forKey:@"folders"];        
     }
@@ -741,31 +747,31 @@ static NSString* _SORT_BY_SIZE = @"size";
 
 
 //	public BrokerMessage process( BrokerMessage message );
--(JBBrokerMessage*)process:(JBBrokerMessage*)request {
+-(HLBrokerMessage*)process:(HLBrokerMessage*)request {
     
     
     NSString* methodName = [request methodName];
     
     if( [@"abort" isEqualToString:methodName] ) { 
 
-        JBJsonObject* associativeParamaters = [request associativeParamaters];
+        CAJsonObject* associativeParamaters = [request associativeParamaters];
         NSString* transactionId = [associativeParamaters stringForKey:@"transactionId"];
         
         [self abort:transactionId];
         
-        return [JBBrokerMessage buildResponse:request];
+        return [HLBrokerMessage buildResponse:request];
 
     }
     
     
     if( [@"beginPull" isEqualToString:methodName] ) { 
         
-        JBJsonObject* associativeParamaters = [request associativeParamaters];
+        CAJsonObject* associativeParamaters = [request associativeParamaters];
         NSString* filePath = [HLFilePathUtilities getFilePath:associativeParamaters];
         
         associativeParamaters = [self beginPull:filePath];
         
-        JBBrokerMessage* answer = [JBBrokerMessage buildResponse:request];
+        HLBrokerMessage* answer = [HLBrokerMessage buildResponse:request];
         [answer setAssociativeParamaters:associativeParamaters];
         return answer;
         
@@ -773,37 +779,37 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     if( [@"beginPush" isEqualToString:methodName] ) { 
         
-        JBJsonObject* associativeParamaters = [request associativeParamaters];
+        CAJsonObject* associativeParamaters = [request associativeParamaters];
         NSString* filePath = [HLFilePathUtilities getFilePath:associativeParamaters];
         long fileLength = [associativeParamaters longForKey:@"fileLength"];
         
         associativeParamaters = [self beginPush:filePath fileLength:fileLength];
         
-        JBBrokerMessage* answer = [JBBrokerMessage buildResponse:request];
+        HLBrokerMessage* answer = [HLBrokerMessage buildResponse:request];
         [answer setAssociativeParamaters:associativeParamaters];
         return answer;
     }
     
     if( [@"commit" isEqualToString:methodName] ) { 
 
-        JBJsonObject* associativeParamaters = [request associativeParamaters];
+        CAJsonObject* associativeParamaters = [request associativeParamaters];
         NSString* transactionId = [associativeParamaters stringForKey:@"transactionId"];
         
         [self commit:transactionId];
         
-        JBBrokerMessage* answer = [JBBrokerMessage buildResponse:request];
+        HLBrokerMessage* answer = [HLBrokerMessage buildResponse:request];
         return answer;
     }
     
     
     if( [@"getFileInfo" isEqualToString:methodName] ) { 
         
-        JBJsonObject* associativeParamaters = [request associativeParamaters];
+        CAJsonObject* associativeParamaters = [request associativeParamaters];
         NSString* filePath = [HLFilePathUtilities getFilePath:associativeParamaters];
         
-        JBJsonObject* fileInfo = [self getFileInfo:filePath];
+        CAJsonObject* fileInfo = [self getFileInfo:filePath];
 
-        JBBrokerMessage* answer = [JBBrokerMessage buildResponse:request];
+        HLBrokerMessage* answer = [HLBrokerMessage buildResponse:request];
         [answer setAssociativeParamaters:fileInfo];
         return answer;
         
@@ -811,14 +817,14 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     if( [@"listFolder" isEqualToString:methodName] ) { 
 
-        JBJsonObject* associativeParamaters = [request associativeParamaters];
+        CAJsonObject* associativeParamaters = [request associativeParamaters];
         NSString* folderPath = [HLFilePathUtilities getFolderPath:associativeParamaters];
         NSString* sort = [associativeParamaters stringForKey:@"sortBy" defaultValue:[HLFileService SORT_BY_NAME]];
         bool ascending = [associativeParamaters boolForKey:@"ascendingOrder" defaultValue:true];
         
-        JBJsonObject* listing = [self listFolderPath:folderPath sort:sort ascending:ascending];
+        CAJsonObject* listing = [self listFolderPath:folderPath sort:sort ascending:ascending];
         
-        JBBrokerMessage* answer = [JBBrokerMessage buildResponse:request];
+        HLBrokerMessage* answer = [HLBrokerMessage buildResponse:request];
         [answer setAssociativeParamaters:listing];
         return answer;
 
@@ -826,22 +832,22 @@ static NSString* _SORT_BY_SIZE = @"size";
     
     if( [@"listRoots" isEqualToString:methodName] ) { 
         
-        JBBrokerMessage* answer = [JBBrokerMessage buildResponse:request];
-        JBJsonObject* associativeParamaters = [answer associativeParamaters];
+        HLBrokerMessage* answer = [HLBrokerMessage buildResponse:request];
+        CAJsonObject* associativeParamaters = [answer associativeParamaters];
         
         
         {
-            JBJsonObject* properties = [[JBJsonObject alloc] init];
+            CAJsonObject* properties = [[CAJsonObject alloc] init];
             {
                 [properties setObject:@"/" forKey:@"folderSeparator"];
                 [associativeParamaters setObject:properties forKey:@"properties"];
             }
         }
         
-        JBJsonArray* rootDevices = [self listRootDevices];
+        CAJsonArray* rootDevices = [self listRootDevices];
         [associativeParamaters setObject:rootDevices forKey:@"devices"];
         
-        JBJsonArray* rootFolders = [self listRootPlaces];
+        CAJsonArray* rootFolders = [self listRootPlaces];
         [associativeParamaters setObject:rootFolders forKey:@"places"];
         
         return answer;
@@ -852,14 +858,14 @@ static NSString* _SORT_BY_SIZE = @"size";
         
         [self ping];
         
-        return [JBBrokerMessage buildResponse:request];
+        return [HLBrokerMessage buildResponse:request];
         
     }
 
     
     if( [@"resumePush" isEqualToString:methodName] ) { 
         
-        JBJsonObject* associativeParamaters = [request associativeParamaters];
+        CAJsonObject* associativeParamaters = [request associativeParamaters];
         NSString* transactionId = [associativeParamaters stringForKey:@"transactionId"];
         NSString* filePath = [HLFilePathUtilities getFilePath:associativeParamaters];
         long fileLength = [associativeParamaters longForKey:@"fileLength"];
@@ -867,20 +873,20 @@ static NSString* _SORT_BY_SIZE = @"size";
         associativeParamaters = [self resumePush:transactionId filePath:filePath fileLength:fileLength];
         
         
-        JBBrokerMessage* answer = [JBBrokerMessage buildResponse:request];
+        HLBrokerMessage* answer = [HLBrokerMessage buildResponse:request];
         [answer setAssociativeParamaters:associativeParamaters];
         return answer;
         
     }
 	
     
-    @throw [JBServiceHelper methodNotFound:self request:request];
+    @throw [HLServiceHelper methodNotFound:self request:request];
 	
 }
 
 
 
--(JBServiceDescription*)serviceDescription {
+-(HLServiceDescription*)serviceDescription {
     return _SERVICE_DESCRIPTION;
 }
 

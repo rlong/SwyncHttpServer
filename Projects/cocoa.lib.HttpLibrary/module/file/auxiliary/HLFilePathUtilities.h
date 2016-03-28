@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "JBJsonObject.h"
+#import "CAJsonObject.h"
 
 @interface HLFilePathUtilities : NSObject
 
@@ -20,7 +20,7 @@
 
 +(NSString*)FILE_PATH;
 
-+(NSString*)getFilePath:(JBJsonObject*)jsonObject;
-+(NSString*)getFolderPath:(JBJsonObject*)jsonObject;
++(NSString*)getFilePath:(CAJsonObject*)jsonObject;
++(NSString*)getFolderPath:(CAJsonObject*)jsonObject;
 
 @end

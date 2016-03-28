@@ -10,9 +10,9 @@
 
 
 
-#import "JBRequestHandler.h"
+#import "HLRequestHandler.h"
 
-@interface HLGetFileRequestHandler : NSObject <JBRequestHandler> {
+@interface HLGetFileRequestHandler : NSObject <HLRequestHandler> {
     
     
     // requestHandlerUrl

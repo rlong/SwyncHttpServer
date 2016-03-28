@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol CASecurityAdapter <NSObject>
+@protocol HLSecurityAdapter <NSObject>
 
 -(NSString*)getIdentifier;
 

@@ -8,11 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#import "CASimpleLogConsumer.h"
 
-#import "JBConfigurationService.h"
-#import "JBSecurityConfiguration.h"
-#import "JBSimpleLogConsumer.h"
-
+#import "HLConfigurationService.h"
+#import "HLSecurityConfiguration.h"
 #import "HLLocalStorage.h"
 
 
@@ -24,12 +23,12 @@
 +(HLLocalStorage*)localStorage;
 
 
-+(JBSimpleLogConsumer*)getLogConsumer;
-+(void)setLogConsumer:(JBSimpleLogConsumer*)logConsumer;
++(CASimpleLogConsumer*)getLogConsumer;
++(void)setLogConsumer:(CASimpleLogConsumer*)logConsumer;
 
 
-+(JBSecurityConfiguration*)securityConfiguration;
-+(void)setSecurityConfiguration:(JBSecurityConfiguration*)securityConfiguration;
++(HLSecurityConfiguration*)securityConfiguration;
++(void)setSecurityConfiguration:(HLSecurityConfiguration*)securityConfiguration;
 
 
 

@@ -10,10 +10,10 @@
 
 #import "HLStorageManager.h"
 
-#import "JBRequestHandler.h"
+#import "HLRequestHandler.h"
 
 
-@interface HLBlueImpPostFileRequestHandler : NSObject <JBRequestHandler> {
+@interface HLBlueImpPostFileRequestHandler : NSObject <HLRequestHandler> {
     
     // storageManager
     id<HLStorageManager> _storageManager;

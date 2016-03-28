@@ -9,25 +9,26 @@
 
 
 
-#import "JBHttpErrorHelper.h"
+#import "HLHttpErrorHelper.h"
 
 #import "HLBlueImpPostFileRequestHandler.h"
 #import "HLHostnameUtilities.h"
 #import "HLPostFileMultiPartHandler.h"
 #import "HLPostFilePartHandler.h"
 
-#import "JBBaseException.h"
-#import "JBDataEntity.h"
-#import "JBHttpRequest.h"
-#import "JBHttpResponse.h"
-#import "JBHttpStatus.h"
-#import "JBJsonObject.h"
-#import "JBJsonObjectHandler.h"
-#import "JBJsonStringOutput.h"
-#import "JBLog.h"
-#import "JBMediaType.h"
-#import "JBMultiPartReader.h"
-#import "JBStringHelper.h"
+#import "CABaseException.h"
+#import "CALog.h"
+#import "CAStringHelper.h"
+#import "CAJsonObject.h"
+#import "CAJsonObjectHandler.h"
+#import "CAJsonStringOutput.h"
+
+#import "HLDataEntity.h"
+#import "HLHttpRequest.h"
+#import "HLHttpResponse.h"
+#import "HLHttpStatus.h"
+#import "HLMediaType.h"
+#import "HLMultiPartReader.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -59,7 +60,7 @@
 //}
 
 #pragma mark -
-#pragma mark <JBRequestHandler> implementation
+#pragma mark <HLRequestHandler> implementation
 
 
 
@@ -70,16 +71,16 @@
 
 
 // see https://github.com/blueimp/jQuery-File-Upload/wiki/Setup
--(JBHttpResponse*)buildResponse:(HLPostFileMultiPartHandler*)fileUploadMultiPartHandler {
+-(HLHttpResponse*)buildResponse:(HLPostFileMultiPartHandler*)fileUploadMultiPartHandler {
     
     
-    id<JBEntity> entity;
+    id<HLEntity> entity;
     {
-        JBJsonObject* jsonObject = [[JBJsonObject alloc] init];
+        CAJsonObject* jsonObject = [[CAJsonObject alloc] init];
         
         
         {
-            JBJsonArray* files = [[JBJsonArray alloc] init];
+            CAJsonArray* files = [[CAJsonArray alloc] init];
             {
                 [jsonObject setObject:files forKey:@"files"];
             }
@@ -88,7 +89,7 @@
                 NSArray* fileUploadPartHandlers = [fileUploadMultiPartHandler fileUploadPartHandlers];
                 for( HLPostFilePartHandler* fileUploadPartHandler in fileUploadPartHandlers ) {
                     if( nil != [fileUploadPartHandler fileName] ) {
-                        JBJsonObject* file = [[JBJsonObject alloc] init];
+                        CAJsonObject* file = [[CAJsonObject alloc] init];
                         
                         {
                             [file setObject:[fileUploadPartHandler fileName] forKey:@"name"];
@@ -105,7 +106,7 @@
             
             // BlueImp does not bahave well when `.meta.27579356-B35F-4342-BC7E-121ABE6FEA95` is the first object in the array and `showMetaInformation()` javascript method returns true
             {
-                JBJsonObject* file = [[JBJsonObject alloc] init];
+                CAJsonObject* file = [[CAJsonObject alloc] init];
                 {
                     [file setObject:@".meta.27579356-B35F-4342-BC7E-121ABE6FEA95" forKey:@"name"];
                     [file setLongLong:[_storageManager getFreeSpace] forKey:@"freeSpace"];
@@ -117,17 +118,17 @@
         }
         
         // vvv derived from [Serializer serialize:]
-        JBJsonStringOutput* writer = [[JBJsonStringOutput alloc] init];
+        CAJsonStringOutput* writer = [[CAJsonStringOutput alloc] init];
         {
-            JBJsonObjectHandler* jsonObjectHandler = [JBJsonObjectHandler getInstance];
+            CAJsonObjectHandler* jsonObjectHandler = [CAJsonObjectHandler getInstance];
             [jsonObjectHandler writeValue:jsonObject writer:writer];
             
             NSString* jsonString = [writer toString];
             Log_debugString(jsonString);
             
-            NSData* data = [JBStringHelper toUtf8Data:jsonString];
+            NSData* data = [CAStringHelper toUtf8Data:jsonString];
             
-            entity = [[JBDataEntity alloc] initWithData:data];
+            entity = [[HLDataEntity alloc] initWithData:data];
         }
 
         // ^^^ derived from [Serializer serialize:]
@@ -135,37 +136,37 @@
         
     }
     
-    JBHttpResponse* answer = [[JBHttpResponse alloc] initWithStatus:HttpStatus_OK_200  entity:entity];
+    HLHttpResponse* answer = [[HLHttpResponse alloc] initWithStatus:HttpStatus_OK_200  entity:entity];
 
     return answer;
 }
 
 
-+(NSString*)getBoundaryFromRequest:(JBHttpRequest*)request {
++(NSString*)getBoundaryFromRequest:(HLHttpRequest*)request {
     
     NSString* mediaTypeString = [request getHttpHeader:@"content-type"];
     
     if( nil == mediaTypeString ) {
-        @throw [JBBaseException baseExceptionWithOriginator:self line:__LINE__ faultString:@"nil == mediaTypeString"];
+        @throw [CABaseException baseExceptionWithOriginator:self line:__LINE__ faultString:@"nil == mediaTypeString"];
     }
-    JBMediaType* mediaType = [JBMediaType buildFromString:mediaTypeString];
+    HLMediaType* mediaType = [HLMediaType buildFromString:mediaTypeString];
     
     NSString* answer = [mediaType getParameterValue:@"boundary" defaultValue:nil];
     
     if( nil == answer ) {
-        @throw [JBBaseException baseExceptionWithOriginator:self line:__LINE__ faultStringFormat:@"nil == answer; mediaTypeString = '%@'", mediaTypeString];
+        @throw [CABaseException baseExceptionWithOriginator:self line:__LINE__ faultStringFormat:@"nil == answer; mediaTypeString = '%@'", mediaTypeString];
     }
     
     return answer;
     
 }
 
--(JBHttpResponse*)processPost:(JBHttpRequest*)request {
+-(HLHttpResponse*)processPost:(HLHttpRequest*)request {
     
     NSString* boundary = [HLBlueImpPostFileRequestHandler getBoundaryFromRequest:request];
 
     HLPostFileMultiPartHandler* multiPartHandler = [[HLPostFileMultiPartHandler alloc] initWithStorageManager:_storageManager];
-    JBMultiPartReader* multiPartReader = [[JBMultiPartReader alloc] initWithBoundary:boundary entity:[request entity]];
+    HLMultiPartReader* multiPartReader = [[HLMultiPartReader alloc] initWithBoundary:boundary entity:[request entity]];
     
     [multiPartReader process:multiPartHandler skipFirstCrNl:true];
 
@@ -173,21 +174,21 @@
     
 }
 
--(JBHttpResponse*)processRequest:(JBHttpRequest*)request {
+-(HLHttpResponse*)processRequest:(HLHttpRequest*)request {
     
     Log_enteredMethod();
     
 //    if( !_isEnabled ) {
-//        @throw  [JBHttpErrorHelper notFound404FromOriginator:self line:__LINE__];
+//        @throw  [HLHttpErrorHelper notFound404FromOriginator:self line:__LINE__];
 //    }
     
-    if( [JBHttpMethod POST] == [request method]) {
+    if( [HLHttpMethod POST] == [request method]) {
         return [self processPost:request];
-    } else if( [JBHttpMethod GET] == [request method] ) {
+    } else if( [HLHttpMethod GET] == [request method] ) {
         return [self buildResponse:nil];
     }
     
-    @throw [JBHttpErrorHelper notImplemented501FromOriginator:self line:__LINE__];
+    @throw [HLHttpErrorHelper notImplemented501FromOriginator:self line:__LINE__];
     
 }
 

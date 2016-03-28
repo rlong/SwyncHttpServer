@@ -7,10 +7,10 @@
 //
 
 
-#import "JBDescribedService.h"
+#import "HLDescribedService.h"
 #import "HLFileTransactionManager.h"
 
-@interface HLFileService : NSObject <JBDescribedService> {
+@interface HLFileService : NSObject <HLDescribedService> {
     
     
     // fileJobManager

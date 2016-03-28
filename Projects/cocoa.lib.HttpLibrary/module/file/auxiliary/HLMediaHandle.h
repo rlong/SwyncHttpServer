@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "JBEntity.h"
+#import "HLEntity.h"
 
 @protocol HLMediaHandle <NSObject>
 
@@ -17,7 +17,7 @@
 
 -(unsigned long long)getContentLength;
 
--(id<JBEntity>)toEntity;
+-(id<HLEntity>)toEntity;
 
 -(NSString*)uriSuffix;
 

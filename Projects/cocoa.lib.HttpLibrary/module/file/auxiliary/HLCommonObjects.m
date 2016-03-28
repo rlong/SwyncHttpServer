@@ -7,9 +7,9 @@
 //
 
 
-#import "JBLog.h"
-#import "JBLogHelper.h"
-#import "JBJsonStringHandler.h"
+#import "CALog.h"
+#import "CALogHelper.h"
+#import "CAJsonStringHandler.h"
 
 
 #import "HLCommonObjects.h"
@@ -21,8 +21,8 @@
 
 
 static HLLocalStorage* _localStorage = nil;
-static JBSimpleLogConsumer* _logConsumer= nil;
-static JBSecurityConfiguration* _securityConfiguration = nil;
+static CASimpleLogConsumer* _logConsumer= nil;
+static HLSecurityConfiguration* _securityConfiguration = nil;
 
 
 
@@ -39,11 +39,11 @@ static JBSecurityConfiguration* _securityConfiguration = nil;
 }
 
 
-+(JBSimpleLogConsumer*)getLogConsumer {
++(CASimpleLogConsumer*)getLogConsumer {
     return _logConsumer;
 }
 
-+(void)setLogConsumer:(JBSimpleLogConsumer*)logConsumer {
++(void)setLogConsumer:(CASimpleLogConsumer*)logConsumer {
     
     _logConsumer = logConsumer;
     
@@ -53,13 +53,13 @@ static JBSecurityConfiguration* _securityConfiguration = nil;
 
 
 
-+(JBSecurityConfiguration*)securityConfiguration {
++(HLSecurityConfiguration*)securityConfiguration {
     
     return _securityConfiguration;
     
 }
 
-+(void)setSecurityConfiguration:(JBSecurityConfiguration*)securityConfiguration {
++(void)setSecurityConfiguration:(HLSecurityConfiguration*)securityConfiguration {
     
     
     _securityConfiguration = securityConfiguration;
@@ -76,7 +76,7 @@ static JBSecurityConfiguration* _securityConfiguration = nil;
 
     {
         
-        JBSimpleLogConsumer* logConsumer = [JBLogHelper setupSimpleLogConsumer];
+        CASimpleLogConsumer* logConsumer = [CALogHelper setupSimpleLogConsumer];
         [self setLogConsumer:logConsumer];
     }
     

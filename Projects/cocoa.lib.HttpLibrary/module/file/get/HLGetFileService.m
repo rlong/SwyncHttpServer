@@ -10,10 +10,11 @@
 
 
 
-#import "JBLog.h"
-#import "JBServiceHelper.h"
+#import "CALog.h"
+#import "CAJsonArray.h"
+#import "CAJsonObject.h"
 
-
+#import "HLServiceHelper.h"
 #import "HLGetFileRequestHandler.h"
 #import "HLGetFileService.h"
 #import "HLLocalStorage.h"
@@ -26,12 +27,12 @@
 
 
 static NSString* _SERVICE_NAME = @"av_amigo.GetFileService";
-static JBServiceDescription* _SERVICE_DESCRIPTION = nil;
+static HLServiceDescription* _SERVICE_DESCRIPTION = nil;
 
 
 +(void)initialize {
     
-    _SERVICE_DESCRIPTION = [[JBServiceDescription alloc] initWithServiceName:_SERVICE_NAME];
+    _SERVICE_DESCRIPTION = [[HLServiceDescription alloc] initWithServiceName:_SERVICE_NAME];
     
 }
 
@@ -43,12 +44,12 @@ static JBServiceDescription* _SERVICE_DESCRIPTION = nil;
 }
 
 
--(JBJsonArray*)getFilesForDownload {
+-(CAJsonArray*)getFilesForDownload {
     
     
     Log_enteredMethod();
     
-    JBJsonArray* answer = [[JBJsonArray alloc] init];
+    CAJsonArray* answer = [[CAJsonArray alloc] init];
     
     
     HLLocalStorage* localStorage = [HLCommonObjects localStorage];
@@ -63,7 +64,7 @@ static JBServiceDescription* _SERVICE_DESCRIPTION = nil;
         NSString* uri = [NSString stringWithFormat:@"%@%@", [HLGetFileRequestHandler REQUEST_HANDLER_URI], [mediaHandle uriSuffix]];
         Log_debugString( uri );
         
-        JBJsonObject* file = [[JBJsonObject alloc] init];
+        CAJsonObject* file = [[CAJsonObject alloc] init];
         {
             [file setObject:filename forKey:@"filename"];
             [file setUnsignedLongLong:filesize forKey:@"filesize"];
@@ -83,19 +84,19 @@ static JBServiceDescription* _SERVICE_DESCRIPTION = nil;
 #pragma mark <DescribedService> implementation
 
 
--(JBBrokerMessage*)process:(JBBrokerMessage*)request {
+-(HLBrokerMessage*)process:(HLBrokerMessage*)request {
     
     NSString* methodName = [request methodName];
     
     if( [@"getFilesForDownload" isEqualToString:methodName] ) {
         
         
-        JBBrokerMessage* response = [JBBrokerMessage buildResponse:request];
-        JBJsonObject* associativeParamaters = [response associativeParamaters];
+        HLBrokerMessage* response = [HLBrokerMessage buildResponse:request];
+        CAJsonObject* associativeParamaters = [response associativeParamaters];
         
         [associativeParamaters setObject:[HLHostnameUtilities getHostName] forKey:@"hostName"];
         
-        JBJsonArray* files = [self getFilesForDownload];
+        CAJsonArray* files = [self getFilesForDownload];
         [associativeParamaters setObject:files forKey:@"files"];
         
         
@@ -104,12 +105,12 @@ static JBServiceDescription* _SERVICE_DESCRIPTION = nil;
         
     }
     
-    @throw [JBServiceHelper methodNotFound:self request:request];
+    @throw [HLServiceHelper methodNotFound:self request:request];
     
 }
 
 
--(JBServiceDescription*)serviceDescription {
+-(HLServiceDescription*)serviceDescription {
     return _SERVICE_DESCRIPTION;
 }
 

@@ -6,12 +6,13 @@
 //  Copyright (c) 2013 HexBeerium. All rights reserved.
 //
 
+#import "CABaseException.h"
+#import "CALog.h"
+
 #import "HLPostFilePartHandler.h"
 #import "HLStorageMetaData.h"
 
-#import "JBBaseException.h"
-#import "JBLog.h"
-#import "JBPartHandlerHelper.h"
+#import "HLPartHandlerHelper.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -26,8 +27,8 @@
 
 
 // contentType
-//JBMediaType* _contentType;
-@property (nonatomic, retain) JBMediaType* contentType;
+//HLMediaType* _contentType;
+@property (nonatomic, retain) HLMediaType* contentType;
 //@synthesize contentType = _contentType;
 
 // fileStream
@@ -61,7 +62,7 @@
 }
 
 #pragma mark -
-#pragma mark <JBPartHandler> implementation
+#pragma mark <HLPartHandler> implementation
 
 
 
@@ -117,7 +118,7 @@
     Log_debugString(name);
     Log_debugString(value);
     
-    JBContentDisposition* contentDisposition = [JBPartHandlerHelper getContentDispositionWithName:name value:value];
+    HLContentDisposition* contentDisposition = [HLPartHandlerHelper getContentDispositionWithName:name value:value];
     if( nil != contentDisposition ) {
         
         NSString* filename = [contentDisposition getDispositionParameter:@"filename" defaultValue:nil];
@@ -153,7 +154,7 @@
         }
     }
     
-    JBMediaType* contentType = [JBPartHandlerHelper getContentTypeWithName:name value:value];
+    HLMediaType* contentType = [HLPartHandlerHelper getContentTypeWithName:name value:value];
     
     if( nil != contentType ) {
         
@@ -279,8 +280,8 @@
 
 
 // contentType
-//JBMediaType* _contentType;
-//@property (nonatomic, retain) JBMediaType* contentType;
+//HLMediaType* _contentType;
+//@property (nonatomic, retain) HLMediaType* contentType;
 @synthesize contentType = _contentType;
 
 // fileStream

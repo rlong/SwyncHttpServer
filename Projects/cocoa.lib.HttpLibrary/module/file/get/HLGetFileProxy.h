@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 
 
-#import "JBService.h"
+#import "HLService.h"
 
 
 @interface HLGetFileProxy : NSObject {
     
     
     // service
-    id<JBService> _service;
+    id<HLService> _service;
 	//@property (nonatomic, retain) id<Service> service;
 	//@synthesize service = _service;
 
@@ -28,7 +28,7 @@
 #pragma instance -
 #pragma instance lifecycle
 
--(id)initWithService:(id<JBService>)service;
+-(id)initWithService:(id<HLService>)service;
 
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 HexBeerium. All rights reserved.
 //
 
-#import "JBStreamEntity.h"
+#import "HLStreamEntity.h"
 
 #import "HLFileMediaHandle.h"
 
@@ -94,9 +94,9 @@
     
 }
 
--(id<JBEntity>)toEntity {
+-(id<HLEntity>)toEntity {
     
-    JBStreamEntity* answer = [[JBStreamEntity alloc] initWithContentSource:_contentSource contentLength:_contentLength mimeType:_mimeType];
+    HLStreamEntity* answer = [[HLStreamEntity alloc] initWithContentSource:_contentSource contentLength:_contentLength mimeType:_mimeType];
     
     return answer;
     
@@ -111,7 +111,7 @@
 
 +(NSString*)uriSuffixForFilename:(NSString*)filename {
     
-//    NSString* rand = [[JBRandomUtilities generateUuid] substringToIndex:8];
+//    NSString* rand = [[HLRandomUtilities generateUuid] substringToIndex:8];
     
     filename = [filename stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     

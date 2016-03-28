@@ -7,9 +7,9 @@
 //
 
 
-#import "JBJsonArray.h"
-#import "JBJsonObject.h"
-#import "JBLog.h"
+#import "CAJsonArray.h"
+#import "CAJsonObject.h"
+#import "CALog.h"
 
 #import "HLGetFileProxy.h"
 #import "HLGetFileService.h"
@@ -27,7 +27,7 @@
 
 // service
 //id<Service> _service;
-@property (nonatomic, retain) id<JBService> service;
+@property (nonatomic, retain) id<HLService> service;
 //@synthesize service = _service;
 
 @end
@@ -47,14 +47,14 @@
     
     NSMutableArray* answer = [[NSMutableArray alloc] init];
     
-    JBBrokerMessage* request = [JBBrokerMessage buildRequestWithServiceName:[HLGetFileService SERVICE_NAME] methodName:@"getFilesForDownload"];
+    HLBrokerMessage* request = [HLBrokerMessage buildRequestWithServiceName:[HLGetFileService SERVICE_NAME] methodName:@"getFilesForDownload"];
     
-    JBBrokerMessage* response = [_service process:request];
-    JBJsonObject* ap = [response associativeParamaters];
-    JBJsonArray* files = [ap jsonArrayForKey:@"files"];
+    HLBrokerMessage* response = [_service process:request];
+    CAJsonObject* ap = [response associativeParamaters];
+    CAJsonArray* files = [ap jsonArrayForKey:@"files"];
     for( int i = 0, count = [files count]; i < count; i++ ) {
         
-        JBJsonObject* file = [files objectAtIndex:i];
+        CAJsonObject* file = [files objectAtIndex:i];
         NSString* filename = [file stringForKey:@"filename"];
         Log_debugString( filename );
         long long filesize = [file longLongForKey:@"filesize"];
@@ -76,7 +76,7 @@
 #pragma instance -
 #pragma instance lifecycle
 
--(id)initWithService:(id<JBService>)service {
+-(id)initWithService:(id<HLService>)service {
     
     
     HLGetFileProxy* answer = [super init];

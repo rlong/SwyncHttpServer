@@ -11,9 +11,9 @@
 #import "HLStorageManager.h"
 
 
-#import "JBMultiPartHandler.h"
+#import "HLMultiPartHandler.h"
 
-@interface HLPostFileMultiPartHandler : NSObject <JBMultiPartHandler>{
+@interface HLPostFileMultiPartHandler : NSObject <HLMultiPartHandler>{
     
     
     // storageManager

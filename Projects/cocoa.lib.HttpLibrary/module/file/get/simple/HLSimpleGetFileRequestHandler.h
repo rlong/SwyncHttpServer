@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
+@protocol HLRequestHandler;
 
-#import "JBRequestHandler.h"
-
-@interface HLSimpleGetFileRequestHandler : NSObject <JBRequestHandler> {
+@interface HLSimpleGetFileRequestHandler : NSObject <HLRequestHandler> {
     
     
     // requestHandlerUrl

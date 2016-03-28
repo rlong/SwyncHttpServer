@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 #import "HLGetFileProxy.h"
-#import "JBJob.h"
+#import "CAJob.h"
 
-@interface HLGetFilesForDownloadJob : NSObject <JBJob> {
+@interface HLGetFilesForDownloadJob : NSObject <CAJob> {
     
     
     // getFileProxy

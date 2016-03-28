@@ -10,12 +10,12 @@
 
 #import "HLStorageManager.h"
 
-#import "JBContentDisposition.h"
-#import "JBMediaType.h"
-#import "JBPartHandler.h"
+#import "HLContentDisposition.h"
+#import "HLMediaType.h"
+#import "HLPartHandler.h"
 
 
-@interface HLPostFilePartHandler : NSObject <JBPartHandler> {
+@interface HLPostFilePartHandler : NSObject <HLPartHandler> {
 
     
     // storageManager
@@ -24,8 +24,8 @@
     //@synthesize storageManager = _storageManager;
     
     // contentType
-    JBMediaType* _contentType;
-    //@property (nonatomic, retain) JBMediaType* contentType;
+    HLMediaType* _contentType;
+    //@property (nonatomic, retain) HLMediaType* contentType;
     //@synthesize contentType = _contentType;
 
     // fileStream

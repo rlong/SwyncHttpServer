@@ -8,6 +8,7 @@
 #import "CAObjectTracker.h"
 #import "CASecurityUtilities.h"
 
+#import "HLConfigurationService.h"
 #import "HLSecurityConfiguration.h"
 #import "HLSimpleSecurityAdapter.h"
 
@@ -22,7 +23,7 @@
 
 
 -(id)initWithIdentifier:(NSString *)identifier configurationService:(HLConfigurationService*)configurationService;
--(id)initWithValue:(HLJsonObject *)value configurationService:(HLConfigurationService*)configurationService;
+-(id)initWithValue:(CAJsonObject *)value configurationService:(HLConfigurationService*)configurationService;
 
 
 -(CAJsonObject*)toJsonObject;
@@ -164,7 +165,7 @@ static HLSecurityConfiguration* _test = nil;
 
 +(HLSecurityConfiguration*)build:(id<HLSecurityAdapter>)securityAdapter configurationService:(HLConfigurationService*)configurationService {
     
-    HLJsonObject* bundleData = [configurationService getBundle:[HLSimpleSecurityAdapter BUNDLE_NAME]];
+    CAJsonObject* bundleData = [configurationService getBundle:[HLSimpleSecurityAdapter BUNDLE_NAME]];
     
     HLSecurityConfiguration* answer = nil;
     
@@ -425,7 +426,7 @@ static HLSecurityConfiguration* _test = nil;
 }
 
 
--(id)initWithValue:(HLJsonObject *)value configurationService:(HLConfigurationService*)configurationService {
+-(id)initWithValue:(CAJsonObject *)value configurationService:(HLConfigurationService*)configurationService {
     
     
     HLSecurityConfiguration* answer = [super init];
@@ -440,9 +441,9 @@ static HLSecurityConfiguration* _test = nil;
         answer->_servers = [[NSMutableDictionary alloc] init];
         
         {
-            HLJsonArray* subjects = [value jsonArrayForKey:@"subjects"];
+            CAJsonArray* subjects = [value jsonArrayForKey:@"subjects"];
             for( int i = 0, count = [subjects count]; i < count; i++ ) { 
-                HLJsonObject* subjectData = [subjects jsonObjectAtIndex:i];
+                CAJsonObject* subjectData = [subjects jsonObjectAtIndex:i];
                 
                 NSString* subjectIdentifier = [subjectData stringForKey:@"identifier"];
                 NSString* subjectPassword = [subjectData stringForKey:@"password"];
@@ -461,7 +462,6 @@ static HLSecurityConfiguration* _test = nil;
 
 -(void)dealloc { 
     
-    [HLObjectTracker deallocated:self];
     
     [self setIdentifier:nil];
     [self setConfigurationService:nil];

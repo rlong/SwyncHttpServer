@@ -10,7 +10,7 @@
 #import "HLPostFilePartHandler.h"
 
 
-#import "JBLog.h"
+#import "CALog.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,10 +37,10 @@
 
 
 #pragma mark -
-#pragma mark <JBMultiPartHandler> implementation
+#pragma mark <HLMultiPartHandler> implementation
 
 
--(id<JBPartHandler>)foundPartDelimiter {
+-(id<HLPartHandler>)foundPartDelimiter {
     
     HLPostFilePartHandler* answer = [[HLPostFilePartHandler alloc] initWithStorageManager:_storageManager];
     {

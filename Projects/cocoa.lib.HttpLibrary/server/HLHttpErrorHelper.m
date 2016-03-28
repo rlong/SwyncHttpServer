@@ -13,7 +13,7 @@
 #import "HLHttpStatus.h"
 #import "HLHttpStatus_ErrorDomain.h"
 
-#import "JBHttpResponse.h"
+#import "HLHttpResponse.h"
 
 @implementation HLHttpErrorHelper
 
@@ -78,7 +78,7 @@
 }
 
 
-+(JBHttpResponse*)toHttpResponse:(NSException*)e { // 8E1FF9FF-AE84-4E44-B088-6426FF0C30E7
++(HLHttpResponse*)toHttpResponse:(NSException*)e { // 8E1FF9FF-AE84-4E44-B088-6426FF0C30E7
     
     int statusCode = HttpStatus_INTERNAL_SERVER_ERROR_500;
     
@@ -95,7 +95,7 @@
     }
   
     id<HLEntity> entity = [self toEntity:statusCode];
-    JBHttpResponse* answer = [[JBHttpResponse alloc] initWithStatus:statusCode entity:entity];
+    HLHttpResponse* answer = [[HLHttpResponse alloc] initWithStatus:statusCode entity:entity];
     return answer;
     
     

@@ -7,10 +7,11 @@
 //
 
 
-#import "JBHttpErrorHelper.h"
-#import "JBHttpRequest.h"
-#import "JBHttpResponse.h"
-#import "JBLog.h"
+#import "CALog.h"
+
+#import "HLHttpErrorHelper.h"
+#import "HLHttpRequest.h"
+#import "HLHttpResponse.h"
 
 
 #import "HLGetFileRequestHandler.h"
@@ -51,10 +52,10 @@ static NSString* _URI = @"/_dynamic_/av_amigo/GetFile";
 }
 
 #pragma mark -
-#pragma mark <JBRequestHandler> implementation
+#pragma mark <HLRequestHandler> implementation
 
 
--(JBHttpResponse*)processGet:(JBHttpRequest*)request {
+-(HLHttpResponse*)processGet:(HLHttpRequest*)request {
     
     
     NSString* uri = [request requestUri];
@@ -69,10 +70,10 @@ static NSString* _URI = @"/_dynamic_/av_amigo/GetFile";
     id<HLMediaHandle> mediaHandle = [mediaHandles getHandleWithUri:uri];
     if( nil == mediaHandle ) {
         Log_errorFormat(@"nil == mediaHandle; uri = '%@'", uri);
-        @throw [JBHttpErrorHelper notFound404FromOriginator:self line:__LINE__];
+        @throw [HLHttpErrorHelper notFound404FromOriginator:self line:__LINE__];
     }
 
-    id<JBEntity> entity = [mediaHandle toEntity];
+    id<HLEntity> entity = [mediaHandle toEntity];
     
 //    if( nil != _getFileListener ) {
 //        
@@ -82,15 +83,15 @@ static NSString* _URI = @"/_dynamic_/av_amigo/GetFile";
 //        
 //    }
     
-    JBHttpResponse* answer;
+    HLHttpResponse* answer;
 
-    JBRange* range = [request range];
+    HLRange* range = [request range];
     if( nil == range ) {
         
-        answer = [[JBHttpResponse alloc] initWithStatus:HttpStatus_OK_200 entity:entity];
+        answer = [[HLHttpResponse alloc] initWithStatus:HttpStatus_OK_200 entity:entity];
     } else {
         
-        answer = [[JBHttpResponse alloc] initWithStatus:HttpStatus_PARTIAL_CONTENT_206 entity:entity];
+        answer = [[HLHttpResponse alloc] initWithStatus:HttpStatus_PARTIAL_CONTENT_206 entity:entity];
         [answer setRange:range];
     }
     
@@ -112,16 +113,16 @@ static NSString* _URI = @"/_dynamic_/av_amigo/GetFile";
     return answer;
 }
 
--(JBHttpResponse*)processRequest:(JBHttpRequest*)request {
+-(HLHttpResponse*)processRequest:(HLHttpRequest*)request {
     
     Log_enteredMethod();
     
     
-    if( [JBHttpMethod GET] == [request method] ) {
+    if( [HLHttpMethod GET] == [request method] ) {
         return [self processGet:request];
     }
     
-    @throw [JBHttpErrorHelper notImplemented501FromOriginator:self line:__LINE__];
+    @throw [HLHttpErrorHelper notImplemented501FromOriginator:self line:__LINE__];
     
 }
 

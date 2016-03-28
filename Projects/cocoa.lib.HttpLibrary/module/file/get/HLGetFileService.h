@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
-#import "JBDescribedService.h"
+#import "HLDescribedService.h"
 
-@interface HLGetFileService : NSObject <JBDescribedService> {
+@interface HLGetFileService : NSObject <HLDescribedService> {
     
 //    // mediaHandles
 //    HLMediaHandleSet* _mediaHandles;
