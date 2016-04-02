@@ -9,12 +9,10 @@
 #import "CAFile.h"
 #import "CALog.h"
 
-
 #import "HLHttpErrorHelper.h"
 #import "HLHttpRequest.h"
 #import "HLHttpResponse.h"
 #import "HLRequestHandler.h"
-#import "HLFile.h"
 #import "HLFileMediaHandle.h"
 #import "HLSimpleGetFileRequestHandler.h"
 #import "HLCommonObjects.h"
