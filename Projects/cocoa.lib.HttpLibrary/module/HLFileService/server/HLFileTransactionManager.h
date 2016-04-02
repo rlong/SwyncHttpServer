@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class CAFile;
+
 #import "HLFileTransaction.h"
 #import "FileTransactionDelegate.h"
 #import "HLPushFile.h"

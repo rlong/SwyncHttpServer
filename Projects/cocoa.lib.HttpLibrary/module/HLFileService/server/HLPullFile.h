@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "FileTransactionDelegate.h"
 #import "CAFile.h"
+
+#import "FileTransactionDelegate.h"
 
 @interface HLPullFile : NSObject <FileTransactionDelegate> {
 

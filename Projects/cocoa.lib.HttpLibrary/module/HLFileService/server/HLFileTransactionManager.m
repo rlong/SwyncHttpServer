@@ -6,10 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "CABaseException.h"
 #import "CAFile.h"
 #import "CALog.h"
 
-#import "JBBaseException.h"
+
 #import "HLFileTransactionManager.h"
 #import "HLFileServiceErrorCodes.h"
 

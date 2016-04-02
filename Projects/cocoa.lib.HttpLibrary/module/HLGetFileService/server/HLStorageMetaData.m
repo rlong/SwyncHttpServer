@@ -7,11 +7,11 @@
 //
 
 
-#import "JBConfigurationService.h"
-#import "JBFolderUtilities.h"
-#import "JBJsonObject.h"
-#import "JBLog.h"
-#import "JBMemoryModel.h"
+#import "CAFolderUtilities.h"
+#import "CAJsonObject.h"
+#import "CALog.h"
+
+#import "HLConfigurationService.h"
 
 
 #import "HLStorageMetaData.h"
@@ -21,19 +21,19 @@
 
 
 
-static JBConfigurationService* _configService = nil;
+static HLConfigurationService* _configService = nil;
 
 
 
 
-+(JBConfigurationService*)getConfigService {
++(HLConfigurationService*)getConfigService {
     
     if( nil == _configService ) {
         
-        NSString* libraryDirectory = [JBFolderUtilities getLibraryDirectory];
+        NSString* libraryDirectory = [CAFolderUtilities getLibraryDirectory];
         NSString* configServiceDirectory = [libraryDirectory stringByAppendingString:@"/HLStorageMetaData"];
         Log_debugString( configServiceDirectory );
-        _configService = [[JBConfigurationService alloc ] initWithRootFolder:configServiceDirectory];
+        _configService = [[HLConfigurationService alloc ] initWithRootFolder:configServiceDirectory];
     }
     
     
@@ -50,8 +50,8 @@ static JBConfigurationService* _configService = nil;
 +(NSString*)getContentTypeForFilename:(NSString*)filename {
     
 
-    JBConfigurationService* configService = [self getConfigService];
-    JBJsonObject* configBundle = [configService getBundle:@"HLStorageMetaData"];
+    HLConfigurationService* configService = [self getConfigService];
+    CAJsonObject* configBundle = [configService getBundle:@"HLStorageMetaData"];
     if( nil == configBundle ) {
         return nil;
     }
@@ -66,12 +66,11 @@ static JBConfigurationService* _configService = nil;
 
 +(void)saveContentType:(NSString*)contentType forFilename:(NSString*)filename {
 
-    JBConfigurationService* configService = [self getConfigService];
-    JBJsonObject* configBundle = [configService getBundle:@"HLStorageMetaData"];
+    HLConfigurationService* configService = [self getConfigService];
+    CAJsonObject* configBundle = [configService getBundle:@"HLStorageMetaData"];
     if( nil == configBundle ) {
-        configBundle = [[JBJsonObject alloc] init];
+        configBundle = [[CAJsonObject alloc] init];
         [configService set_bundle:@"HLStorageMetaData" bundle:configBundle];
-        JBRelease( configBundle );
     }
     
     [configBundle setObject:contentType forKey:filename];

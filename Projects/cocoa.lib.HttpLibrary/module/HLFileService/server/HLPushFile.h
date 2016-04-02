@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
-#import "FileTransactionDelegate.h"
 #import "CAFile.h"
+
+#import "FileTransactionDelegate.h"
 
 @interface HLPushFile : NSObject <FileTransactionDelegate> {
     

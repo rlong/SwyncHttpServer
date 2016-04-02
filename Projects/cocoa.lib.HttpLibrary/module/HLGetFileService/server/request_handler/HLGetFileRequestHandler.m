@@ -12,8 +12,6 @@
 #import "HLHttpErrorHelper.h"
 #import "HLHttpRequest.h"
 #import "HLHttpResponse.h"
-
-
 #import "HLGetFileRequestHandler.h"
 #import "HLCommonObjects.h"
 #import "HLLocalStorage.h"

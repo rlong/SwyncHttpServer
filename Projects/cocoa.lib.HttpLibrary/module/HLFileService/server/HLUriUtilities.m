@@ -39,7 +39,7 @@ static NSString* _URI = @"uri";
     
 }
 
-+(NSString*)getFileUri:(JBJsonObject*)jsonObject {
++(NSString*)getFileUri:(CAJsonObject*)jsonObject {
     
     NSString* answer = [jsonObject stringForKey:_URI defaultValue:nil];
     

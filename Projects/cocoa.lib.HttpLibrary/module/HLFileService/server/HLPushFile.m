@@ -7,13 +7,12 @@
 //
 
 
+
+#import "CABaseException.h"
 #import "CAFile.h"
-
-#import "JBBaseException.h"
-#import "JBInputStreamHelper.h"
-#import "JBLog.h"
-#import "JBStreamHelper.h"
-
+#import "CAInputStreamHelper.h"
+#import "CALog.h"
+#import "CAStreamHelper.h"
 
 #import "HLFileServiceErrorCodes.h"
 #import "HLFileTransaction.h"
@@ -73,12 +72,12 @@ static int _RENAME_ON_COMMIT_FAILED;
     
     @try {
         
-        [JBInputStreamHelper writeFrom:inputStream toOutputStream:output count:streamLength];
+        [CAInputStreamHelper writeFrom:inputStream toOutputStream:output count:streamLength];
         
         
     }
     @finally {
-        [JBStreamHelper closeStream:output swallowErrors:false caller:self];
+        [CAStreamHelper closeStream:output swallowErrors:false caller:self];
     }
     
     

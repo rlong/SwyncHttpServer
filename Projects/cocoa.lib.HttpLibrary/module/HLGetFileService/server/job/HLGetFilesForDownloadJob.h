@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#import "HLGetFileProxy.h"
 #import "CAJob.h"
+
+#import "HLGetFileProxy.h"
 
 @interface HLGetFilesForDownloadJob : NSObject <CAJob> {
     

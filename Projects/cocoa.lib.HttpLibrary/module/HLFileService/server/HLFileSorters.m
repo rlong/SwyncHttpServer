@@ -7,10 +7,9 @@
 //
 
 
-#import "JBBaseException.h"
-#import "JBLog.h"
-#import "JBMemoryModel.h"
-#import "JBNumericUtilities.h"
+#import "CABaseException.h"
+#import "CALog.h"
+#import "CANumericUtilities.h"
 
 #import "HLFileSorters.h"
 
@@ -37,7 +36,6 @@ static NSCharacterSet* _dotCharacterSet = nil;
 +(void)initialize {
 	
     _dotCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"."];
-    JBRetain( _dotCharacterSet );
 	
 }
 
@@ -120,11 +118,11 @@ static NSCharacterSet* _dotCharacterSet = nil;
     
     NSString* filename1NumericSuffix = [filename1 substringWithRange:lastNumerics1];
     //    Log_debugString( filename1NumericSuffix );
-    long filename1Numeric = [JBNumericUtilities parseLong:filename1NumericSuffix];
+    long filename1Numeric = [CANumericUtilities parseLong:filename1NumericSuffix];
     
     NSString* filename2NumericSuffix = [filename2 substringWithRange:lastNumerics2];
     //    Log_debugString( filename2NumericSuffix );
-    long filename2Numeric = [JBNumericUtilities parseLong:filename2NumericSuffix];
+    long filename2Numeric = [CANumericUtilities parseLong:filename2NumericSuffix];
     
     
     return [NSNumber numberWithLong:filename1Numeric - filename2Numeric];
@@ -136,14 +134,14 @@ static NSCharacterSet* _dotCharacterSet = nil;
 +(NSInteger)compare:(NSString*)filename1 with:(NSString*)filename2 {
     
     
-    @try { // JBNumericUtilities might throw an exception
+    @try { // CANumericUtilities might throw an exception
         
         NSNumber* comparison = [self tryCompare:filename1 with:filename2];
         if( nil != comparison ) {
             return [comparison integerValue];
         }
     }
-    @catch (JBBaseException *exception) {
+    @catch (CABaseException *exception) {
         Log_warnException(exception);
     }
     

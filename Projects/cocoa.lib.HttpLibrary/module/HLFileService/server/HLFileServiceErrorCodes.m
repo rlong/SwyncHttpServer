@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "JBErrorCodeUtilities.h"
+#import "CAErrorCodeUtilities.h"
+
 #import "HLFileServiceErrorCodes.h"
 #import "HLFileService.h"
-
 #import "HLFileServiceConstants.h"
 
 
@@ -25,7 +25,7 @@ static int _FILE_JOB_MANAGER_ERROR_CODE;
 
 +(void)initialize {
 	
-    _BASE_ERROR_CODE = [JBErrorCodeUtilities getBaseErrorCode:[HLFileServiceConstants SERVICE_NAME]];
+    _BASE_ERROR_CODE = [CAErrorCodeUtilities getBaseErrorCode:[HLFileServiceConstants SERVICE_NAME]];
     
     _FILE_SERVICE_ERROR_CODE = _BASE_ERROR_CODE;
     _PUSH_FILE_JOB_ERROR_CODE = _BASE_ERROR_CODE | 0x10;

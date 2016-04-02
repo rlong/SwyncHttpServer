@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "HLStorageManager.h"
-
 #import "HLRequestHandler.h"
+#import "HLStorageManager.h"
 
 
 @interface HLBlueImpPostFileRequestHandler : NSObject <HLRequestHandler> {

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "JBJsonObject.h"
+#import "CAJsonObject.h"
 
 @interface HLUriUtilities : NSObject {
     
@@ -17,7 +17,7 @@
 +(NSString*)URI;
 
 
-+(NSString*)getFileUri:(JBJsonObject*)jsonObject;
++(NSString*)getFileUri:(CAJsonObject*)jsonObject;
 
 
 @end

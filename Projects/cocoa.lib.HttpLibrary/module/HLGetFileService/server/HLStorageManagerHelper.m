@@ -8,9 +8,9 @@
 
 #import "HLStorageManagerHelper.h"
 
-#import "JBBaseException.h"
-#import "JBFileUtilities.h"
-#import "JBLog.h"
+#import "CABaseException.h"
+#import "CAFileUtilities.h"
+#import "CALog.h"
 
 @implementation HLStorageManagerHelper
 
@@ -60,7 +60,7 @@
                 return false;
                 
             } else {
-                JBBaseException* e = [JBBaseException baseExceptionWithOriginator:self line:__LINE__ callTo:@"[NSFileManager removeItemAtPath:error:]" failedWithError:error];
+                CABaseException* e = [CABaseException baseExceptionWithOriginator:self line:__LINE__ callTo:@"[NSFileManager removeItemAtPath:error:]" failedWithError:error];
                 [e addStringContext:fullPath withName:@"fullPath"];
                 @throw  e;
             }
@@ -89,7 +89,7 @@
 
     NSString* fullPath = [folderPath stringByAppendingPathComponent:filename];
     
-    return [JBFileUtilities getFileLength:fullPath];
+    return [CAFileUtilities getFileLength:fullPath];
 
 }
 

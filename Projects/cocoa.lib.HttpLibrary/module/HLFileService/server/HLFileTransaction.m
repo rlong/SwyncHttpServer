@@ -6,8 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "CASecurityUtilities.h"
+
 #import "HLFileTransaction.h"
-#import "JBSecurityUtilities.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -60,7 +61,7 @@
     
     if( nil != answer ) { 
         
-        answer->_transactionId = [JBSecurityUtilities generateNonce];
+        answer->_transactionId = [CASecurityUtilities generateNonce];
         
         [answer setDelegate:fileJobDelegate];
         

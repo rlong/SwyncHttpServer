@@ -10,24 +10,19 @@
 // #include <UIKit/UIKit.h> // for 'UIDevice' below
 
 
+#import "CABaseException.h"
 #import "CAFile.h"
-
-#import "JBBaseException.h"
-#import "JBFileUtilities.h"
-#import "JBFolderUtilities.h"
-#import "JBLog.h"
-#import "JBMemoryModel.h"
-#import "JBNetworkUtilities.h"
+#import "CAFileUtilities.h"
+#import "CAFolderUtilities.h"
+#import "CALog.h"
+#import "CANetworkUtilities.h"
 
 #import "HLFileMediaHandle.h"
 #import "HLMediaHandleSet.h"
-
 #import "HLGetFileRequestHandler.h"
 #import "HLStorageManagerHelper.h"
-
 #import "HLLocalStorage.h"
 #import "HLStorageSelectConductorHelper.h"
-
 #import "HLFileService.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -106,18 +101,18 @@
 ////        if( _isIos510orGreater ) {
 ////            // use <Application_Home>/Library/Application Support and apply the `NSURLIsExcludedFromBackupKey`
 ////            
-////            _rootStoragePath = [JBFolderUtilities getApplicationSupportDirectory];
+////            _rootStoragePath = [CAFolderUtilities getApplicationSupportDirectory];
 ////            
 ////        } else if ( _isIos501 ) {
 ////            
 ////            // use <Application_Home>/Library/Application Support apply the `com.apple.MobileBackup` (http://developer.apple.com/library/mac/#documentation/FileManagement/Conceptual/FileSystemProgrammingGUide/FileSystemOverview/FileSystemOverview.html)
 ////            
-////            _rootStoragePath = [JBFolderUtilities getApplicationSupportDirectory];
+////            _rootStoragePath = [CAFolderUtilities getApplicationSupportDirectory];
 ////        } else { // assume _isIos500orLess
 ////            
 ////            // use <Application_Home> /Library/Caches (App Backup Best Practices" in `iPhoneAppProgrammingGuide`)
 ////            
-////            _rootStoragePath = [JBFolderUtilities getCachesDirectory];
+////            _rootStoragePath = [CAFolderUtilities getCachesDirectory];
 ////            
 ////        }
 ////    }
@@ -127,7 +122,7 @@
 
 
 +(NSString*)getFilesPath {
-    return [JBFolderUtilities getDocumentDirectory];
+    return [CAFolderUtilities getDocumentDirectory];
 }
 
 
@@ -140,7 +135,7 @@
     
     [outputStream close];
     
-    NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
+    NSString* parentFolder = [CAFolderUtilities getDocumentDirectory];
     NSString* fullPath = [parentFolder stringByAppendingPathComponent:filename];
 
     
@@ -226,7 +221,7 @@
     NSMutableArray* folders = [[NSMutableArray alloc] init];
     {
         
-        NSString* fileSystemPath = [JBFolderUtilities getDocumentDirectory];
+        NSString* fileSystemPath = [CAFolderUtilities getDocumentDirectory];
         NSString* sort = [HLFileService SORT_BY_NAME];
         
         [HLFileService listPath:fileSystemPath files:files folders:folders sort:sort ascending:true];
@@ -263,7 +258,7 @@
 //    
 //    uint32_t answer = 0;
 //
-//    NSString* documentDirectoryPath = [JBFolderUtilities getDocumentDirectory];
+//    NSString* documentDirectoryPath = [CAFolderUtilities getDocumentDirectory];
 //    HLFile* documentDirectory = [[HLFile alloc] initWithPathname:documentDirectoryPath];
 //    JBAutorelease( documentDirectory );
 //    
@@ -289,14 +284,14 @@
 -(BOOL)fileExistsWithName:(NSString*)filename {
     
     
-    NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
+    NSString* parentFolder = [CAFolderUtilities getDocumentDirectory];
 
-    return [JBFileUtilities fileWithName:filename existsInFolder:parentFolder];
+    return [CAFileUtilities fileWithName:filename existsInFolder:parentFolder];
 }
 
 -(uint64_t)getFreeSpace {
 
-    NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
+    NSString* parentFolder = [CAFolderUtilities getDocumentDirectory];
 
     return [HLStorageManagerHelper getFreeSpaceForPath:parentFolder];
     
@@ -305,7 +300,7 @@
 
 -(NSInputStream*)inputStreamWithFilename:(NSString*)filename {
 
-    NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
+    NSString* parentFolder = [CAFolderUtilities getDocumentDirectory];
 
     NSString* fullPath = [parentFolder stringByAppendingPathComponent:filename];
     
@@ -318,11 +313,11 @@
 -(HLFileMediaHandle*)mediaHandleWithFilename:(NSString*)filename mimeType:(NSString*)mimeType {
     
     
-    NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
+    NSString* parentFolder = [CAFolderUtilities getDocumentDirectory];
     
     NSString* fullPath = [parentFolder stringByAppendingPathComponent:filename];
     NSURL* url = [NSURL fileURLWithPath:fullPath];
-    uint64_t contentLength = [JBFileUtilities getFileLength:fullPath];
+    uint64_t contentLength = [CAFileUtilities getFileLength:fullPath];
     HLFileMediaHandle* answer = [[HLFileMediaHandle alloc] initWithContentSource:url contentLength:contentLength mimeType:mimeType filename:filename];
     
     return answer;
@@ -338,7 +333,7 @@
 
 -(NSOutputStream*)outputStreamWithFilename:(NSString*)filename append:(BOOL)append {
     
-    NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
+    NSString* parentFolder = [CAFolderUtilities getDocumentDirectory];
     
     NSString* fullPath = [parentFolder stringByAppendingPathComponent:filename];
     
@@ -351,7 +346,7 @@
 
 -(BOOL)removeAllFilesSwallowErrors:(BOOL)swallowErrors {
     
-    NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
+    NSString* parentFolder = [CAFolderUtilities getDocumentDirectory];
     
     
     NSFileManager* defaultManager = [NSFileManager defaultManager];
@@ -364,7 +359,7 @@
             Log_warnError(error);
             return false;
         }
-        JBBaseException* e = [JBBaseException baseExceptionWithOriginator:self line:__LINE__ callTo:@"[NSFileManager contentsOfDirectoryAtPath:error:]" failedWithError:error];
+        CABaseException* e = [CABaseException baseExceptionWithOriginator:self line:__LINE__ callTo:@"[NSFileManager contentsOfDirectoryAtPath:error:]" failedWithError:error];
         [e addStringContext:parentFolder withName:@"parentFolder"];
         @throw  e;
     }
@@ -376,7 +371,7 @@
                 Log_warnFormat( @"nil == contentsOfDirectory; parentFolder = '%@'", parentFolder );
                 return false;
             }
-            JBBaseException* e = [JBBaseException baseExceptionWithOriginator:self line:__LINE__ faultString:@"nil == contentsOfDirectory"];
+            CABaseException* e = [CABaseException baseExceptionWithOriginator:self line:__LINE__ faultString:@"nil == contentsOfDirectory"];
             [e addStringContext:parentFolder withName:@"parentFolder"];
             @throw  e;
         }
@@ -402,7 +397,7 @@
 
 -(BOOL)removeFileWithName:(NSString*)filename swallowErrors:(BOOL)swallowErrors {
 
-    NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
+    NSString* parentFolder = [CAFolderUtilities getDocumentDirectory];
 
     return [HLStorageManagerHelper removeFileWithName:filename inFolder:parentFolder swallowErrors:swallowErrors];
     
@@ -411,7 +406,7 @@
 // throws an exception if the file does not exist
 -(unsigned long long)sizeOfFileWithName:(NSString*)filename {
 
-    NSString* parentFolder = [JBFolderUtilities getDocumentDirectory];
+    NSString* parentFolder = [CAFolderUtilities getDocumentDirectory];
 
     return [HLStorageManagerHelper sizeOfFileWithName:filename inFolder:parentFolder];
 }
@@ -422,7 +417,7 @@
     
 //    NSString* urlTemplate;
 //    {
-//        JBIPAddress* wifiIpAddress = [JBNetworkUtilities getWifiIpAddress];
+//        JBIPAddress* wifiIpAddress = [CANetworkUtilities getWifiIpAddress];
 //        NSString* wifiIpAddressString = [wifiIpAddress toString];
 //        
 //        urlTemplate = [NSString stringWithFormat:@"http://%@:%d%@", wifiIpAddressString, [HLHttpServer PORT], [HLGetFileRequestHandler REQUEST_HANDLER_URI]];
@@ -463,7 +458,7 @@
     
     HLMediaHandleSet* answer;
     
-    NSString* fileSystemPath = [JBFolderUtilities getDocumentDirectory];
+    NSString* fileSystemPath = [CAFolderUtilities getDocumentDirectory];
     
     NSMutableArray* files = [[NSMutableArray alloc] init];
     NSMutableArray* folders = [[NSMutableArray alloc] init];
@@ -505,7 +500,7 @@
 +(void)ensureDocumentDirectoryIsNotBackedUp {
     Log_enteredMethod();
     
-    NSString* documentDirectory = [JBFolderUtilities getDocumentDirectory];
+    NSString* documentDirectory = [CAFolderUtilities getDocumentDirectory];
     
     
     NSError* error = nil;
@@ -532,11 +527,11 @@
     
     [self ensureDocumentDirectoryIsNotBackedUp];
     
-    NSString* storageFolder = [JBFolderUtilities getApplicationSupportDirectory];
+    NSString* storageFolder = [CAFolderUtilities getApplicationSupportDirectory];
     // NSString* storageFolder = [applicationSupportDirectory stringByAppendingString:@"/AVLocalStorage"]; // 'AVLocalStorage' for legacy reasons
     Log_debugString(storageFolder);
     
-    if( ![JBFolderUtilities directoryExistsAtPath:storageFolder] ) {
+    if( ![CAFolderUtilities directoryExistsAtPath:storageFolder] ) {
         return; // nothing to do;
     }
 
@@ -554,15 +549,15 @@
         Log_debugString( directoryEntry );
         
         NSString* sourcePath = [NSString stringWithFormat:@"%@/%@", storageFolder, directoryEntry];
-        if( ![JBFileUtilities isFile:sourcePath] ) {
+        if( ![CAFileUtilities isFile:sourcePath] ) {
             continue;
         }
         
-        NSString* destinationPath = [NSString stringWithFormat:@"%@/%@", [JBFolderUtilities getDocumentDirectory], directoryEntry];
+        NSString* destinationPath = [NSString stringWithFormat:@"%@/%@", [CAFolderUtilities getDocumentDirectory], directoryEntry];
         Log_infoFormat(@"moving '%@' to '%@'", sourcePath, destinationPath );
         
         @try {
-            [JBFileUtilities moveItemAtPath:sourcePath toPath:destinationPath];
+            [CAFileUtilities moveItemAtPath:sourcePath toPath:destinationPath];
             
             // shouldn't be required (any previously uploaded files will be marked as excluded from backup ...
             // but we mark the file as not being for backup anyways ...
@@ -588,8 +583,8 @@
 //        
 //    }
 //    
-//    if( ![JBFolderUtilities directoryExistsAtPath:_storagePath] ) {
-//        [JBFolderUtilities mkdirs:_storagePath];
+//    if( ![CAFolderUtilities directoryExistsAtPath:_storagePath] ) {
+//        [CAFolderUtilities mkdirs:_storagePath];
 //    }
 //    
 //    

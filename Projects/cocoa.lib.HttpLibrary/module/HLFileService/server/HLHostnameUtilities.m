@@ -18,7 +18,7 @@
 
 #import "HLHostnameUtilities.h"
 
-#import "JBLog.h"
+#import "CALog.h"
 
 @implementation HLHostnameUtilities
 
