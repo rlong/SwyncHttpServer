@@ -30,7 +30,7 @@
 
 
 +(NSString*)SERVICE_NAME { 
-    return @"remote_gateway.FileService";
+    return @"Mc-Remote.FileService";
 }
 
 
