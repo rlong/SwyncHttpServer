@@ -110,13 +110,13 @@ static NSString* _SORT_BY_SIZE = @"size";
     CAFile* taHLet = [[CAFile alloc] initWithPathname:filePath];
     
     if( [HLFileService fileIsBlacklisted:taHLet] ) { 
-        BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; filePath = '%@'", filePath];
+        CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; filePath = '%@'", filePath];
         [e setFaultCode:_FILE_TYPE_IS_BLACKLISTED];
         @throw e;
     }
     
     if( [taHLet exists] ) { 
-        BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[taHLet exists]; filePath = '%@'", filePath];
+        CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[taHLet exists]; filePath = '%@'", filePath];
         [e setFaultCode:_FILE_PATH_REFERENCES_EXISTING_FILE];
         @throw e;        
     }
@@ -142,26 +142,26 @@ static NSString* _SORT_BY_SIZE = @"size";
     {
         
         if( [HLFileService fileIsBlacklisted:taHLet] ) { 
-            BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; filePath = '%@'", filePath];
+            CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; filePath = '%@'", filePath];
             [e setFaultCode:_FILE_TYPE_IS_BLACKLISTED];
             @throw e;
         }
         
         if( ![taHLet exists] ) { 
-            BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![taHLet exists]; filePath = '%@'", filePath];
+            CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![taHLet exists]; filePath = '%@'", filePath];
             [e setFaultCode:_FILE_DOES_NOT_EXIST];
             @throw e;        
         }
         
         if( [taHLet isDirectory] ) { 
-            BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[taHLet isDirectory]; filePath = '%@'", filePath];
+            CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[taHLet isDirectory]; filePath = '%@'", filePath];
             [e setFaultCode:_FILE_PATH_REFERENCES_FOLDER];
             @throw e;        
             
         }
         
         if( ![taHLet canRead] ) { 
-            BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![taHLet canRead]; filePath = '%@'", filePath];
+            CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![taHLet canRead]; filePath = '%@'", filePath];
             [e setFaultCode:_CANNOT_READ];
             @throw e;        
         }
@@ -190,7 +190,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     CAFile* taHLet = [[CAFile alloc] initWithPathname:filePath];
     
     if( [HLFileService fileIsBlacklisted:taHLet] ) { 
-        BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; filePath = '%@'", filePath];
+        CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; filePath = '%@'", filePath];
         [e setFaultCode:_FILE_TYPE_IS_BLACKLISTED];
         @throw e;
     }
@@ -227,7 +227,7 @@ static NSString* _SORT_BY_SIZE = @"size";
     CAFile* taHLet = [[CAFile alloc] initWithPathname:filePath];
     
     if( [HLFileService fileIsBlacklisted:taHLet] ) { 
-        BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; filePath = '%@'", filePath];
+        CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; filePath = '%@'", filePath];
         [e setFaultCode:_FILE_TYPE_IS_BLACKLISTED];
         @throw e;
     }
@@ -574,12 +574,12 @@ static NSString* _SORT_BY_SIZE = @"size";
     NSArray* contentsOfDirectory = [defaultManager contentsOfDirectoryAtPath:path error:&error];
     
     if( nil != error ) { 
-        BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ callTo:@"[NSFileManager contentsOfDirectoryAtPath:error:]" failedWithError:error];
+        CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ callTo:@"[NSFileManager contentsOfDirectoryAtPath:error:]" failedWithError:error];
         @throw  e;
     }
     
     if( nil == contentsOfDirectory  ) {
-        BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"nil == contentsOfDirectory; path = '%@'", path];
+        CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"nil == contentsOfDirectory; path = '%@'", path];
         @throw e;
     }
 
@@ -656,27 +656,27 @@ static NSString* _SORT_BY_SIZE = @"size";
     {
 
         if( [HLFileService fileIsBlacklisted:taHLet] ) { 
-            BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; folderPath = '%@'", folderPath];
+            CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"[FileService fileIsBlacklisted:taHLet]; folderPath = '%@'", folderPath];
             [e setFaultCode:_FILE_TYPE_IS_BLACKLISTED];
             @throw e;
         }
         
         if( ![taHLet exists] ) { 
-            BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![taHLet exists]; folderPath = '%@'", folderPath];
+            CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![taHLet exists]; folderPath = '%@'", folderPath];
             [e setFaultCode:_FOLDER_DOES_NOT_EXIST];
             @throw e;        
         }
 
 
         if( ![taHLet isDirectory] ) { 
-            BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![taHLet isDirectory]; folderPath = '%@'", folderPath];
+            CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![taHLet isDirectory]; folderPath = '%@'", folderPath];
             [e setFaultCode:_FOLDER_PATH_REFERENCES_FILE];
             @throw e;        
         }
 
 
         if( ![taHLet canRead] ) { 
-            BaseException* e = [[BaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![taHLet canRead]; folderPath = '%@'", folderPath];
+            CABaseException* e = [[CABaseException alloc] initWithOriginator:self line:__LINE__ faultStringFormat:@"![taHLet canRead]; folderPath = '%@'", folderPath];
             [e setFaultCode:_CANNOT_READ];
             @throw e;        
         }

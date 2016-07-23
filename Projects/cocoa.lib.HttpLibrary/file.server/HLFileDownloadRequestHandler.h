@@ -11,7 +11,7 @@
 
 @protocol HLRequestHandler;
 
-@interface HLSimpleGetFileRequestHandler : NSObject <HLRequestHandler> {
+@interface HLFileDownloadRequestHandler : NSObject <HLRequestHandler> {
     
     
     // requestHandlerUrl

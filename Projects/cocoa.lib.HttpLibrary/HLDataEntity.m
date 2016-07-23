@@ -4,10 +4,9 @@
 //
 
 
-#import "JBSecurityUtilities.h"
-
 #import "CALog.h"
 #import "CAInputStreamHelper.h"
+#import "CASecurityUtilities.h"
 #import "CAStreamHelper.h"
 
 #import "HLDataEntity.h"
@@ -56,7 +55,7 @@
 }
 -(NSString*)md5 {
     
-    return [JBSecurityUtilities md5HashOfData:_data];
+    return [CASecurityUtilities md5HashOfData:_data];
     
 }
 

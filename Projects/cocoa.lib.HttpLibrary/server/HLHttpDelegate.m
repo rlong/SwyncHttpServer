@@ -12,7 +12,7 @@
 
 #import "HLAuthRequestHandler.h"
 #import "HLHttpDelegate.h"
-#import "HLFileRequestHandler.h"
+#import "HLFileGetRequestHandler.h"
 #import "HLHttpErrorHelper.h"
 #import "HLHttpResponseWriter.h"
 

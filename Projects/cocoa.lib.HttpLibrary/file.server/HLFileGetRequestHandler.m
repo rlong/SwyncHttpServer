@@ -7,7 +7,7 @@
 #import "CALog.h"
 
 #import "HLDataEntity.h"
-#import "HLFileRequestHandler.h"
+#import "HLFileGetRequestHandler.h"
 #import "HLHttpErrorHelper.h"
 #import "HLHttpRequest.h"
 #import "HLHttpResponse.h"
@@ -20,7 +20,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-@interface HLFileRequestHandler ()
+@interface HLFileGetRequestHandler ()
 
 // rootFolder
 //NSString* _rootFolder;
@@ -34,7 +34,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-@implementation HLFileRequestHandler
+@implementation HLFileGetRequestHandler
 
 
 
@@ -146,7 +146,7 @@
 
 -(id)initWithRootFolder:(NSString*)rootFolder { 
     
-    HLFileRequestHandler* answer = [super init];
+    HLFileGetRequestHandler* answer = [super init];
     
     [answer setRootFolder:rootFolder];
     

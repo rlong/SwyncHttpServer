@@ -8,23 +8,25 @@
 
 #import "CAFile.h"
 #import "CALog.h"
+#import "CAStringHelper.h"
 
 #import "HLHttpErrorHelper.h"
 #import "HLHttpRequest.h"
 #import "HLHttpResponse.h"
 #import "HLRequestHandler.h"
 #import "HLFileMediaHandle.h"
-#import "HLSimpleGetFileRequestHandler.h"
+#import "HLFileDownloadRequestHandler.h"
 #import "HLCommonObjects.h"
 #import "HLLocalStorage.h"
 #import "HLMediaHandle.h"
 #import "HLMediaHandleSet.h"
+#import "HLStreamEntity.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-@interface HLSimpleGetFileRequestHandler ()
+@interface HLFileDownloadRequestHandler ()
 
 // requestHandlerUrl
 //NSString* _requestHandlerUrl;
@@ -40,25 +42,26 @@
 #pragma mark -
 
 
-@implementation HLSimpleGetFileRequestHandler
+@implementation HLFileDownloadRequestHandler
 
 
-static NSString* _URI = @"/_dynamic_/HLSimpleGetFileRequestHandler/";
+static NSString* _URI = @"/_dynamic_/HLFileDownloadRequestHandler/";
 
 
-#pragma mark -
-#pragma mark instance lifecycle
+#pragma mark - instance lifecycle
 
--(id)init {
+-(id)init;
+{
     
     return [self initWithRequestHandlerUrl:_URI];
     
 }
 
 
--(id)initWithRequestHandlerUrl:(NSString*)requestHandlerUrl {
+-(id)initWithRequestHandlerUrl:(NSString*)requestHandlerUrl;
+{
     
-    HLSimpleGetFileRequestHandler* answer = [super init];
+    HLFileDownloadRequestHandler* answer = [super init];
     
     if( nil != answer ) {
         
@@ -98,63 +101,51 @@ static NSString* _URI = @"/_dynamic_/HLSimpleGetFileRequestHandler/";
     NSString* uri = [request requestUri];
     Log_debugString( uri );
     
-    HLFileMediaHandle* mediaHandle;
+    id<HLEntity> entity;
+    NSString* filename;
     {
         
         NSInteger fromIndex = [_URI length] -1;
-        NSString* applescriptPath = [uri substringFromIndex:fromIndex];
-        Log_debugString( applescriptPath );
+        NSString* encodedPath = [uri substringFromIndex:fromIndex];
+        NSString* path = [CAStringHelper decodeURIComponent:encodedPath];
+        Log_debugString( path );
         
+        CAFile* file = [[CAFile alloc] initWithPathname:path];
         
-        NSString* posixPath = [applescriptPath stringByReplacingOccurrencesOfString:@":" withString:@"/"];
-        Log_debugString( posixPath );
-
-        CAFile* file = [[CAFile alloc] initWithPathname:posixPath];
-        
-        //-(id)initWithContentSource:(NSURL*)contentSource contentLength:(unsigned long long)contentLength mimeType:(NSString*)mimeType filename:(NSString*)filename;
+        if( ![file exists] ) {
+            @throw [HLHttpErrorHelper notFound404FromOriginator:self line:__LINE__];
+        }
         
         NSURL* contentSource = [[NSURL alloc] initFileURLWithPath:[file getAbsolutePath]];
         unsigned long long contentLength = [file length];
-        NSString* mimeType = @"text/plain";
-        NSString* filename = [file getName];
-            
-        mediaHandle = [[HLFileMediaHandle alloc] initWithContentSource:contentSource contentLength:contentLength mimeType:mimeType filename:filename];
+        NSString* mimeType = @"text/plain"; 
+        
+        entity = [[HLStreamEntity alloc] initWithContentSource:contentSource contentLength:contentLength mimeType:mimeType];
+        filename = [file getName];
 
     }
     
-
-//    Log_errorFormat(@"nil == mediaHandle; uri = '%@'", uri);
-//    @throw [HLHttpErrorHelper notFound404FromOriginator:self line:__LINE__];
-
-    id<HLEntity> entity = [mediaHandle toEntity];
-    
-    
-    
-//    if( nil != _getFileListener ) {
-//        
-//        HLGetFileEntityWrapper* entityWrapper = [[HLGetFileEntityWrapper alloc] initWithDelegate:entity getFileListener:_getFileListener];
-//        [entityWrapper autorelease];
-//        entity = entityWrapper;
-//        
-//    }
     
     HLHttpResponse* answer;
-
-    HLRange* range = [request range];
-    if( nil == range ) {
+    {
+        HLRange* range = [request range];
+        if( nil == range ) {
+            
+            answer = [[HLHttpResponse alloc] initWithStatus:HttpStatus_OK_200 entity:entity];
+        } else {
+            
+            answer = [[HLHttpResponse alloc] initWithStatus:HttpStatus_PARTIAL_CONTENT_206 entity:entity];
+            [answer setRange:range];
+        }
         
-        answer = [[HLHttpResponse alloc] initWithStatus:HttpStatus_OK_200 entity:entity];
-    } else {
-        
-        answer = [[HLHttpResponse alloc] initWithStatus:HttpStatus_PARTIAL_CONTENT_206 entity:entity];
-        [answer setRange:range];
     }
+
     
     
     // vvv http://stackoverflow.com/questions/3651093/link-to-download-image-instead-of-view-image
     {
         
-        NSString* contentDisposition = [NSString stringWithFormat:@"attachment; filename=\"%@\"", [mediaHandle getFilename]];
+        NSString* contentDisposition = [NSString stringWithFormat:@"attachment; filename=\"%@\"", filename];
         [[answer headers] setObject:contentDisposition forKey:@"Content-Disposition"];
         
     }

@@ -10,7 +10,7 @@
 #import "HLRequestHandler.h"
 
 
-@interface HLFileRequestHandler : NSObject <HLRequestHandler> {
+@interface HLFileGetRequestHandler : NSObject <HLRequestHandler> {
     
 	// rootFolder
 	NSString* _rootFolder;

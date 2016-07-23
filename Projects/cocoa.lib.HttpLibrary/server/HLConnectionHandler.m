@@ -18,7 +18,7 @@
 #import "HLConnectionHandler.h"
 #import "HLConnectionDelegate.h"
 #import "HLFileHandle.h"
-#import "HLFileRequestHandler.h"
+#import "HLFileGetRequestHandler.h"
 #import "HLHttpDelegate.h"
 #import "HLHttpErrorHelper.h"
 #import "HLHttpRequest.h"
@@ -224,6 +224,17 @@ static int _connectionId = 1;
                 
             }
             // ^^^ derived from [iphone - CFNetwork HTTP timeout? - Stack Overflow](http://stackoverflow.com/questions/962076/cfnetwork-http-timeout)
+            
+            // vvv set write timeout to never
+            {
+#define _kCFStreamPropertyWriteTimeout CFSTR("_kCFStreamPropertyWriteTimeout")
+                double to = 0; // never timeout
+                CFNumberRef num = CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &to);
+                CFWriteStreamSetProperty(writeStream, _kCFStreamPropertyWriteTimeout, num);
+                CFRelease(num);
+                
+            }
+            // ^^^ set write timeout to never
 
             
             [answer->_inputStream open];
