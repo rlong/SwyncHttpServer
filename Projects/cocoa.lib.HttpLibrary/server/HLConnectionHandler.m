@@ -246,12 +246,10 @@ static int _connectionId = 1;
         {
             int postFlags = fcntl([socket fileDescriptor], F_GETFL, 0);
             if( preFlags != postFlags ) {
-                Log_debugFormat( @"preFlags != postFlags; preFlags = %d; postFlags = %d; will reset O_NONBLOCK if it has been set", preFlags, postFlags);
                 if( O_NONBLOCK == ( postFlags & O_NONBLOCK ) ) {
                     postFlags = fcntl([socket fileDescriptor], F_SETFL, postFlags & (~O_NONBLOCK));
                 }
             }
-            Log_debugInt(postFlags);
             
         }
 
@@ -262,8 +260,6 @@ static int _connectionId = 1;
             int32_t err = getsockopt( [socket fileDescriptor], SOL_SOCKET, SO_RCVTIMEO, &trcv, &vslen);
             if( 0 != err ) {
                 Log_errorFormat( @"getsockopt() call failed; err = %d; errno = %d; strerror(errno) = '%s'", err, errno, strerror(errno) );
-            } else {
-                Log_debugFormat( @"trcv.tv_sec = %ld; trcv.tv_usec = %ld", trcv.tv_sec, trcv.tv_usec );
             }
             
         }
