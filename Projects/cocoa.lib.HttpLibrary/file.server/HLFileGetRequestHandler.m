@@ -109,6 +109,16 @@
         requestUri = [NSString stringWithFormat:@"%@index.html", requestUri];
     }
     
+    {
+        NSRange questionMark = [requestUri rangeOfString:@"?"];
+        if( NSNotFound != questionMark.location ) {
+        
+            requestUri = [requestUri substringToIndex:questionMark.location];
+            
+        }
+
+    }
+    
     { // some validation
         
 		[HLRequestHandlerHelper validateRequestUri:requestUri];
