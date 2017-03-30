@@ -11,7 +11,7 @@
 @protocol HLRequestHandler;
 
 
-@interface HLConnectionHandler : NSObject {
+@interface HLConnectionHandler : NSObject<NSStreamDelegate> {
     
     // delegate
     id<HLConnectionDelegate> _delegate;

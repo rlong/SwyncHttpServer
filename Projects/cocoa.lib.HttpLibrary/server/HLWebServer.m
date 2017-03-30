@@ -85,14 +85,6 @@
         return;
 	}
     
-    // vvv http://stackoverflow.com/questions/108183/how-to-prevent-sigpipes-or-handle-them-properly
-    
-    int set = 1;
-    if ( 0 < setsockopt(socketfd,SOL_SOCKET,SO_NOSIGPIPE, (void *)&set, sizeof(int)) ) {
-        Log_warnCallFailed( @"setsockopt(socketfd,SOL_SOCKET,SO_NOSIGPIPE, (void *)&set, sizeof(int))", errno);
-    }
-
-    // ^^^ http://stackoverflow.com/questions/108183/how-to-prevent-sigpipes-or-handle-them-properly
     
     
     HLFileHandle* socket = [[HLFileHandle alloc] initWithFileDescriptor:socketfd];

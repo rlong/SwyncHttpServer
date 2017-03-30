@@ -76,6 +76,7 @@
     
     
     @try {
+        
         return [_httpProcessor processRequest:request];
     }
     @catch (NSException *exception) {
@@ -168,7 +169,8 @@
         }
     }
     
-    NSString* info = [NSString stringWithFormat:@"status:%d uri:%@ content-length:%lld time-taken:%f completed:%@ range:%@", statusCode, requestUri, contentLength, timeTaken, completed, rangeString];
+    NSString* info = [NSString stringWithFormat:@"status:%d uri:%@ content-length:%lld time-taken:%f completed:%@ range:%@",
+                      statusCode, requestUri, contentLength, timeTaken, completed, rangeString];
     Log_info( info );
 
 }

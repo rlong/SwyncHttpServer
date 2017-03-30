@@ -67,6 +67,8 @@
 //@synthesize callbackTimer = _callbackTimer;
 
 
+@property (nonatomic) bool delegateSetupCalled;
+
 
 
 - (void)teardownTimerCallback;
@@ -84,18 +86,219 @@
 
 
 
-@implementation HLConnectionHandler
+@implementation HLConnectionHandler {
+    
+    bool _delegateSetupCalled;
+    id<HLRequestHandler> _requestHandler;
+}
 
 static int _connectionId = 1;
 
+#pragma mark - instance setup/teardown
 
 
+-(id)initWithSocket:(HLFileHandle*)socket httpProcessor:(id<HLRequestHandler>)requestHandler {
+    
+    HLConnectionHandler* answer = [super init];
+    
+    if( nil != answer ) {
+        
+        
+        answer->_delegateSetupCalled = false;
+        [answer setSocket:socket];
+        answer->_requestHandler = requestHandler;
+        
+    }
+    
+    
+    return answer;
+    
+}
 
-////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////
+-(void)dealloc{
+    
+    
+    [self setDelegate:nil];
+    
+    [self setSocket:nil];
+    
+    [self setInputStream:nil];
+    [self setOutputStream:nil];
+    
+    [self setCallbackTimer:nil];
+    
+}
+
+
+- (void)delegateSetup {
+    
+    Log_enteredMethod();
+    
+    
+    // vvv http://stackoverflow.com/questions/108183/how-to-prevent-sigpipes-or-handle-them-properly
+    
+    {
+        int set = 1;
+        if ( 0 < setsockopt([_socket fileDescriptor], SOL_SOCKET, SO_NOSIGPIPE, (void *)&set, sizeof(int)) ) {
+            Log_warnCallFailed( @"setsockopt(socketfd,SOL_SOCKET,SO_NOSIGPIPE, (void *)&set, sizeof(int))", errno);
+        }
+        
+    }
+    
+    // ^^^ http://stackoverflow.com/questions/108183/how-to-prevent-sigpipes-or-handle-them-properly
+    
+    
+    // vvv derived from [ReceiveServerController startReceive:] in sample project `SimpleNetworkStreams`
+    
+    CFReadStreamRef readStream = NULL;
+    CFWriteStreamRef writeStream = NULL;
+    
+    CFStreamCreatePairWithSocket(kCFAllocatorDefault, [_socket fileDescriptor], &readStream, &writeStream);
+    {
+        assert(readStream != NULL);
+        
+        [self setInputStream:(__bridge NSInputStream*)readStream];
+        [self setOutputStream:(__bridge NSOutputStream*)writeStream];
+    }
+
+#ifdef RHUBARB_AND_CUSTARD // i.e. skip
+    [_inputStream setProperty:(id)kCFBooleanTrue forKey:(NSString *)kCFStreamPropertyShouldCloseNativeSocket];
+    [_outputStream setProperty:(id)kCFBooleanTrue forKey:(NSString *)kCFStreamPropertyShouldCloseNativeSocket];
+#endif
+    
+    [_inputStream setProperty:(id)kCFBooleanTrue forKey:(NSString *)kCFStreamPropertySocketExtendedBackgroundIdleMode];
+    
+    [_outputStream setProperty:(id)kCFBooleanTrue forKey:(NSString *)kCFStreamPropertySocketExtendedBackgroundIdleMode];
+    
+    
+    CFRelease(readStream);
+    CFRelease(writeStream);
+    
+    // ^^^ derived from [ReceiveServerController startReceive:] in sample project `SimpleNetworkStreams`
+    
+    
+    [_inputStream open];
+    [_outputStream open];
+
+#ifdef RHUBARB_AND_CUSTARD // i.e. skip
+
+    // vvv derived from [iphone - CFNetwork HTTP timeout? - Stack Overflow](http://stackoverflow.com/questions/962076/cfnetwork-http-timeout)
+    {
+        
+        // setup the `readStream` to never timeout on a read
+        
+#define _kCFStreamPropertyReadTimeout CFSTR("_kCFStreamPropertyReadTimeout")
+        
+        double to = 0; // never timeout
+        CFNumberRef num = CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &to);
+        CFReadStreamSetProperty(readStream, _kCFStreamPropertyReadTimeout, num);
+        CFRelease(num);
+        
+    }
+    // ^^^ derived from [iphone - CFNetwork HTTP timeout? - Stack Overflow](http://stackoverflow.com/questions/962076/cfnetwork-http-timeout)
+    
+    // vvv set write timeout to never
+    {
+#define _kCFStreamPropertyWriteTimeout CFSTR("_kCFStreamPropertyWriteTimeout")
+        double to = 0; // never timeout
+        CFNumberRef num = CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &to);
+        CFWriteStreamSetProperty(writeStream, _kCFStreamPropertyWriteTimeout, num);
+        CFRelease(num);
+        
+    }
+    // ^^^ set write timeout to never
+#endif
+    
+    
+    
+    _delegate = [[HLHttpDelegate alloc] initWithRequestHandler:_requestHandler];
+    
+    // vvv derived from [ReceiveServerController startReceive:] in sample project `SimpleNetworkStreams`
+    
+    _inputStream.delegate = self;
+    [_inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+
+    _outputStream.delegate = self;
+    [_outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+
+    
+    // ^^^ derived from [ReceiveServerController startReceive:] in sample project `SimpleNetworkStreams`
+
+    
+    
+
+    _delegateSetupCalled = true;
+
+}
+
+
+- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode;
+{
+    
+//    NSStreamEventNone = 0,
+//    NSStreamEventOpenCompleted = 1UL << 0,
+//    NSStreamEventHasBytesAvailable = 1UL << 1,
+//    NSStreamEventHasSpaceAvailable = 1UL << 2,
+//    NSStreamEventErrorOccurred = 1UL << 3,
+//    NSStreamEventEndEncountered = 1UL << 4
+    
+    if( aStream == _inputStream ) {
+//        Log_debugFormat( @"aStream == _inputStream; eventCode = %d", eventCode );
+        return;
+    }
+
+
+    if( NSStreamEventNone == eventCode ) {
+        Log_debug( @"NSStreamEventNone == eventCode" );
+    }
+    if( NSStreamEventOpenCompleted == eventCode ) {
+        Log_debug( @"NSStreamEventOpenCompleted == eventCode" );
+        return;
+    } else if( NSStreamEventHasBytesAvailable == eventCode ) {
+//        Log_debug( @"NSStreamEventHasBytesAvailable == eventCode" );
+    } else if( NSStreamEventHasSpaceAvailable == eventCode ) {
+//        Log_debug( @"NSStreamEventHasSpaceAvailable == eventCode" );
+    } else if( NSStreamEventErrorOccurred == eventCode ) {
+        Log_debug( @"NSStreamEventErrorOccurred == eventCode" );
+    } else if( NSStreamEventEndEncountered == eventCode ) {
+        Log_debug( @"NSStreamEventEndEncountered == eventCode" );
+    } else {
+        Log_debugInt( eventCode );
+    }
+
+    
+    do {
+        _delegate = [_delegate processRequestOnSocket:_socket inputStream:_inputStream outputStream:_outputStream];
+        if( [_inputStream hasBytesAvailable] ) {
+            Log_debug(@"[_inputStream hasBytesAvailable]");
+        }
+        
+    } while( nil != _delegate && [_inputStream hasBytesAvailable] );
+
+    if( nil == _delegate ) {
+        
+        Log_debug( @"finishing" );
+        
+        /////////////////////////////////////
+        [self teardownTimerCallback];
+        /////////////////////////////////////
+        
+        [_inputStream close];
+        [_outputStream close];
+        
+        
+        @try {
+            
+            [_socket close];
+        }
+        @catch (BaseException* exception) {
+            Log_warnException( exception );
+        }
+        
+    }
+
+    
+}
 
 
 
@@ -103,7 +306,22 @@ static int _connectionId = 1;
     
 
     @try {
-        _delegate = [_delegate processRequestOnSocket:_socket inputStream:_inputStream outputStream:_outputStream];
+        
+        if( !_delegateSetupCalled ) {
+            [self delegateSetup];
+        }
+
+#ifdef RHUBARB_AND_CUSTARD // i.e. skip
+        do {
+            _delegate = [_delegate processRequestOnSocket:_socket inputStream:_inputStream outputStream:_outputStream];
+            if( [_inputStream hasBytesAvailable] ) {
+                Log_debug(@"[_inputStream hasBytesAvailable]");
+            }
+            
+        } while( nil != _delegate && [_inputStream hasBytesAvailable] );
+#endif
+        
+        
     }
     @catch (NSException *exception) {
         Log_warnException(exception);
@@ -120,6 +338,7 @@ static int _connectionId = 1;
         
         [_inputStream close];
         [_outputStream close];
+
         
         @try {
             
@@ -151,18 +370,15 @@ static int _connectionId = 1;
 
 -(void)run:(NSObject*)ignoredObject {
     
-//    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     NSString* threadName = [NSString stringWithFormat:@"ConnectionHandler.%d.%d", _connectionId++, [_socket fileDescriptor]];
     [[NSThread currentThread] setName:threadName];
-
     {
         
         [self setupTimerCallback];
         [[NSRunLoop currentRunLoop] run];
         
     }
-//    [pool release];
 }
 
 
@@ -175,116 +391,6 @@ static int _connectionId = 1;
     
 }
 
-#pragma mark -
-#pragma mark instance setup/teardown
-
-
--(id)initWithSocket:(HLFileHandle*)socket httpProcessor:(id<HLRequestHandler>)requestHandler {
-    
-    HLConnectionHandler* answer = [super init];
-    
-    if( nil != answer ) {
-        
-        
-        [answer setSocket:socket];
-        
-        
-        int preFlags = fcntl([socket fileDescriptor], F_GETFL, 0);
-        
-        {
-            // vvv derived from [ReceiveServerController startReceive:] in sample project `SimpleNetworkStreams`
-            
-            CFReadStreamRef readStream = NULL;
-            CFWriteStreamRef writeStream = NULL;
-            
-            CFStreamCreatePairWithSocket(NULL, [socket fileDescriptor], &readStream, &writeStream);
-            {
-                assert(readStream != NULL);
-                
-                [answer setInputStream:(__bridge NSInputStream*)readStream];
-                [answer setOutputStream:(__bridge NSOutputStream*)writeStream];
-            }
-            CFRelease(readStream);
-            CFRelease(writeStream);
-            
-            // ^^^ derived from [ReceiveServerController startReceive:] in sample project `SimpleNetworkStreams`
-            
-
-            // vvv derived from [iphone - CFNetwork HTTP timeout? - Stack Overflow](http://stackoverflow.com/questions/962076/cfnetwork-http-timeout)
-            {
-                
-                // setup the `readStream` to never timeout on a read
-                
-#define _kCFStreamPropertyReadTimeout CFSTR("_kCFStreamPropertyReadTimeout")
-                
-                double to = 0; // never timeout
-                CFNumberRef num = CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &to);
-                CFReadStreamSetProperty(readStream, _kCFStreamPropertyReadTimeout, num);
-                CFRelease(num);
-                
-            }
-            // ^^^ derived from [iphone - CFNetwork HTTP timeout? - Stack Overflow](http://stackoverflow.com/questions/962076/cfnetwork-http-timeout)
-            
-            // vvv set write timeout to never
-            {
-#define _kCFStreamPropertyWriteTimeout CFSTR("_kCFStreamPropertyWriteTimeout")
-                double to = 0; // never timeout
-                CFNumberRef num = CFNumberCreate(kCFAllocatorDefault, kCFNumberDoubleType, &to);
-                CFWriteStreamSetProperty(writeStream, _kCFStreamPropertyWriteTimeout, num);
-                CFRelease(num);
-                
-            }
-            // ^^^ set write timeout to never
-
-            
-            [answer->_inputStream open];
-            [answer->_outputStream open];
-            
-        }
-        
-        
-        {
-            int postFlags = fcntl([socket fileDescriptor], F_GETFL, 0);
-            if( preFlags != postFlags ) {
-                if( O_NONBLOCK == ( postFlags & O_NONBLOCK ) ) {
-                    postFlags = fcntl([socket fileDescriptor], F_SETFL, postFlags & (~O_NONBLOCK));
-                }
-            }
-            
-        }
-
-        {
-            socklen_t vslen = sizeof(struct timeval);
-            struct timeval trcv;
-            
-            int32_t err = getsockopt( [socket fileDescriptor], SOL_SOCKET, SO_RCVTIMEO, &trcv, &vslen);
-            if( 0 != err ) {
-                Log_errorFormat( @"getsockopt() call failed; err = %d; errno = %d; strerror(errno) = '%s'", err, errno, strerror(errno) );
-            }
-            
-        }
-
-        answer->_delegate = [[HLHttpDelegate alloc] initWithRequestHandler:requestHandler];
-    }
-    
-    
-    return answer;
-    
-}
-
--(void)dealloc{
-    
-    
-    [self setDelegate:nil];
-
-    [self setSocket:nil];
-    
-    [self setInputStream:nil];
-    [self setOutputStream:nil];
-    
-    [self setCallbackTimer:nil];
-    
-}
 
 #pragma mark fields
 
