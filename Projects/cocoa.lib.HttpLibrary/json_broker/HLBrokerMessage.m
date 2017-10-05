@@ -142,14 +142,11 @@
     [answer addInteger:1]; // majorVersion
     [answer addInteger:0]; // minorVersion
     [answer add:_methodName];
+    [answer add:_associativeParamaters];
     
     if( nil != _orderedParamaters ) {
         
         [answer add:_orderedParamaters];
-        
-    } else {
-        
-        [answer add:_associativeParamaters];
     }
     
     return answer;
@@ -187,20 +184,14 @@
 	[answer setServiceName:[values getString:2]];
     
 	[answer setMethodName:[values getString:5]];
-    
-    
-    id objectAtIndex6 = [values objectAtIndex:6];
-    
-    if( [objectAtIndex6 isKindOfClass:[CAJsonObject class]] ) {
+
+    [answer setAssociativeParamaters:[values objectAtIndex:6]];
+
+    if( 8 == [values count] ) {
         
-        [answer setAssociativeParamaters:(CAJsonObject*)objectAtIndex6];
-        
-    } else {
-        
-        [answer setOrderedParamaters:[values jsonArrayAtIndex:6]];
+        [answer setOrderedParamaters:[values jsonArrayAtIndex:7]];
     }
     
-	
 	return answer;
 }
 

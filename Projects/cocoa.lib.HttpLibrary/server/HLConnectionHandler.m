@@ -294,10 +294,7 @@ static int _connectionId = 1;
         @catch (BaseException* exception) {
             Log_warnException( exception );
         }
-        
     }
-
-    
 }
 
 
