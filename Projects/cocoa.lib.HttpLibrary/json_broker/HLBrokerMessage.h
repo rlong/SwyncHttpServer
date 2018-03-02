@@ -58,6 +58,7 @@
 -(CAJsonArray*)toJsonArray;
 
 -(NSString*)toString;
+-(NSData*)toData;
 
 #pragma mark -
 #pragma mark instance lifecycle 

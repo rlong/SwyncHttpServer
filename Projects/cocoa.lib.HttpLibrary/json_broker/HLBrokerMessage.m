@@ -114,6 +114,8 @@
     
     NSString* answer;
     
+    
+    
     CAJsonStringOutput* writer = [[CAJsonStringOutput alloc] init];
     {
         CAJsonArray* messageComponents = [self toJsonArray];
@@ -129,6 +131,23 @@
     return answer;
 
     
+}
+
+-(NSData*)toData;
+{
+    
+    CAJsonArray* jsonArray = [self toJsonArray];
+    
+    NSJSONWritingOptions options = 0;
+    NSError *error = nil;
+    
+    NSData* answer = [NSJSONSerialization dataWithJSONObject:[jsonArray values] options:options error:&error];
+    if( nil != error ) {
+        
+        @throw exceptionWithMethodNameAndError(@"[NSJSONSerialization JSONObjectWithData:options:error:]", error);
+    }
+    
+    return answer;
 }
 
 

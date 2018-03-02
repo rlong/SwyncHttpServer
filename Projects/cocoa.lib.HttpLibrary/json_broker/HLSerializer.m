@@ -29,27 +29,39 @@ static CAJsonArrayHandler* _jsonArrayHandler = nil;
 	
 +(HLBrokerMessage*)deserialize:(NSData*)data {
 	
-	CAJsonDataInput* reader = [[CAJsonDataInput alloc] initWithData:data];
-	
     
-    //Log_debugData( data );
     
-	[reader scanToNextToken];
+    NSJSONReadingOptions options = NSJSONReadingMutableContainers;
 
-    CAJsonArray* messageComponents;
-    @try {
-        messageComponents = [[CAJsonArrayHandler getInstance] readJSONArray:reader];
-    }
-    @catch (BaseException *exception) {
+    NSError *error = nil;
+    id blob = [NSJSONSerialization
+                 JSONObjectWithData:data
+                 options:options
+                 error:&error];
+    
+    if( nil != error ) {
         
-        [exception addIntContext:[reader cursor] withName:@"Serializer.dataOffset"];
-        @throw exception;
+
+        @throw exceptionWithMethodNameAndError(@"[NSJSONSerialization JSONObjectWithData:options:error:]", error);
+    }
+    
+    if(![blob isKindOfClass:[NSMutableArray class]]) {
+        
+        
+        NSString* reason = [NSString stringWithFormat:@"![object isKindOfClass:[NSMutableArray class]]; NSStringFromClass([blob class]) = %@", NSStringFromClass([blob class])];
+        @throw exceptionWithReason( reason );
         
     }
+
+
+    NSMutableArray* mutableArray = (NSMutableArray*)blob;
+    CAJsonArray* messageComponents = [[CAJsonArray alloc] initWithValue:mutableArray];
+
+    HLBrokerMessage* answer = [[HLBrokerMessage alloc] initWithValues:messageComponents];
+    
+    return answer;
+
 	
-	HLBrokerMessage* answer = [[HLBrokerMessage alloc] initWithValues:messageComponents];
-	
-	return answer;
 	
 }
 

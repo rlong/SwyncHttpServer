@@ -115,8 +115,8 @@ static int _MAXIMUM_REQUEST_ENTITY_LENGTH;
             
         } else {
         
-            CAJsonArray* responseComponents = [response toJsonArray];
-            NSData* responseData = [CAJsonArrayHelper toData:responseComponents];
+//            CAJsonArray* responseComponents = [response toJsonArray];
+            NSData* responseData = [response toData];
             
             
             id<HLEntity> responseBody = [[HLDataEntity alloc] initWithData:responseData];
